@@ -14,9 +14,6 @@ import javax.persistence.Version;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Человек
- */
 @Entity
 @Table(name = "Person")
 public class Person {
@@ -27,21 +24,21 @@ public class Person {
     private Long id;
 
     /**
-     * Служебное поле hibernate
+     * Hibernate service field
      */
     @Version
     private Integer version;
 
     /**
-     * Иия
+     * Name
      */
     @Basic(optional = false)
     @Column(name = "first_name")
     private String name;
 
     /**
-     * Возраст
-     * т.к. поле примитивного типа, оно не может быть nullable
+     * Age
+     * because the field is a primitive type, it may not be nullable
      */
     @Basic(optional = false)
     @Column(name = "age")
@@ -62,7 +59,7 @@ public class Person {
     private Set<House> houses;
 
     /**
-     * Конструктор для hibernate
+     * Constructor for hibernate
      */
     public Person() {
 

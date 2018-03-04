@@ -10,9 +10,6 @@ import javax.persistence.Version;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Дом
- */
 @Entity(name = "House")
 public class House {
 
@@ -22,13 +19,13 @@ public class House {
     private Long id;
 
     /**
-     * Служебное поле hibernate
+     * Hibernate service field
      */
     @Version
     private Integer version;
 
     /**
-     * Адрес
+     * Address
      */
     @Basic(optional = false)
     @Column(name = "address")
