@@ -67,7 +67,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "doc_id")
     )
-    Set<Document> documents;
+    private Set<Document> documents;
     
     @ManyToMany(
             cascade = {
@@ -80,7 +80,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "citizenship_id")
     )
-    Set<Citizenship> citizenships;
+    private Set<Citizenship> citizenships;
     
     
     public void addDocument(Document document) {
