@@ -31,6 +31,13 @@ CREATE TABLE IF NOT EXISTS User (
     office_id           INTEGER NOT NULL,
 );
 
+CREATE TABLE IF NOT EXISTS Login (
+    user_id             INTEGER NOT NULL UNIQUE,
+    version             INTEGER NOT NULL,
+    login               VARCHAR(45) NOT NULL UNIQUE,
+    password            VARCHAR(45) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS Document (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER NOT NULL,
@@ -61,6 +68,9 @@ ALTER TABLE Office ADD FOREIGN KEY (org_id) REFERENCES Organization(id);
 
 CREATE INDEX Office_Id ON User (office_id);
 ALTER TABLE User ADD FOREIGN KEY (office_id) REFERENCES Office(id);
+
+CREATE INDEX User_id ON Login (user_id);
+ALTER TABLE Login ADD FOREIGN KEY (user_id) REFERENCES User(id);
 
 CREATE INDEX User_Document_Id ON User_Document (user_id);
 ALTER TABLE User_Document ADD FOREIGN KEY (user_id) REFERENCES User(id);

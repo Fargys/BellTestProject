@@ -29,7 +29,7 @@ public class Citizenship {
     @Column(name = "citizenship_code")
     private Integer citizenshipCode;
     
-    @ManyToMany(mappedBy = "citizenship")
+    @ManyToMany(mappedBy = "citizenships")
     private Set<User> users;
 
     public Citizenship() {

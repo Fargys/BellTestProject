@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 @Entity(name = "User")
@@ -51,6 +52,14 @@ public class User {
     
     @Column(name = "is_active")
     private Boolean active;
+    
+    @OneToOne(
+     mappedBy = "user",
+     fetch = FetchType.LAZY,
+     cascade = CascadeType.ALL,
+     optional = false
+    )
+    private Login userLogin;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
@@ -166,6 +175,14 @@ public class User {
 
     public void setOffice(Office office) {
         this.office = office;
+    }
+
+    public Login getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(Login userLogin) {
+        this.userLogin = userLogin;
     }
 
     public Set<Document> getDocuments() {
