@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.denisov.model;
+package ru.bellintegrator.denisov.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

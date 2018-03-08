@@ -1,7 +1,7 @@
-package ru.bellintegrator.practice.denisov.controller;
+package ru.bellintegrator.denisov.controller;
 
 import java.util.List;
-import ru.bellintegrator.practice.denisov.model.Organization;
+import ru.bellintegrator.denisov.model.Organization;
 
 public interface OrganizationController {
     

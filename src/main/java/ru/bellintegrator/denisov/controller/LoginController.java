@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.denisov.controller;
+package ru.bellintegrator.denisov.controller;
 
 public interface LoginController {
     
