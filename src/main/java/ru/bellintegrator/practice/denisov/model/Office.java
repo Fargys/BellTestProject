@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.model;
+package ru.bellintegrator.practice.denisov.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +52,7 @@ public class Office {
         user.setOffice(this);
     }
     
-    public void removeOffice(User user) {
+    public void removeUser(User user) {
         getUsers().remove(user);
         user.setOffice(null);
     }

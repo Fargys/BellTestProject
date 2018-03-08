@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.model;
+package ru.bellintegrator.practice.denisov.model;
 
 import java.util.Date;
 import java.util.HashSet;

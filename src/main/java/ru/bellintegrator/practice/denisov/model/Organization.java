@@ -1,5 +1,6 @@
-package ru.bellintegrator.practice.model;
+package ru.bellintegrator.practice.denisov.model;
 
+import ru.bellintegrator.practice.denisov.model.Office;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
