@@ -7,12 +7,12 @@ public interface OrganizationDAO {
 
     public List<Organization> all();
 
-    public Organization loadById();
+    public Organization loadById(Long id);
 
-    public void update();
+    public void update(Organization organization);
 
-    public void save();
+    public Long save(Organization organization);
 
-    public void delete();
+    public void delete(Long id);
     
 }

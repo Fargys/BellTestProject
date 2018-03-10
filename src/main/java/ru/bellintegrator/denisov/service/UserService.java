@@ -2,17 +2,18 @@ package ru.bellintegrator.denisov.service;
 
 import java.util.List;
 import ru.bellintegrator.denisov.model.User;
+import ru.bellintegrator.denisov.view.UserView;
 
 public interface UserService {
 
-    public List<User> users();
+    public List<UserView> users();
 
-    public User loadById();
+    public User user(Long id);
 
-    public String update();
+    public void update(UserView view);
 
-    public String delete();
+    public void delete(Long id);
 
-    public void save();
+    public void save(UserView view);
     
 }

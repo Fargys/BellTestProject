@@ -2,16 +2,17 @@ package ru.bellintegrator.denisov.service;
 
 import java.util.List;
 import ru.bellintegrator.denisov.model.Organization;
+import ru.bellintegrator.denisov.view.OrganizationView;
 
 public interface OrganizationService {
     
-    public List<Organization> organizations();
+    public List<OrganizationView> organizations();
 
-    public Organization organization();
+    public Organization organization(Long id);
 
-    public String update();
+    public void update(OrganizationView view);
 
-    public String save();
+    public void save(OrganizationView view);
 
-    public String delete();
+    public void delete(Long id);
 }

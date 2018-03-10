@@ -1,8 +1,10 @@
 package ru.bellintegrator.denisov.service;
 
+import ru.bellintegrator.denisov.view.LoginView;
+
 public interface LoginService {
 
-    public String register();
+    public void register(LoginView view);
 
     public void activation();
 

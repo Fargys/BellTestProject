@@ -7,12 +7,12 @@ public interface OfficeDAO {
 
     public List<Office> all();
 
-    public Office loadById();
+    public Office loadById(Long id);
 
-    public String update();
+    public void update(Office office);
 
-    public String delete();
+    public void delete(Long id);
 
-    public String save();
+    public void save(Office office);
     
 }

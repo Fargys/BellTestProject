@@ -4,13 +4,13 @@ import java.util.List;
 import ru.bellintegrator.denisov.model.User;
 
 public interface UserDAO {
-    public List<User> users();
+    public List<User> all();
 
-    public User loadById();
+    public User loadById(Long id);
 
-    public String update();
+    public void update(User user);
 
-    public String delete();
+    public void delete(Long id);
 
-    public void save();
+    public void save(User user);
 }

@@ -2,16 +2,17 @@ package ru.bellintegrator.denisov.service;
 
 import java.util.List;
 import ru.bellintegrator.denisov.model.Office;
+import ru.bellintegrator.denisov.view.OfficeView;
 
 public interface OfficeService {
-    public List<Office> offices();
+    public List<OfficeView> offices();
 
-    public Office office();
+    public Office office(Long id);
 
-    public String update();
+    public void update(OfficeView view);
 
-    public String delete();
+    public void delete(Long id);
 
-    public String save();
+    public void save(OfficeView view);
     
 }
