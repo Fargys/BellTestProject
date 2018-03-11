@@ -7,6 +7,8 @@ public class LoginView {
     
     public String password;
     
+    public String name;
+    
     // for jackson
     public LoginView() {
 
