@@ -2,20 +2,19 @@ package ru.bellintegrator.denisov.controller;
 
 import java.util.List;
 import ru.bellintegrator.denisov.model.Organization;
-import ru.bellintegrator.denisov.view.OrganizationFiltertView;
-import ru.bellintegrator.denisov.view.OrganizationSaveView;
-import ru.bellintegrator.denisov.view.OrganizationUpdateView;
+import ru.bellintegrator.denisov.view.OrganizationFilterView;
+import ru.bellintegrator.denisov.view.OrganizationView;
 
 public interface OrganizationController {
     
-    List<Organization> organizations(OrganizationFiltertView view);
+    public List<OrganizationView> organizations(OrganizationFilterView view);
     
-    Organization organization(String id);
+    public Organization organization(String id);
     
-    String update(OrganizationUpdateView view);
+    public String update(OrganizationView view);
     
-    String save(OrganizationSaveView view);
+    public String save(OrganizationView view);
     
-    String delete(String id);
+    public String delete(String id);
     
 }
