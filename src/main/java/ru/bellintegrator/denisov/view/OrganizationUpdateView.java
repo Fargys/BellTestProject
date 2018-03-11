@@ -2,7 +2,7 @@ package ru.bellintegrator.denisov.view;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class OrganizationView {
+public class OrganizationUpdateView {
     @ApiModelProperty(hidden = true)
     public String id;
     
@@ -18,16 +18,16 @@ public class OrganizationView {
             
     public String phone;
     
-    public Boolean active;
+    public Boolean isActive;
     
     //for jackson
-    public OrganizationView() {
+    public OrganizationUpdateView() {
 
     }
 
     @Override
     public String toString() {
-        return "OrganizationView{" + "id=" + id + ", name=" + name + ", fullName=" + fullName + ", inn=" + inn 
-                + ", kpp=" + kpp + ", address=" + address + ", phone=" + phone + ", active=" + active + '}';
+        return "{id:" + id + "; name:" + name + "; fullName:" + fullName + "; inn:" + inn 
+                + "; kpp:" + kpp + "; address:" + address + "; phone:" + phone + "; active:" + isActive + "}";
     }
 }

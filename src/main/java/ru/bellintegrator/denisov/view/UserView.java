@@ -16,7 +16,17 @@ public class UserView {
     
     public String phone;
     
-    public Boolean active;
+    public String docName;
+    
+    public String docNumber;
+    
+    public String docDate;
+    
+    public String citizenshipName;
+    
+    public String citizenshipCode;
+    
+    public Boolean isIdentified;
     
     //for jackson
     public UserView() {
@@ -25,8 +35,10 @@ public class UserView {
 
     @Override
     public String toString() {
-        return "UserView{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", middleName="
-                + middleName + ", position=" + position + ", phone=" + phone + ", active=" + active + '}';
+        return "{id:" + id + "; firstName:" + firstName + "; secondName:" + secondName + "; middleName:" + middleName
+                + "; position:" + position + "; phone:" + phone + "; docName:" + docName + "; docNumber:" + docNumber 
+                + "; docDate:" + docDate + "; citizenshipName:" + citizenshipName + "; citizenshipCode:" + citizenshipCode + 
+                "; isIdentified:" + isIdentified + "}";
     }
     
 }

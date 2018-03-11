@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OrganizationDAO;
 import ru.bellintegrator.denisov.model.Organization;
 import ru.bellintegrator.denisov.service.OrganizationService;
-import ru.bellintegrator.denisov.view.OrganizationView;
+import ru.bellintegrator.denisov.view.OrganizationUpdateView;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.INTERFACES)
@@ -29,11 +29,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationView> organizations() {
+    public List<OrganizationUpdateView> organizations() {
         List<Organization> all = dao.all();
         
-        Function<Organization, OrganizationView> mapOrganization = p -> {
-            OrganizationView view = new OrganizationView();
+        Function<Organization, OrganizationUpdateView> mapOrganization = p -> {
+            OrganizationUpdateView view = new OrganizationUpdateView();
             view.id = String.valueOf(p.getId());
             view.name = p.getName();
             view.fullName = p.getFullName();
@@ -62,7 +62,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public void update(OrganizationView view) {
+    public void update(OrganizationUpdateView view) {
         Long updatingOrgId = Long.parseLong(view.id, 10);
         Organization organization = dao.loadById(updatingOrgId);
         
@@ -79,7 +79,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public void save(OrganizationView view) {
+    public void save(OrganizationUpdateView view) {
         Organization organization = new Organization();
         
         organization.setName(view.name);

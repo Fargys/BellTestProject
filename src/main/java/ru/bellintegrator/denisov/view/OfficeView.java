@@ -8,6 +8,8 @@ public class OfficeView {
     
     public String name;
     
+    public String address;
+    
     public String phone;
     
     public Boolean active;
@@ -19,7 +21,6 @@ public class OfficeView {
 
     @Override
     public String toString() {
-        return "OfficeView{" + "id=" + id + ", name=" + name + ", phone=" + phone + ", active=" + active + '}';
+        return "{id:" + id + "; name:" + name + "; address:" + address + "; phone:" + phone + "; active:" + active + '}';
     }
-    
 }
