@@ -7,13 +7,13 @@ import ru.bellintegrator.denisov.view.UserView;
 
 public interface UserController {
     
-    List<User> users(UserFilterView view);
+    public List<UserView> users(UserFilterView view);
     
-    User user(String userId);
+    public User user(String userId);
     
-    String update(UserView view);
+    public String update(UserView view);
     
-    void save(UserView view);
+    public String save(UserView view);
     
-    String delete(String userId);
+    public String delete(String userId);
 }
