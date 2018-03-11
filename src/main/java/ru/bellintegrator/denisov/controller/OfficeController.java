@@ -2,17 +2,20 @@ package ru.bellintegrator.denisov.controller;
 
 import java.util.List;
 import ru.bellintegrator.denisov.model.Office;
+import ru.bellintegrator.denisov.view.OfficeFilterView;
+import ru.bellintegrator.denisov.view.OfficeUpdateView;
+import ru.bellintegrator.denisov.view.OfficeSaveView;
 
 public interface OfficeController {
     
-    List<Office> offices(Long orgId, String name, String phone, Boolean isActive);
+    List<Office> offices(OfficeFilterView view);
     
-    Office office(Long officeId);
+    Office office(String officeId);
     
-    String update(Long officeId, String name, String address, String phone, Boolean isActive);
+    String update(OfficeUpdateView view);
     
-    String delete(Long officeId);
+    String save(OfficeSaveView view);
     
-    String save(String name, String address, String phone, Boolean isActive);
+    String delete(String officeId);
     
 }

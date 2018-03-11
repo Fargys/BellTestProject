@@ -2,18 +2,18 @@ package ru.bellintegrator.denisov.controller;
 
 import java.util.List;
 import ru.bellintegrator.denisov.model.User;
+import ru.bellintegrator.denisov.view.UserFilterView;
+import ru.bellintegrator.denisov.view.UserView;
 
 public interface UserController {
     
-    List<User> users(String filter);
+    List<User> users(UserFilterView view);
     
-    User user(Long userId);
+    User user(String userId);
     
-    String update(Long userId, String firstName, String secondName, String middleName, String position, 
-            String phone, Long documentId, Long citizenshipId, Boolean isIdentified);
+    String update(UserView view);
     
-    String delete(Long userId);
+    void save(UserView view);
     
-    void save(String firstName, String secondName, String middleName, String position, 
-            String phone, Long documentId, Long citizenshipId, Boolean isIdentified);
+    String delete(String userId);
 }
