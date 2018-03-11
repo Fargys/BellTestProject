@@ -6,8 +6,8 @@ public interface LoginService {
 
     public void register(LoginView view);
 
-    public void activation();
+    public void activation(String code);
 
-    public String login();
+    public String login(LoginView view);
     
 }
