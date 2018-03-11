@@ -3,6 +3,7 @@ package ru.bellintegrator.denisov.view;
 public class ResponseView {
     Object data;
     String error;
+    String result;
 
     public ResponseView() {
     }
@@ -22,6 +23,13 @@ public class ResponseView {
     public void setError(String error) {
         this.error = error;
     }
-    
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
     
 }
