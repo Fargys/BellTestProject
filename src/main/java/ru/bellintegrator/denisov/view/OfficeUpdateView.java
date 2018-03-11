@@ -2,7 +2,7 @@ package ru.bellintegrator.denisov.view;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class OfficeView {
+public class OfficeUpdateView {
     @ApiModelProperty(hidden = true)
     public String id;   
     
@@ -15,7 +15,7 @@ public class OfficeView {
     public Boolean active;
     
     //for jackson
-    public OfficeView() {
+    public OfficeUpdateView() {
 
     }
 
