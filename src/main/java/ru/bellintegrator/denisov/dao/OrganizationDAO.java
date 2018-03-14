@@ -6,8 +6,6 @@ import ru.bellintegrator.denisov.view.OrganizationFilterView;
 
 public interface OrganizationDAO {
 
-    public List<Organization> all();
-    
     public List<Organization> all(OrganizationFilterView filter);
 
     public Organization loadById(Long id);

@@ -5,8 +5,7 @@ import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
 
 public interface UserDAO {
-    public List<User> all();
-    
+   
     public List<User> all(UserFilterView filterView);
 
     public User loadById(Long id);

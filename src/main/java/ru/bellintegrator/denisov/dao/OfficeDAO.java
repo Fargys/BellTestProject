@@ -6,8 +6,6 @@ import ru.bellintegrator.denisov.view.OfficeFilterView;
 
 public interface OfficeDAO {
 
-    public List<Office> all();
-    
     public List<Office> all(OfficeFilterView filterView);
 
     public Office loadById(Long id);
