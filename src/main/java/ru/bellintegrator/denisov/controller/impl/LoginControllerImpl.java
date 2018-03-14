@@ -2,11 +2,11 @@ package ru.bellintegrator.denisov.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.denisov.controller.LoginController;
 import ru.bellintegrator.denisov.service.LoginService;
@@ -38,7 +38,7 @@ public class LoginControllerImpl implements LoginController {
 
     @Override
     @RequestMapping(value = "/activation", method = {GET})
-    public void activation(@PathVariable("code") String code) {
+    public void activation(@RequestParam("code") String code) {
         loginService.activation(code);
     }
 
