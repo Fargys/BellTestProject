@@ -1,8 +1,7 @@
 package ru.bellintegrator.denisov.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,34 +30,44 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional(readOnly = true)
     public List<OrganizationView> organizations(OrganizationFilterView filterView) {
-        List<Organization> all = dao.all();
+        List<OrganizationView> result = new ArrayList<>();
+        List<Organization> orgs = dao.all(filterView);
         
-        Function<Organization, OrganizationView> mapOrganization = o -> {
+        for(Organization org : orgs) {
             OrganizationView view = new OrganizationView();
-            //StreamAPI
             
-//            Organization org = dao.loadByName(filterView.name);
-//            
-//            view.id = String.valueOf(org.getId());
-//            view.name = filterView.name;
-//            view.isActive = Boolean.valueOf(filterView.isActive);
-//
-//            log.info(view.toString());
+            view.id = String.valueOf(org.getId());
+            view.name = org.getName();
+            view.isActive = org.isActive();
+            
+            log.info(view.toString());
+            
+            result.add(view);
+        }
 
-            return view;
-        };
-
-        return all.stream()
-                .map(mapOrganization)
-                .collect(Collectors.toList());
+        return result;
     }
 
     @Override
-    @Transactional
-    public Organization organization(String id) {
+    @Transactional(readOnly = true)
+    public OrganizationView organization(String id) {
         Long orgId = Long.parseLong(id, 10);
-        Organization organization = dao.loadById(orgId);
-        return organization;
+        Organization org = dao.loadById(orgId);
+        
+        OrganizationView view = new OrganizationView();
+        
+        view.id = String.valueOf(org.getId());
+        view.name = org.getName();
+        view.fullName = org.getFullName();
+        view.inn = org.getInn();
+        view.kpp = org.getKpp();
+        view.address = org.getAddress();
+        view.phone = org.getPhone();
+        view.isActive = org.isActive();
+        
+        log.info(view.toString());
+
+        return view;
     }
 
     @Override
@@ -89,7 +98,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setKpp(view.kpp);
         organization.setAddress(view.address);
         organization.setPhone(view.phone);
-        organization.setActive(true);
+        organization.setActive(view.isActive);
         
         dao.save(organization);
     }

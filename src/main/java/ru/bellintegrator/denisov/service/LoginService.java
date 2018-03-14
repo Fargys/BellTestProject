@@ -8,6 +8,6 @@ public interface LoginService {
 
     public void activation(String code);
 
-    public String login(LoginView view);
+    public void login(LoginView view) throws Throwable;
     
 }

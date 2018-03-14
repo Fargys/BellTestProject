@@ -1,8 +1,7 @@
 package ru.bellintegrator.denisov.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.service.OfficeService;
+import ru.bellintegrator.denisov.view.OfficeFilterView;
 import ru.bellintegrator.denisov.view.OfficeView;
 
 @Service
@@ -29,31 +29,43 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OfficeView> offices() {
-        List<Office> all = dao.all();
+    public List<OfficeView> offices(OfficeFilterView filterView) {
+        List<OfficeView> result = new ArrayList<>();
+        List<Office> offices = dao.all(filterView);
         
-        Function<Office, OfficeView> mapOrganization = p -> {
+        for(Office office : offices) {
             OfficeView view = new OfficeView();
-            view.id = String.valueOf(p.getId());
-            view.name = p.getName();
-            view.phone = p.getPhone();
-            view.active = p.isActive();
-
+            
+            view.id = String.valueOf(office.getId());
+            view.name = office.getName();
+            view.isActive = office.isActive();
+            
             log.info(view.toString());
+            
+            result.add(view);
+        }
 
-            return view;
-        };
-
-        return all.stream()
-                .map(mapOrganization)
-                .collect(Collectors.toList());
+        return result;
+        
     }
 
     @Override
-    @Transactional
-    public Office office(Long id) {
-        Office office = dao.loadById(id);
-        return office;
+    @Transactional(readOnly = true)
+    public OfficeView office(String id) {
+        Long orgId = Long.parseLong(id, 10);
+        Office office = dao.loadById(orgId);
+        
+        OfficeView view = new OfficeView();
+        
+        view.id = String.valueOf(office.getId());
+        view.name = office.getName();
+        view.address = office.getAddress();
+        view.phone = office.getPhone();
+        view.isActive = office.isActive();
+        
+        log.info(view.toString());
+
+        return view;
     }
 
     @Override
@@ -64,15 +76,16 @@ public class OfficeServiceImpl implements OfficeService {
         
         office.setName(view.name);
         office.setPhone(view.phone);
-        office.setActive(true);
+        office.setActive(view.isActive);
         
         dao.update(office);
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        dao.delete(id);
+    public void delete(String id) {
+        Long officeId = Long.parseLong(id, 10);
+        dao.delete(officeId);
     }
 
     @Override
