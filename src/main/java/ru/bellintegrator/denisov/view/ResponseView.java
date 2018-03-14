@@ -7,10 +7,6 @@ public class ResponseView {
     public Boolean result;
     
     public String error;
-
-    //for jackson
-    public ResponseView() {
-    }
     
     
     public Object getDataView(Object data) {

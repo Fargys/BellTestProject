@@ -21,11 +21,6 @@ public class OrganizationView {
     
     public Boolean isActive;
     
-    //for jackson
-    public OrganizationView() {
-
-    }
-
     @Override
     public String toString() {
         return "OrganizationView{" + "id=" + id + ", name=" + name + ", fullName=" + fullName + ", inn=" + inn 

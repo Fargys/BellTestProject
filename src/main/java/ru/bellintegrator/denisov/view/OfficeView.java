@@ -15,10 +15,6 @@ public class OfficeView {
     
     public Boolean isActive;
     
-    //for jackson
-    public OfficeView() {
-
-    }
 
     @Override
     public String toString() {

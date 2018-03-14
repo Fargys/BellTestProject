@@ -15,9 +15,5 @@ public class UserFilterView {
     public String docCode;
     
     public String citizenshipCode;
-
-    //for jackson
-    public UserFilterView() {
-    }
     
 }

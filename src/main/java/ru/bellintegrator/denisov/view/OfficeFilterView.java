@@ -10,9 +10,4 @@ public class OfficeFilterView {
     
     public Boolean active;
     
-    //for jackson
-    public OfficeFilterView() {
-
-    }
-    
 }

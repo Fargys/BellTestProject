@@ -30,11 +30,7 @@ public class UserView {
     
     public Boolean isIdentified;
     
-    //for jackson
-    public UserView() {
-
-    }
-
+    
     @Override
     public String toString() {
         return "UserView{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName 

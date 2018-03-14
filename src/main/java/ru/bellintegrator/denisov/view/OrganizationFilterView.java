@@ -7,9 +7,5 @@ public class OrganizationFilterView {
     public String inn;
     
     public String isActive;
-
-    //for jackson
-    public OrganizationFilterView() {
-    }
     
 }
