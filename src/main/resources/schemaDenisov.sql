@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS User (
     middle_name         VARCHAR(45) NOT NULL,
     position            VARCHAR(45) NOT NULL,
     phone               VARCHAR(45) NOT NULL,
-    is_active           TINYINT(1) DEFAULT 0,
+    is_identified       TINYINT(1) DEFAULT 0,
     office_id           INTEGER NOT NULL,
 );
 
