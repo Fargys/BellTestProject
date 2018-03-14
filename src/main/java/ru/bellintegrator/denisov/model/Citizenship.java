@@ -5,9 +5,11 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 @Entity(name = "Citizenship")
@@ -29,7 +31,7 @@ public class Citizenship {
     @Column(name = "citizenship_code")
     private Integer code;
     
-    @ManyToMany(mappedBy = "citizenships")
+    @OneToMany(mappedBy = "citizenship", fetch = FetchType.LAZY)
     private Set<User> users;
 
     public Citizenship() {

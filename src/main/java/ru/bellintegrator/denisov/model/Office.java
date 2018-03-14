@@ -46,8 +46,7 @@ public class Office {
     @JoinColumn(name = "org_id")
     private Organization organization;
     
-    @OneToMany
-    @JoinColumn(name = "office_id")
+    @OneToMany(mappedBy = "office", fetch = FetchType.LAZY)
     private Set<User> users;
     
     

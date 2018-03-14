@@ -69,34 +69,15 @@ public class User {
     @JoinColumn(name = "office_id")
     private Office office;
     
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "User_Document",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "doc_id")
-    )
-    private Set<Document> documents;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doc_id")
+    private Document document;
     
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "User_Citizenship",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "citizenship_id")
-    )
-    private Set<Citizenship> citizenships;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "citizenship_id")
+    private Citizenship citizenship;
     
     
-
     public User() {
     }
 
@@ -168,25 +149,20 @@ public class User {
         this.userLogin = userLogin;
     }
 
-    public Set<Document> getDocuments() {
-        if (documents == null) {
-            documents = new HashSet<>();
-        }
-        return documents;
+    public Document getDocument() {
+        return document;
     }
 
-    public void setDocuments(Set<Document> documents) {
-        this.documents = documents;
+    public void setDocument(Document document) {
+        this.document = document;
     }
 
-    public Set<Citizenship> getCitizenships() {
-        if (citizenships == null) {
-            citizenships = new HashSet<>();
-        }
-        return citizenships;
+    public Citizenship getCitizenship() {
+        return citizenship;
     }
 
-    public void setCitizenships(Set<Citizenship> citizenships) {
-        this.citizenships = citizenships;
+    public void setCitizenship(Citizenship citizenship) {
+        this.citizenship = citizenship;
     }
+    
 }
