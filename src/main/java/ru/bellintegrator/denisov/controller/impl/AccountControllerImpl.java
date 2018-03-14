@@ -8,26 +8,26 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.bellintegrator.denisov.controller.LoginController;
-import ru.bellintegrator.denisov.service.LoginService;
-import ru.bellintegrator.denisov.view.LoginView;
+import ru.bellintegrator.denisov.view.AccountView;
 import ru.bellintegrator.denisov.view.ResponseView;
+import ru.bellintegrator.denisov.service.AccountService;
+import ru.bellintegrator.denisov.controller.AccountController;
 
 @RestController
 @RequestMapping(value = "/api", produces = APPLICATION_JSON_VALUE)
-public class LoginControllerImpl implements LoginController {
+public class AccountControllerImpl implements AccountController {
     
-    private final LoginService loginService;
+    private final AccountService loginService;
     private final ResponseView responseView = new ResponseView();
 
     @Autowired
-    public LoginControllerImpl(LoginService loginService) {
+    public AccountControllerImpl(AccountService loginService) {
         this.loginService = loginService;
     }
 
     @Override
     @RequestMapping(value = "/register", method = {POST})
-    public Object register(@RequestBody LoginView view) {
+    public Object register(@RequestBody AccountView view) {
         try{
             loginService.register(view);
             return responseView.getResultView(true);
@@ -44,7 +44,7 @@ public class LoginControllerImpl implements LoginController {
 
     @Override
     @RequestMapping(value = "/login", method = {POST})
-    public Object login(@RequestBody LoginView view) {
+    public Object login(@RequestBody AccountView view) {
         try{
             loginService.login(view);
             return responseView.getResultView(true);

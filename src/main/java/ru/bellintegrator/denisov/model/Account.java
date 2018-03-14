@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 @Entity(name = "Login")
-public class Login {
+public class Account {
     
     @Id
     @GeneratedValue
@@ -33,7 +33,7 @@ public class Login {
     @JoinColumn(name = "id")
     private User user;
 
-    public Login() {
+    public Account() {
     }
 
     public Long getId() {

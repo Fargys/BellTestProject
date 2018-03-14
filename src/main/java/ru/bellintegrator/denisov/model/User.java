@@ -1,11 +1,5 @@
 package ru.bellintegrator.denisov.model;
 
-import ru.bellintegrator.denisov.model.Office;
-import ru.bellintegrator.denisov.model.Login;
-import ru.bellintegrator.denisov.model.Document;
-import ru.bellintegrator.denisov.model.Citizenship;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
@@ -63,7 +55,7 @@ public class User {
      cascade = CascadeType.ALL,
      optional = false
     )
-    private Login userLogin;
+    private Account account;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
@@ -141,12 +133,12 @@ public class User {
         this.office = office;
     }
 
-    public Login getUserLogin() {
-        return userLogin;
+    public Account getUserLogin() {
+        return account;
     }
 
-    public void setUserLogin(Login userLogin) {
-        this.userLogin = userLogin;
+    public void setUserLogin(Account userLogin) {
+        this.account = userLogin;
     }
 
     public Document getDocument() {
