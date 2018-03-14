@@ -18,6 +18,7 @@ import ru.bellintegrator.denisov.view.ResponseView;
 public class LoginControllerImpl implements LoginController {
     
     private final LoginService loginService;
+    private final ResponseView responseView = new ResponseView();
 
     @Autowired
     public LoginControllerImpl(LoginService loginService) {
@@ -26,12 +27,12 @@ public class LoginControllerImpl implements LoginController {
 
     @Override
     @RequestMapping(value = "/register", method = {POST})
-    public String register(@RequestBody LoginView view) {
+    public Object register(@RequestBody LoginView view) {
         try{
             loginService.register(view);
-            return ResponseView.getSuccesView();
+            return responseView.getResultView(true);
         }catch(Throwable e) {
-            return ResponseView.getErrorView(e.getMessage());
+            return responseView.getErrorView(e.getMessage());
         }
     }
 
@@ -43,12 +44,12 @@ public class LoginControllerImpl implements LoginController {
 
     @Override
     @RequestMapping(value = "/login", method = {POST})
-    public String login(@RequestBody LoginView view) {
+    public Object login(@RequestBody LoginView view) {
         try{
             loginService.login(view);
-            return ResponseView.getSuccesView();
+            return responseView.getResultView(true);
         }catch(Throwable e) {
-            return ResponseView.getErrorView(e.getMessage());
+            return responseView.getErrorView(e.getMessage());
         }
     }
 }

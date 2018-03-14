@@ -8,6 +8,8 @@ public interface OrganizationDAO {
     public List<Organization> all();
 
     public Organization loadById(Long id);
+    
+    public Organization loadByName(String name);
 
     public void update(Organization organization);
 

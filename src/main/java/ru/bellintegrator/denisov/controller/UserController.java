@@ -1,19 +1,17 @@
 package ru.bellintegrator.denisov.controller;
 
-import java.util.List;
-import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
 import ru.bellintegrator.denisov.view.UserView;
 
 public interface UserController {
     
-    public List<UserView> users(UserFilterView view);
+    public Object users(UserFilterView view);
     
-    public User user(String userId);
+    public Object user(String userId);
     
-    public String update(UserView view);
+    public Object update(UserView view);
     
-    public String save(UserView view);
+    public Object save(UserView view);
     
-    public String delete(String userId);
+    public Object delete(String userId);
 }

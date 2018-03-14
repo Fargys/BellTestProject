@@ -1,9 +1,10 @@
 package ru.bellintegrator.denisov.view;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserView {
-    @ApiModelProperty(hidden = true)
+    
     public String id;
     
     public String firstName;
@@ -31,14 +32,6 @@ public class UserView {
     //for jackson
     public UserView() {
 
-    }
-
-    @Override
-    public String toString() {
-        return "{id:" + id + "; firstName:" + firstName + "; secondName:" + secondName + "; middleName:" + middleName
-                + "; position:" + position + "; phone:" + phone + "; docName:" + docName + "; docNumber:" + docNumber 
-                + "; docDate:" + docDate + "; citizenshipName:" + citizenshipName + "; citizenshipCode:" + citizenshipCode + 
-                "; isIdentified:" + isIdentified + "}";
     }
     
 }

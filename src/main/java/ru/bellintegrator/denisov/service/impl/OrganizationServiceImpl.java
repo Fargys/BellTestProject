@@ -13,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OrganizationDAO;
 import ru.bellintegrator.denisov.model.Organization;
 import ru.bellintegrator.denisov.service.OrganizationService;
-import ru.bellintegrator.denisov.view.OrganizationUpdateView;
+import ru.bellintegrator.denisov.view.OrganizationFilterView;
+import ru.bellintegrator.denisov.view.OrganizationView;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.INTERFACES)
@@ -29,21 +30,20 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationUpdateView> organizations() {
+    public List<OrganizationView> organizations(OrganizationFilterView filterView) {
         List<Organization> all = dao.all();
         
-        Function<Organization, OrganizationUpdateView> mapOrganization = p -> {
-            OrganizationUpdateView view = new OrganizationUpdateView();
-            view.id = String.valueOf(p.getId());
-            view.name = p.getName();
-            view.fullName = p.getFullName();
-            view.inn = p.getInn();
-            view.kpp = p.getKpp();
-            view.address = p.getAddress();
-            view.phone = p.getPhone();
-            view.active = p.isActive();
-
-            log.info(view.toString());
+        Function<Organization, OrganizationView> mapOrganization = o -> {
+            OrganizationView view = new OrganizationView();
+            //StreamAPI
+            
+//            Organization org = dao.loadByName(filterView.name);
+//            
+//            view.id = String.valueOf(org.getId());
+//            view.name = filterView.name;
+//            view.isActive = Boolean.valueOf(filterView.isActive);
+//
+//            log.info(view.toString());
 
             return view;
         };
@@ -55,14 +55,15 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public Organization organization(Long id) {
-        Organization organization = dao.loadById(id);
+    public Organization organization(String id) {
+        Long orgId = Long.parseLong(id, 10);
+        Organization organization = dao.loadById(orgId);
         return organization;
     }
 
     @Override
     @Transactional
-    public void update(OrganizationUpdateView view) {
+    public void update(OrganizationView view) {
         Long updatingOrgId = Long.parseLong(view.id, 10);
         Organization organization = dao.loadById(updatingOrgId);
         
@@ -79,7 +80,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public void save(OrganizationUpdateView view) {
+    public void save(OrganizationView view) {
         Organization organization = new Organization();
         
         organization.setName(view.name);
@@ -95,8 +96,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        dao.delete(id);
+    public void delete(String id) {
+        Long orgId = Long.parseLong(id, 10);
+        dao.delete(orgId);
     }
     
 }

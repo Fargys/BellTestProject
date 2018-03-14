@@ -4,21 +4,54 @@ public class ResponseView {
     
     public Object data;
     
+    public Boolean result;
+    
     public String error;
 
     //for jackson
     public ResponseView() {
     }
     
-    public static String getDataView(Object data) {
-        return "{data:" + data.toString() + "}";
+    
+    public Object getDataView(Object data) {
+        setData(data);
+        return getData();
     }
     
-    public static String getErrorView(String errorMessage) {
-        return "{error:" + errorMessage + "}";
+    public Boolean getResultView(boolean result){
+        setResult(result);
+        return getResult();
     }
     
-    public static String getSuccesView() {
-        return "{data:{result:succes}}";
+    public String getErrorView(String error) {
+        setError(error);
+        return getError();
     }
+    
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public Boolean getResult() {
+        return result;
+    }
+
+    public void setResult(Boolean result) {
+        this.result = result;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+    
+    
 }

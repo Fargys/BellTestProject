@@ -1,9 +1,10 @@
 package ru.bellintegrator.denisov.view;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OfficeView {
-    @ApiModelProperty(hidden = true)
+    
     public String id;   
     
     public String name;
@@ -18,9 +19,5 @@ public class OfficeView {
     public OfficeView() {
 
     }
-
-    @Override
-    public String toString() {
-        return "{id:" + id + "; name:" + name + "; address:" + address + "; phone:" + phone + "; active:" + active + '}';
-    }
+    
 }

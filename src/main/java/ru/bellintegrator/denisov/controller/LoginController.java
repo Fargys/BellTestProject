@@ -4,9 +4,9 @@ import ru.bellintegrator.denisov.view.LoginView;
 
 public interface LoginController {
     
-    public String register(LoginView view);
+    public Object register(LoginView view);
     
     public void activation(String code);
     
-    public String login(LoginView view);
+    public Object login(LoginView view);
 }
