@@ -26,16 +26,16 @@ public class Document {
     
     @Basic(optional = false)
     @Column(name = "doc_name")
-    private String docName;
+    private String name;
     
     @Basic(optional = false)
     @Column(name = "doc_number")
-    private Integer docNumber;
+    private Integer number;
     
     @Basic(optional = false)
     @Column(name = "doc_date")
     @Temporal(value=TemporalType.DATE)
-    private Date docDate;
+    private Date date;
     
     @ManyToMany(mappedBy = "documents")
     private Set<User> users;
@@ -48,28 +48,28 @@ public class Document {
         return id;
     }
 
-    public String getDocName() {
-        return docName;
+    public String getName() {
+        return name;
     }
 
-    public void setDocName(String docName) {
-        this.docName = docName;
+    public void setName(String docName) {
+        this.name = docName;
     }
 
-    public Integer getDocNumber() {
-        return docNumber;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setDocNumber(Integer docNumber) {
-        this.docNumber = docNumber;
+    public void setNumber(Integer docNumber) {
+        this.number = docNumber;
     }
 
-    public Date getDocDate() {
-        return docDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDocDate(Date docDate) {
-        this.docDate = docDate;
+    public void setDate(Date docDate) {
+        this.date = docDate;
     }
 
     public Set<User> getUsers() {

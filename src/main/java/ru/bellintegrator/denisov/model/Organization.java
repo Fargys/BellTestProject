@@ -57,17 +57,6 @@ public class Organization {
     @JoinColumn(name = "org_id")
     private Set<Office> offices;
     
-    
-    public void addOffice(Office office) {
-        getOffices().add(office);
-        office.setOrganization(this);
-    }
-    
-    public void removeOffice(Office office) {
-        getOffices().remove(office);
-        office.setOrganization(null);
-    }
-    
 
     public Organization() {
     }

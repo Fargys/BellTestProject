@@ -54,8 +54,8 @@ public class User {
     @Column(name = "phone")
     private String phone;
     
-    @Column(name = "is_active")
-    private Boolean active;
+    @Column(name = "is_identified")
+    private Boolean isIdentified;
     
     @OneToOne(
      mappedBy = "user",
@@ -94,27 +94,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "citizenship_id")
     )
     private Set<Citizenship> citizenships;
-    
-    
-    public void addDocument(Document document) {
-        getDocuments().add(document);
-        document.getUsers().add(this);
-    }
-    
-    public void removeDocument(Document document) {
-        getDocuments().remove(document);
-        document.getUsers().remove(this);
-    }
-    
-    public void addCitizenship(Citizenship citizenship) {
-        getCitizenships().add(citizenship);
-        citizenship.getUsers().add(this);
-    }
-    
-    public void removeCitizenship(Citizenship citizenship) {
-        getCitizenships().remove(citizenship);
-        citizenship.getUsers().remove(this);
-    }
     
     
 
@@ -165,12 +144,12 @@ public class User {
         this.phone = phone;
     }
 
-    public Boolean isActive() {
-        return active;
+    public Boolean isIdentified() {
+        return isIdentified;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setIdentified(Boolean identified) {
+        this.isIdentified = identified;
     }
 
     public Office getOffice() {

@@ -23,11 +23,11 @@ public class Citizenship {
     
     @Basic(optional = false)
     @Column(name = "citizenship_name")
-    private String citizenshipName;
+    private String name;
     
     @Basic(optional = false)
     @Column(name = "citizenship_code")
-    private Integer citizenshipCode;
+    private Integer code;
     
     @ManyToMany(mappedBy = "citizenships")
     private Set<User> users;
@@ -39,20 +39,20 @@ public class Citizenship {
         return id;
     }
 
-    public String getCitizenshipName() {
-        return citizenshipName;
+    public String getName() {
+        return name;
     }
 
-    public void setCitizenshipName(String citizenshipName) {
-        this.citizenshipName = citizenshipName;
+    public void setName(String citizenshipName) {
+        this.name = citizenshipName;
     }
 
-    public Integer getCitizenshipCode() {
-        return citizenshipCode;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setCitizenshipCode(Integer citizenshipCode) {
-        this.citizenshipCode = citizenshipCode;
+    public void setCode(Integer citizenshipCode) {
+        this.code = citizenshipCode;
     }
 
     public Set<User> getUsers() {

@@ -35,6 +35,10 @@ public class Office {
     @Column(name = "phone")
     private String phone;
     
+    @Basic(optional = false)
+    @Column(name = "address")
+    private String address;
+    
     @Column(name = "is_active")
     private Boolean active;
     
@@ -45,17 +49,6 @@ public class Office {
     @OneToMany
     @JoinColumn(name = "office_id")
     private Set<User> users;
-    
-    
-    public void addUser(User user) {
-        getUsers().add(user);
-        user.setOffice(this);
-    }
-    
-    public void removeUser(User user) {
-        getUsers().remove(user);
-        user.setOffice(null);
-    }
     
     
     public Office() {
@@ -81,6 +74,14 @@ public class Office {
         this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
     public boolean isActive() {
         return active;
     }
