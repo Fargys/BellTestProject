@@ -13,11 +13,18 @@ public class OfficeView {
     
     public String phone;
     
-    public Boolean active;
+    public Boolean isActive;
     
     //for jackson
     public OfficeView() {
 
     }
+
+    @Override
+    public String toString() {
+        return "OfficeView{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone 
+                + ", isActive=" + isActive + '}';
+    }
+    
     
 }
