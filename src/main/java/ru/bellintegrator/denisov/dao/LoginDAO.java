@@ -6,8 +6,8 @@ public interface LoginDAO {
 
     public String register(Login login);
 
-    public void activation();
-
     public String login();
+
+    public Login loadByLogin(String login);
     
 }
