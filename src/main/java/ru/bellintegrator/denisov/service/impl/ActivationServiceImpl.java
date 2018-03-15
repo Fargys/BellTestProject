@@ -5,26 +5,29 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.denisov.dao.AccountDAO;
+import ru.bellintegrator.denisov.model.Account;
 import ru.bellintegrator.denisov.service.ActivationService;
+import ru.bellintegrator.denisov.service.GeneratorService;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.INTERFACES)
 public class ActivationServiceImpl implements ActivationService {
     
     private final AccountDAO dao;
+    private final GeneratorService generator;
 
     @Autowired
-    public ActivationServiceImpl(AccountDAO dao) {
+    public ActivationServiceImpl(AccountDAO dao, GeneratorService generator) {
         this.dao = dao;
+        this.generator = generator;
     }
     
     @Override
-    public void activation(String code) {
-// Общая логика активации аккаунта:
-//        4. Контроллер activation берёт хэш от значения code и ищет по ней запись. 
-//            Если находит, делает активным соответствующего пользователя * 
-//            Для хэша используется SHA-256. Получение его вынесено в отдельный сервис.
-//            + хэш от пароля в базе надо хранить закодированным в base64, типа, требования безопасности))
+    public void activation(String activationCode) {
+        String hashForActivationCode = generator.encode(activationCode);
+        Account account = dao.getByActivationCode(hashForActivationCode);
+        
+        if(account != null) account.getUser().setIdentified(true);
     }
     
 }
