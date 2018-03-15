@@ -8,6 +8,6 @@ public class OfficeFilterView {
     
     public String phone;
     
-    public Boolean active;
+    public Boolean isActive;
     
 }

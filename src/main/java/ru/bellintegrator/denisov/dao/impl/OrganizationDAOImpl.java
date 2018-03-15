@@ -52,7 +52,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
         cq.select(organizations)
             .where(predicates.toArray(new Predicate[]{}));
         
-        return (List) em.createQuery(cq).getResultList();
+        return em.createQuery(cq).getResultList();
     }
 
     @Override
@@ -65,8 +65,8 @@ public class OrganizationDAOImpl implements OrganizationDAO {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
 
-        Root<Organization> person = criteria.from(Organization.class);
-        criteria.where(builder.equal(person.get("name"), name));
+        Root<Organization> organization = criteria.from(Organization.class);
+        criteria.where(builder.equal(organization.get("name"), name));
 
         TypedQuery<Organization> query = em.createQuery(criteria);
         return query.getSingleResult();

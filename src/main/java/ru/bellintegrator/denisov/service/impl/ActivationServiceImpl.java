@@ -25,7 +25,7 @@ public class ActivationServiceImpl implements ActivationService {
     @Override
     public void activation(String activationCode) {
         String hashForActivationCode = generator.encode(activationCode);
-        Account account = dao.getByActivationCode(hashForActivationCode);
+        Account account = dao.loadByActivationCode(hashForActivationCode);
         
         if(account != null) account.getUser().setIdentified(true);
     }
