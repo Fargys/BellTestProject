@@ -53,15 +53,7 @@ public class AccountServiceImpl implements AccountService {
        
        
     }
-
-    @Override
-    public void activation(String code) {
-// Общая логика активации аккаунта:
-//        4. Контроллер activation берёт хэш от значения code и ищет по ней запись. 
-//            Если находит, делает активным соответствующего пользователя * 
-//            Для хэша используется SHA-256. Получение его вынесено в отдельный сервис.
-//            + хэш от пароля в базе надо хранить закодированным в base64, типа, требования безопасности))
-    }
+    
 
     @Override
     public void login(AccountView view) throws Throwable {

@@ -6,8 +6,6 @@ public interface AccountService {
 
     public void register(AccountView view);
 
-    public void activation(String code);
-
     public void login(AccountView view) throws Throwable;
     
 }

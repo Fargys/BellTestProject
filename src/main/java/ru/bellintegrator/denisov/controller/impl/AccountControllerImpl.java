@@ -12,17 +12,20 @@ import ru.bellintegrator.denisov.view.AccountView;
 import ru.bellintegrator.denisov.view.ResponseView;
 import ru.bellintegrator.denisov.service.AccountService;
 import ru.bellintegrator.denisov.controller.AccountController;
+import ru.bellintegrator.denisov.service.ActivationService;
 
 @RestController
 @RequestMapping(value = "/api", produces = APPLICATION_JSON_VALUE)
 public class AccountControllerImpl implements AccountController {
     
     private final AccountService loginService;
+    private final ActivationService activationService;
     private final ResponseView responseView = new ResponseView();
 
     @Autowired
-    public AccountControllerImpl(AccountService loginService) {
+    public AccountControllerImpl(AccountService loginService, ActivationService activationService) {
         this.loginService = loginService;
+        this.activationService = activationService;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class AccountControllerImpl implements AccountController {
     @Override
     @RequestMapping(value = "/activation", method = {GET})
     public void activation(@RequestParam("code") String code) {
-        loginService.activation(code);
+        activationService.activation(code);
     }
 
     @Override
