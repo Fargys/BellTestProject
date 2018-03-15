@@ -7,5 +7,7 @@ public interface AccountDAO {
     public String register(Account account);
 
     public Account loadByLogin(String login);
+
+    public Account getByActivationCode(String hashForActivationCode);
     
 }

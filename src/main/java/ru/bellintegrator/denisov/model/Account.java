@@ -29,6 +29,10 @@ public class Account {
     @Column(name = "password")
     private String password;
     
+    @Basic(optional = true)
+    @Column(name = "activation_code")
+    private String activationCode;
+    
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private User user;
@@ -56,6 +60,14 @@ public class Account {
         this.password = password;
     }
 
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+    
     public User getUser() {
         return user;
     }

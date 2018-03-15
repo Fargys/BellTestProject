@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS Login (
     user_id             INTEGER NOT NULL UNIQUE,
     version             INTEGER NOT NULL,
     login               VARCHAR(45) NOT NULL UNIQUE,
-    password            VARCHAR(45) NOT NULL
+    password            VARCHAR(45) NOT NULL,
+    activation_code      VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS Document (
