@@ -1,5 +1,6 @@
 package ru.bellintegrator.denisov.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ public class ActivationServiceImpl implements ActivationService {
     
     private final AccountDAO dao;
 
+    @Autowired
     public ActivationServiceImpl(AccountDAO dao) {
         this.dao = dao;
     }
