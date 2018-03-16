@@ -89,3 +89,4 @@ crashlytics-build.properties
 # Logs
 # ---------------------------------------------------------------------
 *.log
+/nbproject/

@@ -38,7 +38,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
         if (name != null) {
             predicates.add(
-                qb.equal(organizations.get("name"), name));
+                qb.like(organizations.<String>get("name"), name));
         }
         if (inn != null) {
             predicates.add(

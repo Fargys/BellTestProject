@@ -42,7 +42,7 @@ public class OfficeDAOImpl implements OfficeDAO {
         }
         if (name != null) {
             predicates.add(
-                qb.equal(office.get("name"), name));
+                qb.like(office.<String>get("name"), name));
         }
         if (phone != null) {
             predicates.add(
