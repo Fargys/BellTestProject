@@ -8,6 +8,7 @@ import ru.bellintegrator.denisov.model.Account;
 import ru.bellintegrator.denisov.view.AccountView;
 import ru.bellintegrator.denisov.service.AccountService;
 import ru.bellintegrator.denisov.dao.AccountDAO;
+import ru.bellintegrator.denisov.exception.ServiceAccountException;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.service.GeneratorService;
 
@@ -48,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
         String enteringPasswordHash = generator.encode(view.password);
         String truePasswordHash = login.getPassword();
         
-        if(enteringPasswordHash != truePasswordHash) throw new Throwable("Wrong password");
+        if(enteringPasswordHash != truePasswordHash) throw new ServiceAccountException();
     }
     
 }
