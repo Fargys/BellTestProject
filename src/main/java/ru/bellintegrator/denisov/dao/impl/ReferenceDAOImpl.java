@@ -3,11 +3,14 @@ package ru.bellintegrator.denisov.dao.impl;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
 import ru.bellintegrator.denisov.model.CitizenshipType;
-import ru.bellintegrator.denisov.model.Document;
+import ru.bellintegrator.denisov.model.DocumentType;
 
 @Repository
 public class ReferenceDAOImpl implements ReferenceDAO {
@@ -20,20 +23,31 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     }
 
     @Override
-    public List<Document> allDocument() {
-        TypedQuery<Document> query = em.createQuery("SELECT p FROM Document p", Document.class);
-        List<Document> result = query.getResultList();
+    public DocumentType loadDocTypeByName(String docName) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
+
+        Root<DocumentType> account = criteria.from(DocumentType.class);
+        criteria.where(builder.equal(account.get("doc_name"), docName));
+
+        TypedQuery<DocumentType> query = em.createQuery(criteria);
+        return query.getSingleResult();
+    }
+    
+    @Override
+    public List<DocumentType> allDocumentType() {
+        TypedQuery<DocumentType> query = em.createQuery("SELECT p FROM Document_type p", DocumentType.class);
+        List<DocumentType> result = query.getResultList();
         
         return result;
     }
 
     @Override
-    public List<CitizenshipType> allCitizenship() {
-        TypedQuery<CitizenshipType> query = em.createQuery("SELECT p FROM Citizenship p", CitizenshipType.class);
+    public List<CitizenshipType> allCitizenshipType() {
+        TypedQuery<CitizenshipType> query = em.createQuery("SELECT p FROM Citizenship_type p", CitizenshipType.class);
         List<CitizenshipType> result = query.getResultList();
         
         return result;
     }
-    
     
 }

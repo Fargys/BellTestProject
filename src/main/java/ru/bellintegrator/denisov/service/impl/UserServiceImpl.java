@@ -1,7 +1,6 @@
 package ru.bellintegrator.denisov.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +10,11 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
+import ru.bellintegrator.denisov.dao.ReferenceDAO;
 import ru.bellintegrator.denisov.dao.UserDAO;
 import ru.bellintegrator.denisov.model.CitizenshipType;
 import ru.bellintegrator.denisov.model.Document;
+import ru.bellintegrator.denisov.model.DocumentType;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.service.UserService;
@@ -27,11 +28,13 @@ public class UserServiceImpl implements UserService {
  
     private final UserDAO userDAO;
     private final OfficeDAO officeDAO;
+    private final ReferenceDAO refDAO;
 
     @Autowired
-    public UserServiceImpl(UserDAO userDAO, OfficeDAO officeDAO) {
+    public UserServiceImpl(UserDAO userDAO, OfficeDAO officeDAO, ReferenceDAO refDAO) {
         this.userDAO = userDAO;
         this.officeDAO = officeDAO;
+        this.refDAO = refDAO;
     }
 
     @Override
@@ -73,7 +76,8 @@ public class UserServiceImpl implements UserService {
         view.isIdentified = user.isIdentified();
         
         Document userDoc = user.getDocument();
-        view.docName = userDoc.getName();
+        DocumentType docType = userDoc.getType();
+        view.docName = docType.getName();
         view.docNumber = userDoc.getNumber();
         view.docDate = userDoc.getDate();
         
@@ -100,7 +104,8 @@ public class UserServiceImpl implements UserService {
         user.setIdentified(view.isIdentified);
         
         Document userDoc = user.getDocument();
-        userDoc.setName(view.docName);
+        DocumentType docType = refDAO.loadDocTypeByName(view.docName);
+        userDoc.setType(docType);
         userDoc.setNumber(view.docNumber);
         userDoc.setDate(view.docDate);
         
@@ -123,7 +128,9 @@ public class UserServiceImpl implements UserService {
     public void save(UserView view) {
         
         Document userDoc = new Document();
-        userDoc.setName(view.docName);
+        DocumentType docType = refDAO.loadDocTypeByName(view.docName);
+        
+        userDoc.setType(docType);
         userDoc.setNumber(view.docNumber);
         userDoc.setDate(view.docDate);
         
@@ -147,4 +154,5 @@ public class UserServiceImpl implements UserService {
         
         userDAO.save(user);
     }
+    
 }

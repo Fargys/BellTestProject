@@ -20,11 +20,11 @@ public class ReferenceController {
     
     @RequestMapping(value = "/api/docs", method = {POST})
     public Object documents() {
-        return referenceService.documents();
+        return referenceService.documentTypes();
     }
     
     @RequestMapping(value = "/api/countries", method = {POST})
     public Object countries() {
-        return referenceService.countries();
+        return referenceService.citizenshipTypes();
     }
 }

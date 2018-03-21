@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
 import ru.bellintegrator.denisov.model.CitizenshipType;
-import ru.bellintegrator.denisov.model.Document;
+import ru.bellintegrator.denisov.model.DocumentType;
 import ru.bellintegrator.denisov.service.ReferenceService;
 
 @Service
@@ -22,16 +22,14 @@ public class ReferenceServiceImpl implements ReferenceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Document> documents() {
-        return dao.allDocument();
+    public List<DocumentType> documentTypes() {
+        return dao.allDocumentType();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<CitizenshipType> countries() {
-        return dao.allCitizenship();
+    public List<CitizenshipType> citizenshipTypes() {
+        return dao.allCitizenshipType();
     }
- 
-    
     
 }

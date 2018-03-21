@@ -2,8 +2,8 @@ package ru.bellintegrator.denisov.service;
 
 public interface ReferenceService {
 
-    public Object documents();
+    public Object documentTypes();
 
-    public Object countries();
+    public Object citizenshipTypes();
     
 }

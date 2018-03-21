@@ -2,11 +2,13 @@ package ru.bellintegrator.denisov.dao;
 
 import java.util.List;
 import ru.bellintegrator.denisov.model.CitizenshipType;
-import ru.bellintegrator.denisov.model.Document;
+import ru.bellintegrator.denisov.model.DocumentType;
 
 public interface ReferenceDAO {
     
-    public List<Document> allDocument();
+    public DocumentType loadDocTypeByName(String docName);
     
-    public List<CitizenshipType> allCitizenship();
+    public List<DocumentType> allDocumentType();
+    
+    public List<CitizenshipType> allCitizenshipType();
 }
