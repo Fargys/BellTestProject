@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
+import ru.bellintegrator.denisov.view.UserView;
 
 @Entity(name = "User")
 public class User {
@@ -68,6 +69,44 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")
     private CitizenshipType citizenship;
+    
+    
+    public UserView toConvertUserDTO() {
+        UserView view = new UserView();
+        
+        view.id = String.valueOf(id);
+        view.firstName = firstName;
+        view.secondName = secondName;
+        view.middleName = middleName;
+        view.position = position;
+        view.phone = phone;
+        view.isIdentified = isIdentified;
+        
+        Document userDoc = getDocument();
+        DocumentType docType = userDoc.getType();
+        
+        view.docName = docType.getName();
+        view.docNumber = userDoc.getNumber();
+        view.docDate = userDoc.getDate();
+        
+        CitizenshipType userCitizenship = getCitizenship();
+        view.citizenshipName = userCitizenship.getName();
+        view.citizenshipCode = userCitizenship.getCode();
+        
+        return view;
+    }
+    
+    public UserView toConvertFilterUserDTO() {
+        UserView view = new UserView();
+        
+        view.id = String.valueOf(id);
+        view.firstName = firstName;
+        view.secondName = secondName;
+        view.middleName = middleName;
+        view.position = position;
+        
+        return view;
+    }
     
     
     public User() {

@@ -44,13 +44,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDAO.all(filterView);
         
         for(User user : users) {
-            UserView view = new UserView();
-            
-            view.id = String.valueOf(user.getId());
-            view.firstName = user.getFirstName();
-            view.secondName = user.getSecondName();
-            view.middleName = user.getMiddleName();
-            view.position = user.getPosition();
+            UserView view = user.toConvertFilterUserDTO();
             
             log.info(view.toString());
             
@@ -64,26 +58,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserView user(String id) {
         Long userId = Long.parseLong(id, 10);
-        UserView view = new UserView();
-        
         User user = userDAO.loadById(userId);
-        view.id = String.valueOf(user.getId());
-        view.firstName = user.getFirstName();
-        view.secondName = user.getSecondName();
-        view.middleName = user.getMiddleName();
-        view.position = user.getPosition();
-        view.phone = user.getPhone();
-        view.isIdentified = user.isIdentified();
         
-        Document userDoc = user.getDocument();
-        DocumentType docType = userDoc.getType();
-        view.docName = docType.getName();
-        view.docNumber = userDoc.getNumber();
-        view.docDate = userDoc.getDate();
-        
-        CitizenshipType userCitizenship = user.getCitizenship();
-        view.citizenshipName = userCitizenship.getName();
-        view.citizenshipCode = userCitizenship.getCode();
+        UserView view = user.toConvertUserDTO();
         
         log.info(view.toString());
         
@@ -94,24 +71,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void update(UserView view) {
         Long updatingUserId = Long.parseLong(view.id, 10);
-        
         User user = userDAO.loadById(updatingUserId);
-        user.setFirstName(view.firstName);
-        user.setSecondName(view.secondName);
-        user.setMiddleName(view.middleName);
-        user.setPosition(view.position);
-        user.setPhone(view.phone);
-        user.setIdentified(view.isIdentified);
-        
-        Document userDoc = user.getDocument();
         DocumentType docType = refDAO.loadDocTypeByName(view.docName);
-        userDoc.setType(docType);
-        userDoc.setNumber(view.docNumber);
-        userDoc.setDate(view.docDate);
         
-        CitizenshipType userCitizenship = user.getCitizenship();
-        userCitizenship.setName(view.citizenshipName);
-        userCitizenship.setCode(view.citizenshipCode);
+        user = view.toConvertUserEntity(user, docType);
         
         userDAO.update(user);
     }
@@ -126,31 +89,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(UserView view) {
-        
-        Document userDoc = new Document();
         DocumentType docType = refDAO.loadDocTypeByName(view.docName);
-        
-        userDoc.setType(docType);
-        userDoc.setNumber(view.docNumber);
-        userDoc.setDate(view.docDate);
-        
-        CitizenshipType userCitizenship = new CitizenshipType();
-        userCitizenship.setName(view.citizenshipName);
-        userCitizenship.setCode(view.citizenshipCode);
-        
         Long officeId = Long.parseLong(view.officeId);
         Office userOffice = officeDAO.loadById(officeId);
         
-        User user = new User();
-        user.setFirstName(view.firstName);
-        user.setSecondName(view.secondName);
-        user.setMiddleName(view.middleName);
-        user.setPosition(view.position);
-        user.setPhone(view.phone);
-        user.setIdentified(view.isIdentified);
-        user.setDocument(userDoc);
-        user.setCitizenship(userCitizenship);
-        user.setOffice(userOffice);
+        User user = view.toConvertUserEntity(userOffice, docType);
         
         userDAO.save(user);
     }
