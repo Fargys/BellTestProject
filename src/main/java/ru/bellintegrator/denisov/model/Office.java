@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+import ru.bellintegrator.denisov.view.OfficeView;
 
 @Entity(name = "Office")
 public class Office {
@@ -48,6 +49,28 @@ public class Office {
     
     @OneToMany(mappedBy = "office", fetch = FetchType.LAZY)
     private Set<User> users;
+    
+    public OfficeView toConvertOfficeDTO() {
+        OfficeView view = new OfficeView();
+        
+        view.id = String.valueOf(id);
+        view.name = name;
+        view.address = address;
+        view.phone = phone;
+        view.isActive = active;
+        
+        return view;
+    }
+    
+    public OfficeView toConvertFilterOfficeDTO() {
+        OfficeView view = new OfficeView();
+        
+        view.id = String.valueOf(id);
+        view.name = name;
+        view.isActive = active;
+        
+        return view;
+    }
     
     
     public Office() {

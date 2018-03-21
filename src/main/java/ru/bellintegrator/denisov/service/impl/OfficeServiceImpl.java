@@ -38,11 +38,7 @@ public class OfficeServiceImpl implements OfficeService {
         List<Office> offices = officeDAO.all(filterView);
         
         for(Office office : offices) {
-            OfficeView view = new OfficeView();
-            
-            view.id = String.valueOf(office.getId());
-            view.name = office.getName();
-            view.isActive = office.isActive();
+            OfficeView view = office.toConvertFilterOfficeDTO();
             
             log.info(view.toString());
             
@@ -50,7 +46,6 @@ public class OfficeServiceImpl implements OfficeService {
         }
 
         return result;
-        
     }
 
     @Override
@@ -59,13 +54,7 @@ public class OfficeServiceImpl implements OfficeService {
         Long orgId = Long.parseLong(id, 10);
         Office office = officeDAO.loadById(orgId);
         
-        OfficeView view = new OfficeView();
-        
-        view.id = String.valueOf(office.getId());
-        view.name = office.getName();
-        view.address = office.getAddress();
-        view.phone = office.getPhone();
-        view.isActive = office.isActive();
+        OfficeView view = office.toConvertOfficeDTO();
         
         log.info(view.toString());
 
@@ -77,10 +66,7 @@ public class OfficeServiceImpl implements OfficeService {
     public void update(OfficeView view) {
         Long updatingOfficeId = Long.parseLong(view.id, 10);
         Office office = officeDAO.loadById(updatingOfficeId);
-        
-        office.setName(view.name);
-        office.setPhone(view.phone);
-        office.setActive(view.isActive);
+        office = view.toConvertOfficeEntity(office);
         
         officeDAO.update(office);
     }
@@ -99,10 +85,7 @@ public class OfficeServiceImpl implements OfficeService {
         Organization org = orgDAO.loadById(orgId);
         
         Office office = new Office();
-        office.setName(view.name);
-        office.setPhone(view.phone);
-        office.setActive(true);
-        office.setOrganization(org);
+        office = view.toConvertOfficeEntity(office, org);
         
         officeDAO.save(office);
     }
