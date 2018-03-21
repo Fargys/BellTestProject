@@ -20,25 +20,21 @@ import ru.bellintegrator.denisov.view.OrganizationView;
 public class OrganizationServiceImpl implements OrganizationService {
     private final Logger log = LoggerFactory.getLogger(OrganizationServiceImpl.class);
     
-    private final OrganizationDAO dao;
+    private final OrganizationDAO orgDAO;
 
     @Autowired
     public OrganizationServiceImpl(OrganizationDAO dao) {
-        this.dao = dao;
+        this.orgDAO = dao;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<OrganizationView> organizations(OrganizationFilterView filterView) {
         List<OrganizationView> result = new ArrayList<>();
-        List<Organization> orgs = dao.all(filterView);
+        List<Organization> orgs = orgDAO.all(filterView);
         
         for(Organization org : orgs) {
-            OrganizationView view = new OrganizationView();
-            
-            view.id = String.valueOf(org.getId());
-            view.name = org.getName();
-            view.isActive = org.isActive();
+            OrganizationView view = org.toConvertFilterOrgDTO();
             
             log.info(view.toString());
             
@@ -52,18 +48,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional(readOnly = true)
     public OrganizationView organization(String id) {
         Long orgId = Long.parseLong(id, 10);
-        Organization org = dao.loadById(orgId);
+        Organization org = orgDAO.loadById(orgId);
         
-        OrganizationView view = new OrganizationView();
-        
-        view.id = String.valueOf(org.getId());
-        view.name = org.getName();
-        view.fullName = org.getFullName();
-        view.inn = org.getInn();
-        view.kpp = org.getKpp();
-        view.address = org.getAddress();
-        view.phone = org.getPhone();
-        view.isActive = org.isActive();
+        OrganizationView view = org.toConvertOrgDTO();
         
         log.info(view.toString());
 
@@ -74,40 +61,26 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional
     public void update(OrganizationView view) {
         Long updatingOrgId = Long.parseLong(view.id, 10);
-        Organization organization = dao.loadById(updatingOrgId);
+        Organization organization = orgDAO.loadById(updatingOrgId);
+        organization = view.toConvertOrgEntity(organization);
         
-        organization.setName(view.name);
-        organization.setFullName(view.fullName);
-        organization.setInn(view.inn);
-        organization.setKpp(view.kpp);
-        organization.setAddress(view.address);
-        organization.setPhone(view.phone);
-        organization.setActive(true);
-        
-        dao.update(organization);
+        orgDAO.update(organization);
     }
 
     @Override
     @Transactional
     public void save(OrganizationView view) {
         Organization organization = new Organization();
+        organization = view.toConvertOrgEntity(organization);
         
-        organization.setName(view.name);
-        organization.setFullName(view.fullName);
-        organization.setInn(view.inn);
-        organization.setKpp(view.kpp);
-        organization.setAddress(view.address);
-        organization.setPhone(view.phone);
-        organization.setActive(view.isActive);
-        
-        dao.save(organization);
+        orgDAO.save(organization);
     }
 
     @Override
     @Transactional
     public void delete(String id) {
         Long orgId = Long.parseLong(id, 10);
-        dao.delete(orgId);
+        orgDAO.delete(orgId);
     }
     
 }
