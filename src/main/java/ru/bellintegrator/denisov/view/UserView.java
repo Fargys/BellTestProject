@@ -30,16 +30,15 @@ public class UserView {
     
     public Boolean isIdentified;
     
+    public String officeId;
     
+
     @Override
     public String toString() {
-        return "UserView{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName 
-                + ", middleName=" + middleName + ", position=" + position + ", phone=" + phone 
-                + ", docName=" + docName + ", docNumber=" + docNumber + ", docDate=" + docDate 
-                + ", citizenshipName=" + citizenshipName + ", citizenshipCode=" + citizenshipCode 
-                + ", isIdentified=" + isIdentified + '}';
+        return "UserView{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", middleName=" 
+                + middleName + ", position=" + position + ", phone=" + phone + ", docName=" + docName + ", docNumber=" 
+                + docNumber + ", docDate=" + docDate + ", citizenshipName=" + citizenshipName + ", citizenshipCode=" 
+                + citizenshipCode + ", isIdentified=" + isIdentified + ", officeId=" + officeId + '}';
     }
-    
-    
     
 }

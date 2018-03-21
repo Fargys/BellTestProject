@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.denisov.dao.OfficeDAO;
 import ru.bellintegrator.denisov.dao.UserDAO;
 import ru.bellintegrator.denisov.model.Citizenship;
 import ru.bellintegrator.denisov.model.Document;
+import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.service.UserService;
 import ru.bellintegrator.denisov.view.UserFilterView;
@@ -23,18 +25,20 @@ import ru.bellintegrator.denisov.view.UserView;
 public class UserServiceImpl implements UserService {
     private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
  
-    private final UserDAO dao;
+    private final UserDAO userDAO;
+    private final OfficeDAO officeDAO;
 
     @Autowired
-    public UserServiceImpl(UserDAO dao) {
-        this.dao = dao;
+    public UserServiceImpl(UserDAO userDAO, OfficeDAO officeDAO) {
+        this.userDAO = userDAO;
+        this.officeDAO = officeDAO;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<UserView> users(UserFilterView filterView) {
         List<UserView> result = new ArrayList<>();
-        List<User> users = dao.all(filterView);
+        List<User> users = userDAO.all(filterView);
         
         for(User user : users) {
             UserView view = new UserView();
@@ -59,7 +63,7 @@ public class UserServiceImpl implements UserService {
         Long userId = Long.parseLong(id, 10);
         UserView view = new UserView();
         
-        User user = dao.loadById(userId);
+        User user = userDAO.loadById(userId);
         view.id = String.valueOf(user.getId());
         view.firstName = user.getFirstName();
         view.secondName = user.getSecondName();
@@ -87,7 +91,7 @@ public class UserServiceImpl implements UserService {
     public void update(UserView view) {
         Long updatingUserId = Long.parseLong(view.id, 10);
         
-        User user = dao.loadById(updatingUserId);
+        User user = userDAO.loadById(updatingUserId);
         user.setFirstName(view.firstName);
         user.setSecondName(view.secondName);
         user.setMiddleName(view.middleName);
@@ -104,29 +108,31 @@ public class UserServiceImpl implements UserService {
         userCitizenship.setName(view.citizenshipName);
         userCitizenship.setCode(view.citizenshipCode);
         
-        dao.update(user);
+        userDAO.update(user);
     }
 
     @Override
     @Transactional
     public void delete(String id) {
         Long userId = Long.parseLong(id, 10);
-        dao.delete(userId);
+        userDAO.delete(userId);
     }
 
     @Override
     @Transactional
     public void save(UserView view) {
-        Date newDocDate = null;
         
         Document userDoc = new Document();
         userDoc.setName(view.docName);
         userDoc.setNumber(view.docNumber);
-        userDoc.setDate(newDocDate);
+        userDoc.setDate(view.docDate);
         
         Citizenship userCitizenship = new Citizenship();
         userCitizenship.setName(view.citizenshipName);
         userCitizenship.setCode(view.citizenshipCode);
+        
+        Long officeId = Long.parseLong(view.officeId);
+        Office userOffice = officeDAO.loadById(officeId);
         
         User user = new User();
         user.setFirstName(view.firstName);
@@ -137,7 +143,8 @@ public class UserServiceImpl implements UserService {
         user.setIdentified(view.isIdentified);
         user.setDocument(userDoc);
         user.setCitizenship(userCitizenship);
+        user.setOffice(userOffice);
         
-        dao.save(user);
+        userDAO.save(user);
     }
 }

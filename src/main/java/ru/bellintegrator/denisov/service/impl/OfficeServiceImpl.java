@@ -10,7 +10,9 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
+import ru.bellintegrator.denisov.dao.OrganizationDAO;
 import ru.bellintegrator.denisov.model.Office;
+import ru.bellintegrator.denisov.model.Organization;
 import ru.bellintegrator.denisov.service.OfficeService;
 import ru.bellintegrator.denisov.view.OfficeFilterView;
 import ru.bellintegrator.denisov.view.OfficeView;
@@ -20,18 +22,20 @@ import ru.bellintegrator.denisov.view.OfficeView;
 public class OfficeServiceImpl implements OfficeService {
     private final Logger log = LoggerFactory.getLogger(OfficeServiceImpl.class);
     
-    private final OfficeDAO dao;
+    private final OfficeDAO officeDAO;
+    private final OrganizationDAO orgDAO;
     
     @Autowired
-    public OfficeServiceImpl(OfficeDAO dao) {
-        this.dao = dao;
+    public OfficeServiceImpl(OfficeDAO officeDAO, OrganizationDAO orgDAO) {
+        this.officeDAO = officeDAO;
+        this.orgDAO = orgDAO;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<OfficeView> offices(OfficeFilterView filterView) {
         List<OfficeView> result = new ArrayList<>();
-        List<Office> offices = dao.all(filterView);
+        List<Office> offices = officeDAO.all(filterView);
         
         for(Office office : offices) {
             OfficeView view = new OfficeView();
@@ -53,7 +57,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional(readOnly = true)
     public OfficeView office(String id) {
         Long orgId = Long.parseLong(id, 10);
-        Office office = dao.loadById(orgId);
+        Office office = officeDAO.loadById(orgId);
         
         OfficeView view = new OfficeView();
         
@@ -72,32 +76,35 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     public void update(OfficeView view) {
         Long updatingOfficeId = Long.parseLong(view.id, 10);
-        Office office = dao.loadById(updatingOfficeId);
+        Office office = officeDAO.loadById(updatingOfficeId);
         
         office.setName(view.name);
         office.setPhone(view.phone);
         office.setActive(view.isActive);
         
-        dao.update(office);
+        officeDAO.update(office);
     }
 
     @Override
     @Transactional
     public void delete(String id) {
         Long officeId = Long.parseLong(id, 10);
-        dao.delete(officeId);
+        officeDAO.delete(officeId);
     }
 
     @Override
     @Transactional
     public void save(OfficeView view) {
-        Office office = new Office();
+        Long orgId = Long.parseLong(view.orgId);
+        Organization org = orgDAO.loadById(orgId);
         
+        Office office = new Office();
         office.setName(view.name);
         office.setPhone(view.phone);
         office.setActive(true);
+        office.setOrganization(org);
         
-        dao.save(office);
+        officeDAO.save(office);
     }
     
 }
