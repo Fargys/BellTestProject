@@ -1,6 +1,5 @@
 package ru.bellintegrator.denisov.controller.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +11,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.denisov.controller.UserController;
-import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.service.UserService;
 import ru.bellintegrator.denisov.view.ResponseView;
 import ru.bellintegrator.denisov.view.UserFilterView;
@@ -23,7 +21,6 @@ import ru.bellintegrator.denisov.view.UserView;
 public class UserControllerImpl implements UserController {
     
     private final UserService userService;
-    private final ResponseView responseView = new ResponseView();
     
 
     @Autowired
@@ -33,46 +30,80 @@ public class UserControllerImpl implements UserController {
     
     @Override
     @RequestMapping(value = "/list", method = {POST})
-    public Object users(@RequestBody UserFilterView view) {
-        return userService.users(view);
+    public ResponseView users(@RequestBody UserFilterView view) {
+        try {
+            Object data = userService.users(view);
+        
+            return ResponseView.newBuilder()
+                    .setData(data)
+                    .build();
+        
+        } catch (Throwable e) {
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
+        }
     }
 
     @Override
     @RequestMapping(value = "/{id}", method = {GET})
-    public Object user(@PathVariable("id") String id) {
-        return userService.user(id);
+    public ResponseView user(@PathVariable("id") String id) {
+        try {
+            Object data = userService.user(id);
+        
+            return ResponseView.newBuilder()
+                    .setData(data)
+                    .build();
+        
+        } catch (Throwable e) {
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
+        }
     }
 
     @Override
     @RequestMapping(value = "/update", method = {PUT})
-    public Object update(@RequestBody UserView view) {
+    public ResponseView update(@RequestBody UserView view) {
         try{
             userService.update(view);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
 
     @Override
     @RequestMapping(value = "/{id}", method = {DELETE})
-    public Object delete(@PathVariable("id") String id) {
+    public ResponseView delete(@PathVariable("id") String id) {
         try{
             userService.delete(id);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
 
     @Override
     @RequestMapping(value = "/save", method = {POST})
-    public Object save(@RequestBody UserView view) {
+    public ResponseView save(@RequestBody UserView view) {
         try{
             userService.save(view);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
 }

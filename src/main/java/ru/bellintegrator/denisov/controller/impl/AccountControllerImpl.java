@@ -20,7 +20,6 @@ public class AccountControllerImpl implements AccountController {
     
     private final AccountService loginService;
     private final ActivationService activationService;
-    private final ResponseView responseView = new ResponseView();
 
     @Autowired
     public AccountControllerImpl(AccountService loginService, ActivationService activationService) {
@@ -30,29 +29,46 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     @RequestMapping(value = "/register", method = {POST})
-    public Object register(@RequestBody AccountView view) {
+    public ResponseView register(@RequestBody AccountView view) {
         try{
             loginService.register(view);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
 
     @Override
     @RequestMapping(value = "/activation", method = {GET})
-    public void activation(@RequestParam("code") String code) {
-        activationService.activation(code);
+    public ResponseView activation(@RequestParam("code") String code) {
+        try{
+            activationService.activation(code);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
+        }catch(Throwable e) {
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
+        }
     }
 
     @Override
     @RequestMapping(value = "/login", method = {POST})
-    public Object login(@RequestBody AccountView view) {
+    public ResponseView login(@RequestBody AccountView view) {
         try{
             loginService.login(view);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
 }

@@ -8,46 +8,54 @@ public class ResponseView {
     
     public String error;
     
+    private ResponseView() {
+            // private constructor
+        }
     
-    public Object getDataView(Object data) {
-        setData(data);
-        return getData();
+    public static Builder newBuilder() {
+        return new ResponseView().new Builder();
     }
     
-    public Boolean getResultView(boolean result){
-        setResult(result);
-        return getResult();
-    }
-    
-    public String getErrorView(String error) {
-        setError(error);
-        return getError();
-    }
-    
-
     public Object getData() {
         return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 
     public Boolean getResult() {
         return result;
     }
 
-    public void setResult(Boolean result) {
-        this.result = result;
-    }
-
     public String getError() {
         return error;
     }
-
-    public void setError(String error) {
-        this.error = error;
-    }
     
+    
+    public class Builder {
+        
+        private Builder() {
+            // private constructor
+        }
+        
+        public Builder setData(Object data) {
+            ResponseView.this.data = data;
+
+            return this;
+        }
+
+        public Builder setResult(Boolean result) {
+            ResponseView.this.result = result;
+
+            return this;
+        }
+        
+        public Builder setError(String error) {
+            ResponseView.this.error = error;
+
+            return this;
+        }
+        
+        public ResponseView build() {
+            return ResponseView.this;
+        }
+    }
     
 }

@@ -21,7 +21,6 @@ import ru.bellintegrator.denisov.view.ResponseView;
 public class OfficeControllerImpl implements OfficeController {
     
     private final OfficeService officeService;
-    private final ResponseView responseView = new ResponseView();
 
     @Autowired
     public OfficeControllerImpl(OfficeService officeSerivce) {
@@ -31,46 +30,80 @@ public class OfficeControllerImpl implements OfficeController {
 
     @Override
     @RequestMapping(value = "/list", method = {POST})
-    public Object offices(@RequestBody OfficeFilterView view) {
-        return officeService.offices(view);
+    public ResponseView offices(@RequestBody OfficeFilterView view) {
+        try {
+            Object data = officeService.offices(view);
+        
+            return ResponseView.newBuilder()
+                    .setData(data)
+                    .build();
+        
+        } catch (Throwable e) {
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
+        }
     }
 
     @Override
     @RequestMapping(value = "/{id:.+}", method = {GET})
-    public Object office(@PathVariable("id") String id) {
-        return officeService.office(id);
+    public ResponseView office(@PathVariable("id") String id) {
+        try {
+            Object data = officeService.office(id);
+        
+            return ResponseView.newBuilder()
+                    .setData(data)
+                    .build();
+        
+        } catch (Throwable e) {
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
+        }
     }
 
     @Override
     @RequestMapping(value = "/update", method = {PUT})
-    public Object update(@RequestBody OfficeView view) {
+    public ResponseView update(@RequestBody OfficeView view) {
         try{
             officeService.update(view);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
 
     @Override
     @RequestMapping(value = "/{id}", method = {DELETE})
-    public Object delete(@PathVariable("id") String id) {
+    public ResponseView delete(@PathVariable("id") String id) {
         try{
             officeService.delete(id);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
 
     @Override
     @RequestMapping(value = "/save", method = {POST})
-    public Object save(@RequestBody OfficeView view) {
+    public ResponseView save(@RequestBody OfficeView view) {
         try{
             officeService.save(view);
-            return responseView.getResultView(true);
+            return ResponseView.newBuilder()
+                    .setResult(true)
+                    .build();
         }catch(Throwable e) {
-            return responseView.getErrorView(e.getMessage());
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
         }
     }
     

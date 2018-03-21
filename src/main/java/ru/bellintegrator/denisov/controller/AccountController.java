@@ -1,12 +1,13 @@
 package ru.bellintegrator.denisov.controller;
 
 import ru.bellintegrator.denisov.view.AccountView;
+import ru.bellintegrator.denisov.view.ResponseView;
 
 public interface AccountController {
     
-    public Object register(AccountView view);
+    public ResponseView register(AccountView view);
     
-    public void activation(String code);
+    public ResponseView activation(String code);
     
-    public Object login(AccountView view);
+    public ResponseView login(AccountView view);
 }
