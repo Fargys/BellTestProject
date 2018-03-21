@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
 import ru.bellintegrator.denisov.dao.UserDAO;
-import ru.bellintegrator.denisov.model.Citizenship;
+import ru.bellintegrator.denisov.model.CitizenshipType;
 import ru.bellintegrator.denisov.model.Document;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.User;
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         view.docNumber = userDoc.getNumber();
         view.docDate = userDoc.getDate();
         
-        Citizenship userCitizenship = user.getCitizenship();
+        CitizenshipType userCitizenship = user.getCitizenship();
         view.citizenshipName = userCitizenship.getName();
         view.citizenshipCode = userCitizenship.getCode();
         
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         userDoc.setNumber(view.docNumber);
         userDoc.setDate(view.docDate);
         
-        Citizenship userCitizenship = user.getCitizenship();
+        CitizenshipType userCitizenship = user.getCitizenship();
         userCitizenship.setName(view.citizenshipName);
         userCitizenship.setCode(view.citizenshipCode);
         
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
         userDoc.setNumber(view.docNumber);
         userDoc.setDate(view.docDate);
         
-        Citizenship userCitizenship = new Citizenship();
+        CitizenshipType userCitizenship = new CitizenshipType();
         userCitizenship.setName(view.citizenshipName);
         userCitizenship.setCode(view.citizenshipCode);
         

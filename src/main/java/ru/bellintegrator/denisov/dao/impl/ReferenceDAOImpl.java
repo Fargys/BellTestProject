@@ -6,7 +6,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
-import ru.bellintegrator.denisov.model.Citizenship;
+import ru.bellintegrator.denisov.model.CitizenshipType;
 import ru.bellintegrator.denisov.model.Document;
 
 @Repository
@@ -28,9 +28,9 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     }
 
     @Override
-    public List<Citizenship> allCitizenship() {
-        TypedQuery<Citizenship> query = em.createQuery("SELECT p FROM Citizenship p", Citizenship.class);
-        List<Citizenship> result = query.getResultList();
+    public List<CitizenshipType> allCitizenship() {
+        TypedQuery<CitizenshipType> query = em.createQuery("SELECT p FROM Citizenship p", CitizenshipType.class);
+        List<CitizenshipType> result = query.getResultList();
         
         return result;
     }

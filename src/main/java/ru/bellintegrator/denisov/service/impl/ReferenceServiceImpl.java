@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
-import ru.bellintegrator.denisov.model.Citizenship;
+import ru.bellintegrator.denisov.model.CitizenshipType;
 import ru.bellintegrator.denisov.model.Document;
 import ru.bellintegrator.denisov.service.ReferenceService;
 
@@ -28,7 +28,7 @@ public class ReferenceServiceImpl implements ReferenceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Citizenship> countries() {
+    public List<CitizenshipType> countries() {
         return dao.allCitizenship();
     }
  

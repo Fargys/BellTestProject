@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,17 +28,17 @@ public class Document {
     private Integer version;
     
     @Basic(optional = false)
-    @Column(name = "doc_name")
-    private String name;
-    
-    @Basic(optional = false)
     @Column(name = "doc_number")
     private Integer number;
     
     @Basic(optional = false)
     @Column(name = "doc_date")
-    @Temporal(value=TemporalType.DATE)
+    @Temporal(value = TemporalType.DATE)
     private Date date;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doc_type")
+    private DocumentType type;
     
     @OneToMany(mappedBy = "document", fetch = FetchType.LAZY)
     private Set<User> users;
@@ -49,15 +50,7 @@ public class Document {
     public Long getId() {
         return id;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String docName) {
-        this.name = docName;
-    }
-
+    
     public Integer getNumber() {
         return number;
     }
@@ -74,6 +67,14 @@ public class Document {
         this.date = docDate;
     }
 
+    public DocumentType getType() {
+        return type;
+    }
+
+    public void setType(DocumentType type) {
+        this.type = type;
+    }
+    
     public Set<User> getUsers() {
         if (users == null) {
             users = new HashSet<>();
@@ -84,7 +85,5 @@ public class Document {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
-    
-    
     
 }

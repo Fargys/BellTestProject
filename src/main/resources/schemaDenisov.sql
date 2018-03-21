@@ -44,17 +44,25 @@ CREATE TABLE IF NOT EXISTS Login (
 CREATE TABLE IF NOT EXISTS Document (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER NOT NULL,
-    doc_name            VARCHAR(45) NOT NULL,
     doc_number          INTEGER NOT NULL,
-    doc_date            DATE NOT NULL
+    doc_date            DATE NOT NULL, 
+    doc_type            VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Citizenship (
+CREATE TABLE IF NOT EXISTS Document_type (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER NOT NULL,
-    citizenship_name    VARCHAR(45) NOT NULL,
-    citizenship_code    INTEGER NOT NULL
+    doc_code            INTEGER NOT NULL,
+    doc_name            VARCHAR(45) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS Citizenship_type (
+    id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
+    version             INTEGER NOT NULL,
+    citizenship_code    INTEGER NOT NULL,
+    citizenship_name    VARCHAR(45) NOT NULL
+);
+
 
 CREATE INDEX Org_Id ON Office (org_id);
 ALTER TABLE Office ADD FOREIGN KEY (org_id) REFERENCES Organization(id);
@@ -70,3 +78,7 @@ ALTER TABLE User ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship(id);
 
 CREATE INDEX User_id ON Login (user_id);
 ALTER TABLE Login ADD FOREIGN KEY (user_id) REFERENCES User(id);
+
+CREATE INDEX Doc_type ON Document (doc_type);
+ALTER TABLE Document ADD FOREIGN KEY (doc_type) REFERENCES Document_type(id);
+

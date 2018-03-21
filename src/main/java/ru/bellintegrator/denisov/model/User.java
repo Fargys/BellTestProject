@@ -67,7 +67,7 @@ public class User {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")
-    private Citizenship citizenship;
+    private CitizenshipType citizenship;
     
     
     public User() {
@@ -149,11 +149,11 @@ public class User {
         this.document = document;
     }
 
-    public Citizenship getCitizenship() {
+    public CitizenshipType getCitizenship() {
         return citizenship;
     }
 
-    public void setCitizenship(Citizenship citizenship) {
+    public void setCitizenship(CitizenshipType citizenship) {
         this.citizenship = citizenship;
     }
     

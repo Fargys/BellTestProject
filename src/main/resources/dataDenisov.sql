@@ -1,8 +1,11 @@
-INSERT INTO Document (id, version, doc_name, doc_number, doc_date) 
-VALUES (1, 0, 'Passport', 10, '2018-03-05');
+INSERT INTO Document_type (id, version, doc_code, doc_name) 
+VALUES (1, 0, 10, 'Passport');
 
-INSERT INTO Citizenship (id, version, citizenship_name, citizenship_code) 
-VALUES (1, 0, 'Russia', 10);
+INSERT INTO Citizenship_type (id, version, citizenship_code, citizenship_name) 
+VALUES (1, 0, 10, 'Russia');
+
+INSERT INTO Document (id, version, doc_number, doc_date, doc_type) 
+VALUES (1, 0, '2134568990', '2018-03-05', 1);
 
 INSERT INTO Organization (id, version, name, fullName, inn, kpp, address, phone, is_active) 
 VALUES (1, 0, 'MC', 'MacDonalds corp.', 0123456789 , 012345678, 'Red Place', '8(911) 123-34-45', 1);
