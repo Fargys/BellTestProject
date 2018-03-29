@@ -84,8 +84,7 @@ public class OfficeServiceImpl implements OfficeService {
         Long orgId = Long.parseLong(view.orgId);
         Organization org = orgDAO.loadById(orgId);
         
-        Office office = new Office();
-        office = view.toConvertOfficeEntity(office, org);
+        Office office = view.toConvertOfficeEntity(org);
         
         officeDAO.save(office);
     }

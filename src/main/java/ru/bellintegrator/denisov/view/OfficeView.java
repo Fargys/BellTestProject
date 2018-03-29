@@ -29,7 +29,8 @@ public class OfficeView {
         return office;
     }
 
-    public Office toConvertOfficeEntity(Office office, Organization org) {
+    public Office toConvertOfficeEntity(Organization org) {
+        Office office = new Office();
         
         office.setName(name);
         office.setAddress(address);
