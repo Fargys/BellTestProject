@@ -3,12 +3,15 @@ package ru.bellintegrator.denisov.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.denisov.dao.UserDAO;
+import ru.bellintegrator.denisov.model.CitizenshipType;
+import ru.bellintegrator.denisov.model.DocumentType;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
 
@@ -59,21 +62,64 @@ public class UserDAOImpl implements UserDAO {
     
     
     private class UserCriteriaConverter {
-        private UserFilterView filter;
+        private final UserFilterView filter;
         
-        private List<Predicate> predicates = new ArrayList<>();
-        private Root<User> organizations;
+        private final List<Predicate> predicates = new ArrayList<>();
+        private Root<User> users;
         private CriteriaQuery criteriaQuery;
         
         private UserCriteriaConverter(UserFilterView filter) {
             this.filter = filter;
+            makePredicates();
         }
         
         
         private void makePredicates() {
-            //TODO
+            String officeId = filter.officeId;
+            String firstName = filter.firstName;
+            String lastName = filter.lastName;
+            String middleName = filter.middleName;
+            String position = filter.position;
+            String docCode = filter.docCode;
+            String citizenshipCode = filter.citizenshipCode;
+            
+            CriteriaBuilder qb = em.getCriteriaBuilder();
+            criteriaQuery = qb.createQuery();
+            users = criteriaQuery.from(User.class);
+            
+            Root<DocumentType> docs = criteriaQuery.from(DocumentType.class);
+            Root<CitizenshipType> countries = criteriaQuery.from(CitizenshipType.class);
+            
+            if (officeId != null) {
+               predicates.add(
+                   qb.equal(users.get("office_id"), officeId));
+            }
+            if (firstName != null) {
+               predicates.add(
+                   qb.equal(users.get("first_name"), firstName));
+            }
+            if (lastName != null) {
+               predicates.add(
+                   qb.equal(users.get("last_name"), lastName));
+            }
+            if (middleName != null) {
+               predicates.add(
+                   qb.equal(users.get("middle_name"), middleName));
+            }
+            if (position != null) {
+               predicates.add(
+                   qb.equal(users.get("position"), position));
+            }
+            if (docCode != null) {
+               predicates.add(
+                   qb.equal(docs.get("doc_code"), docCode));
+            }
+            if (citizenshipCode != null) {
+               predicates.add(
+                   qb.equal(countries.get("citizenship_code"), citizenshipCode));
+            }
+            
         }
-        
         
         
         public List<Predicate> getPredicates() {
@@ -81,7 +127,7 @@ public class UserDAOImpl implements UserDAO {
         }
 
         public Root<User> getRoot() {
-            return organizations;
+            return users;
         }
 
         public CriteriaQuery getCriteriaQuery() {

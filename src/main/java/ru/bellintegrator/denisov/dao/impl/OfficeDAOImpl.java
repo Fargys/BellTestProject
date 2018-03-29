@@ -84,7 +84,7 @@ public class OfficeDAOImpl implements OfficeDAO {
             
             if (orgId != null) {
                predicates.add(
-                   qb.like(office.<String>get("org_id"), orgId));
+                   qb.equal(office.<String>get("org_id"), orgId));
             }
             if (name != null) {
                predicates.add(

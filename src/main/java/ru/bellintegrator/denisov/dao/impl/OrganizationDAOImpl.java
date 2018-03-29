@@ -72,8 +72,9 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     
     
     private class OrgCriteriaConverter {
-        private OrganizationFilterView filter;
-        private List<Predicate> predicates = new ArrayList<>();
+        private final OrganizationFilterView filter;
+        
+        private final List<Predicate> predicates = new ArrayList<>();
         private Root<Organization> organizations;
         private CriteriaQuery criteriaQuery;
 
