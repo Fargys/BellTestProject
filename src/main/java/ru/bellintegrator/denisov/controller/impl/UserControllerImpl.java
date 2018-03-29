@@ -11,6 +11,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.denisov.controller.UserController;
+import ru.bellintegrator.denisov.exception.UserControllerException;
 import ru.bellintegrator.denisov.service.UserService;
 import ru.bellintegrator.denisov.view.ResponseView;
 import ru.bellintegrator.denisov.view.UserFilterView;
@@ -32,6 +33,7 @@ public class UserControllerImpl implements UserController {
     @RequestMapping(value = "/list", method = {POST})
     public ResponseView users(@RequestBody UserFilterView view) {
         try {
+            if(view.officeId == null) throw new UserControllerException();
             Object data = userService.users(view);
         
             return ResponseView.newBuilder()

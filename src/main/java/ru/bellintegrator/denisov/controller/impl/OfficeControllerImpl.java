@@ -11,6 +11,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.denisov.controller.OfficeController;
+import ru.bellintegrator.denisov.exception.OfficeControllerException;
 import ru.bellintegrator.denisov.service.OfficeService;
 import ru.bellintegrator.denisov.view.OfficeFilterView;
 import ru.bellintegrator.denisov.view.OfficeView;
@@ -32,6 +33,7 @@ public class OfficeControllerImpl implements OfficeController {
     @RequestMapping(value = "/list", method = {POST})
     public ResponseView offices(@RequestBody OfficeFilterView view) {
         try {
+            if(view.orgId == null) throw new OfficeControllerException();
             Object data = officeService.offices(view);
         
             return ResponseView.newBuilder()

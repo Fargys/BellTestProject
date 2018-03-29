@@ -11,6 +11,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.denisov.controller.OrganizationController;
+import ru.bellintegrator.denisov.exception.OrganizationControllerException;
 import ru.bellintegrator.denisov.service.OrganizationService;
 import ru.bellintegrator.denisov.view.OrganizationFilterView;
 import ru.bellintegrator.denisov.view.OrganizationView;
@@ -31,7 +32,8 @@ public class OrganizationControllerImpl implements OrganizationController {
     @RequestMapping(value = "/list", method = {POST})
     public ResponseView organizations(@RequestBody OrganizationFilterView view) {
         try {
-        Object data = organizationService.organizations(view);
+            if(view.name == null) throw new OrganizationControllerException();
+            Object data = organizationService.organizations(view);
         
         return ResponseView.newBuilder()
                 .setData(data)
