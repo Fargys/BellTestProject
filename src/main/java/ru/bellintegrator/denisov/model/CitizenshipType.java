@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 @Entity(name = "Citizenship_type")
+@NamedQuery(name = "CitizenshipType.findAll", query = "SELECT p FROM Citizenship_type p") 
 public class CitizenshipType {
     
     @Id

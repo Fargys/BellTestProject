@@ -36,7 +36,7 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     
     @Override
     public List<DocumentType> allDocumentType() {
-        TypedQuery<DocumentType> query = em.createQuery("SELECT p FROM Document_type p", DocumentType.class);
+        TypedQuery<DocumentType> query = em.createNamedQuery("DocumentType.findAll", DocumentType.class);
         List<DocumentType> result = query.getResultList();
         
         return result;
@@ -44,7 +44,7 @@ public class ReferenceDAOImpl implements ReferenceDAO {
 
     @Override
     public List<CitizenshipType> allCitizenshipType() {
-        TypedQuery<CitizenshipType> query = em.createQuery("SELECT p FROM Citizenship_type p", CitizenshipType.class);
+        TypedQuery<CitizenshipType> query = em.createNamedQuery("CitizenshipType.findAll", CitizenshipType.class);
         List<CitizenshipType> result = query.getResultList();
         
         return result;
