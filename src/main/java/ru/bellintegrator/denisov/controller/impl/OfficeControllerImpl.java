@@ -46,7 +46,7 @@ public class OfficeControllerImpl implements OfficeController {
     }
 
     @Override
-    @RequestMapping(value = "/{id:.+}", method = {GET})
+    @RequestMapping(value = "/{id}", method = {GET})
     public ResponseView office(@PathVariable("id") String id) {
         try {
             Object data = officeService.office(id);
