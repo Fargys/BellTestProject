@@ -25,34 +25,11 @@ public class OfficeDAOImpl implements OfficeDAO {
 
     @Override
     public List<Office> all(OfficeFilterView filter) {
-        String orgId = filter.orgId;
-        String name = filter.name;
-        String phone = filter.phone;
-        String isActive = String.valueOf(filter.isActive);
-
-        CriteriaBuilder qb = em.getCriteriaBuilder();
-        CriteriaQuery cq = qb.createQuery();
-        Root<Office> office = cq.from(Office.class);
-  
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (orgId != null) {
-            predicates.add(
-                qb.equal(office.get("org_id"), orgId));
-        }
-        if (name != null) {
-            predicates.add(
-                qb.like(office.<String>get("name"), name));
-        }
-        if (phone != null) {
-            predicates.add(
-                qb.equal(office.get("phone"), phone));
-        }
-        if (isActive != null) {
-            predicates.add(
-                qb.equal(office.get("is_active"), isActive));
-        }
-
+        OfficeCriteriaConverter converter = new OfficeCriteriaConverter(filter);
+        CriteriaQuery cq = converter.getCriteriaQuery();
+        Root<Office> office = converter.getRoot();
+        List<Predicate> predicates = converter.getPredicates();
+        
         cq.select(office)
             .where(predicates.toArray(new Predicate[]{}));
         
@@ -78,6 +55,64 @@ public class OfficeDAOImpl implements OfficeDAO {
     @Override
     public void save(Office office) {
         em.persist(office);
+    }
+    
+    
+    
+    private class OfficeCriteriaConverter {
+        private final OfficeFilterView filter;
+        
+        private final List<Predicate> predicates = new ArrayList<>();
+        private Root<Office> office;
+        private CriteriaQuery criteriaQuery;
+
+        public OfficeCriteriaConverter(OfficeFilterView filter) {
+            this.filter = filter;
+            makePredicates();
+        }
+        
+        private void makePredicates() {
+            String orgId = filter.orgId;
+            String name = filter.name;
+            String phone = filter.phone;
+            String isActive = String.valueOf(filter.isActive);
+
+            CriteriaBuilder qb = em.getCriteriaBuilder();
+            criteriaQuery = qb.createQuery();
+            office = criteriaQuery.from(Office.class);
+            
+            
+            if (orgId != null) {
+               predicates.add(
+                   qb.like(office.<String>get("org_id"), orgId));
+            }
+            if (name != null) {
+               predicates.add(
+                   qb.like(office.<String>get("name"), name));
+            }
+            if (phone != null) {
+                predicates.add(
+                  qb.equal(office.get("phone"), phone));
+            }
+            if (isActive != null) {
+                predicates.add(
+                  qb.equal(office.get("is_active"), isActive));
+            }
+        }
+        
+
+        public List<Predicate> getPredicates() {
+            return predicates;
+        }
+
+        public Root<Office> getRoot() {
+            return office;
+        }
+
+        public CriteriaQuery getCriteriaQuery() {
+            return criteriaQuery;
+        }
+        
     }
     
 }

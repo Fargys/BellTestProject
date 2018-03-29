@@ -26,28 +26,10 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public List<Organization> all(OrganizationFilterView filter) {
-        String name = filter.name;
-        String inn = filter.inn;
-        String isActive = filter.isActive;
-
-        CriteriaBuilder qb = em.getCriteriaBuilder();
-        CriteriaQuery cq = qb.createQuery();
-        Root<Organization> organizations = cq.from(Organization.class);
-  
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (name != null) {
-            predicates.add(
-                qb.like(organizations.<String>get("name"), name));
-        }
-        if (inn != null) {
-            predicates.add(
-                qb.equal(organizations.get("inn"), inn));
-        }
-        if (isActive != null) {
-            predicates.add(
-                qb.equal(organizations.get("is_active"), isActive));
-        }
+        OrgCriteriaConverter converter = new OrgCriteriaConverter(filter);
+        CriteriaQuery cq = converter.getCriteriaQuery();
+        Root<Organization> organizations = converter.getRoot();
+        List<Predicate> predicates = converter.getPredicates();
 
         cq.select(organizations)
             .where(predicates.toArray(new Predicate[]{}));
@@ -86,6 +68,56 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     public void delete(Long id) {
         Organization org = loadById(id);
         em.remove(org);
+    }
+    
+    
+    private class OrgCriteriaConverter {
+        private OrganizationFilterView filter;
+        private List<Predicate> predicates = new ArrayList<>();
+        private Root<Organization> organizations;
+        private CriteriaQuery criteriaQuery;
+
+        public OrgCriteriaConverter(OrganizationFilterView filter) {
+            this.filter = filter;
+            makePredicates();
+        }
+        
+        private void makePredicates() {
+            String name = filter.name;
+            String inn = filter.inn;
+            String isActive = filter.isActive;
+
+            CriteriaBuilder qb = em.getCriteriaBuilder();
+            criteriaQuery = qb.createQuery();
+            organizations = criteriaQuery.from(Organization.class);
+            
+            if (name != null) {
+               predicates.add(
+                   qb.like(organizations.<String>get("name"), name));
+            }
+            if (inn != null) {
+                predicates.add(
+                  qb.equal(organizations.get("inn"), inn));
+            }
+            if (isActive != null) {
+                predicates.add(
+                  qb.equal(organizations.get("is_active"), isActive));
+            }
+        }
+        
+
+        public List<Predicate> getPredicates() {
+            return predicates;
+        }
+
+        public Root<Organization> getRoot() {
+            return organizations;
+        }
+
+        public CriteriaQuery getCriteriaQuery() {
+            return criteriaQuery;
+        }
+        
     }
     
 }
