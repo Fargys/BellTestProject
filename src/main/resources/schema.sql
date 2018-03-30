@@ -74,7 +74,7 @@ CREATE INDEX Doc_id ON User (doc_id);
 ALTER TABLE User ADD FOREIGN KEY (doc_id) REFERENCES Document(id);
 
 CREATE INDEX Citizenship_id ON User (citizenship_id);
-ALTER TABLE User ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship(id);
+ALTER TABLE User ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship_type(id);
 
 CREATE INDEX User_id ON Login (user_id);
 ALTER TABLE Login ADD FOREIGN KEY (user_id) REFERENCES User(id);
