@@ -28,23 +28,18 @@ public class User implements Serializable  {
     @Version
     private Integer version;
     
-    @Basic(optional = false)
     @Column(name = "first_name")
     private String firstName;
     
-    @Basic(optional = false)
     @Column(name = "second_name")
     private String secondName;
     
-    @Basic(optional = false)
     @Column(name = "middle_name")
     private String middleName;
     
-    @Basic(optional = false)
     @Column(name = "position")
     private String position;
     
-    @Basic(optional = false)
     @Column(name = "phone")
     private String phone;
     

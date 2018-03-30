@@ -25,11 +25,9 @@ public class CitizenshipType implements Serializable  {
     @Version
     private Integer version;
     
-    @Basic(optional = false)
     @Column(name = "citizenship_name")
     private String name;
     
-    @Basic(optional = false)
     @Column(name = "citizenship_code")
     private Integer code;
     

@@ -28,11 +28,9 @@ public class Document implements Serializable  {
     @Version
     private Integer version;
     
-    @Basic(optional = false)
     @Column(name = "doc_number")
     private Integer number;
     
-    @Basic(optional = false)
     @Column(name = "doc_date")
     @Temporal(value = TemporalType.DATE)
     private Date date;

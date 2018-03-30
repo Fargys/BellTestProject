@@ -29,27 +29,21 @@ public class Organization implements Serializable  {
     @Version
     private Integer version;
     
-    @Basic(optional = false)
     @Column(name = "name")
     private String name;
     
-    @Basic(optional = false)
     @Column(name = "full_name")
     private String fullName;
     
-    @Basic(optional = false)
     @Column(name = "inn")
     private Integer inn;
     
-    @Basic(optional = false)
     @Column(name = "kpp")
     private Integer kpp;
     
-    @Basic(optional = false)
     @Column(name = "address")
     private String address;
     
-    @Basic(optional = false)
     @Column(name = "phone")
     private String phone;
     

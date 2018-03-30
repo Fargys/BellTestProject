@@ -29,15 +29,12 @@ public class Office implements Serializable  {
     @Version
     private Integer version;
     
-    @Basic(optional = false)
     @Column(name = "name")
     private String name;
     
-    @Basic(optional = false)
     @Column(name = "phone")
     private String phone;
     
-    @Basic(optional = false)
     @Column(name = "address")
     private String address;
     

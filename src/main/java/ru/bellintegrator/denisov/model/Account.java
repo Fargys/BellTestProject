@@ -22,11 +22,9 @@ public class Account implements Serializable  {
     @Version
     private Integer version;
     
-    @Basic(optional = false)
     @Column(name = "login")
     private String login;
     
-    @Basic(optional = false)
     @Column(name = "password")
     private String password;
     

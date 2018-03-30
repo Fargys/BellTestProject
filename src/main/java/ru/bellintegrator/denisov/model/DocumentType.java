@@ -23,11 +23,9 @@ public class DocumentType implements Serializable  {
     @Version
     private Integer version;
     
-    @Basic(optional = false)
     @Column(name = "doc_name")
     private String name;
     
-    @Basic(optional = false)
     @Column(name = "doc_code")
     private Integer code;
     

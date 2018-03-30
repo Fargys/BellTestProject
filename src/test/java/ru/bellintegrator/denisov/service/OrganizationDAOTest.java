@@ -16,7 +16,6 @@ import ru.bellintegrator.denisov.dao.OrganizationDAO;
 import ru.bellintegrator.denisov.main.Application;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.Organization;
-import ru.bellintegrator.denisov.view.OrganizationFilterView;
 
 
 
@@ -41,7 +40,7 @@ public class OrganizationDAOTest {
         list.add(office);
         organizationDAO.save(organization);
 
-        List<Organization> organizations = organizationDAO.all(new OrganizationFilterView());    // stub
+        List<Organization> organizations = organizationDAO.all();
         Assert.assertNotNull(organizations);
 
         office.setOrganization(organization);
@@ -56,7 +55,7 @@ public class OrganizationDAOTest {
         Office secondOffice = new Office();
         offices.add(secondOffice);
 
-        organizations = organizationDAO.all(new OrganizationFilterView());    // stub
+        organizations = organizationDAO.all();
         offices = organizations.get(1).getOffices();
         Assert.assertNotNull(offices);
         Assert.assertEquals(1, offices.size());

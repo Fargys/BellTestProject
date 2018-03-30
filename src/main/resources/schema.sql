@@ -1,66 +1,66 @@
 CREATE TABLE IF NOT EXISTS Organization (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER NOT NULL,
-    name                VARCHAR(45) NOT NULL,
-    fullName            VARCHAR(45) NOT NULL,
-    inn                 INTEGER NOT NULL,
-    kpp                 INTEGER NOT NULL,
-    address             VARCHAR(45) NOT NULL,
-    phone               VARCHAR(45) NOT NULL,
+    version             INTEGER,
+    name                VARCHAR(45),
+    fullName            VARCHAR(45),
+    inn                 INTEGER,
+    kpp                 INTEGER,
+    address             VARCHAR(45),
+    phone               VARCHAR(45),
     is_active           TINYINT(1) DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS Office (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER NOT NULL,
-    name                VARCHAR(45) NOT NULL,
-    phone               VARCHAR(45) NOT NULL,
+    version             INTEGER,
+    name                VARCHAR(45),
+    phone               VARCHAR(45),
     is_active           TINYINT(1) DEFAULT 0,
-    org_id              VARCHAR(45) NOT NULL
+    org_id              VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS User (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER NOT NULL,
-    first_name          VARCHAR(45) NOT NULL,
-    second_name         VARCHAR(45) NOT NULL,
-    middle_name         VARCHAR(45) NOT NULL,
-    position            VARCHAR(45) NOT NULL,
-    phone               VARCHAR(45) NOT NULL,
+    version             INTEGER,
+    first_name          VARCHAR(45),
+    second_name         VARCHAR(45),
+    middle_name         VARCHAR(45),
+    position            VARCHAR(45),
+    phone               VARCHAR(45),
     is_identified       TINYINT(1) DEFAULT 0,
-    office_id           INTEGER NOT NULL,
-    doc_id              INTEGER NOT NULL,
-    citizenship_id      INTEGER NOT NULL
+    office_id           INTEGER,
+    doc_id              INTEGER,
+    citizenship_id      INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Login (
-    user_id             INTEGER NOT NULL UNIQUE,
-    version             INTEGER NOT NULL,
-    login               VARCHAR(45) NOT NULL UNIQUE,
-    password            VARCHAR(45) NOT NULL,
+    user_id             INTEGER UNIQUE,
+    version             INTEGER ,
+    login               VARCHAR(45) UNIQUE,
+    password            VARCHAR(45),
     activation_code      VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS Document (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER NOT NULL,
-    doc_number          INTEGER NOT NULL,
-    doc_date            DATE NOT NULL, 
-    doc_type            VARCHAR(45) NOT NULL
+    version             INTEGER,
+    doc_number          INTEGER,
+    doc_date            DATE, 
+    doc_type            VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS Document_type (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER NOT NULL,
-    doc_code            INTEGER NOT NULL,
-    doc_name            VARCHAR(45) NOT NULL
+    version             INTEGER,
+    doc_code            INTEGER,
+    doc_name            VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS Citizenship_type (
     id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER NOT NULL,
-    citizenship_code    INTEGER NOT NULL,
-    citizenship_name    VARCHAR(45) NOT NULL
+    version             INTEGER,
+    citizenship_code    INTEGER,
+    citizenship_name    VARCHAR(45)
 );
 
 
