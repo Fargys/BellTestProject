@@ -1,13 +1,8 @@
 package ru.bellintegrator.denisov.service;
 
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.UserDAO;
+import ru.bellintegrator.denisov.main.Application;
 import ru.bellintegrator.denisov.model.CitizenshipType;
 import ru.bellintegrator.denisov.model.Document;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
-import ru.bellintegrator.denisov.view.UserView;
-import ru.bellintegrator.practice.Application;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})

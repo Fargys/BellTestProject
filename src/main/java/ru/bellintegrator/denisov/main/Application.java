@@ -1,4 +1,6 @@
-package ru.bellintegrator.practice;
+package ru.bellintegrator.denisov.main;
+
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,9 +11,6 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import ru.bellintegrator.practice.controller.impl.DummyControllerImpl;
-import ru.bellintegrator.practice.dao.impl.PersonDAOImpl;
-import ru.bellintegrator.practice.service.impl.DummyServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -19,13 +18,18 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Locale;
+import ru.bellintegrator.denisov.controller.impl.OrganizationControllerImpl;
+import ru.bellintegrator.denisov.dao.impl.OrganizationDAOImpl;
+import ru.bellintegrator.denisov.service.impl.OrganizationServiceImpl;
+import ru.bellintegrator.denisov.view.OrganizationView;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
 @ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {DummyControllerImpl.class, DummyServiceImpl.class, PersonDAOImpl.class})
+@ComponentScan(basePackageClasses = {OrganizationControllerImpl.class, OrganizationServiceImpl.class
+        , OrganizationDAOImpl.class, OrganizationView.class})
 public class Application {
 
     public static void main(String[] args) {

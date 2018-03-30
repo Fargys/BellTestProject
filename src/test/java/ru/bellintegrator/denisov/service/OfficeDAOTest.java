@@ -13,10 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
+import ru.bellintegrator.denisov.main.Application;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.OfficeFilterView;
-import ru.bellintegrator.practice.Application;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
