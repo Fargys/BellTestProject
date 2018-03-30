@@ -1,4 +1,4 @@
-package ru.bellintegrator.denisov.main;
+package ru.bellintegrator.denisov;
 
 
 
