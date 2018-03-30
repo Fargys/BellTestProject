@@ -5,6 +5,8 @@ import ru.bellintegrator.denisov.model.Organization;
 import ru.bellintegrator.denisov.view.OrganizationFilterView;
 
 public interface OrganizationDAO {
+    
+    public List<Organization> all();
 
     public List<Organization> all(OrganizationFilterView filter);
 
