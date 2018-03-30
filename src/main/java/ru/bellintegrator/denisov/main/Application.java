@@ -16,20 +16,13 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.util.Locale;
-import ru.bellintegrator.denisov.controller.impl.OrganizationControllerImpl;
-import ru.bellintegrator.denisov.dao.impl.OrganizationDAOImpl;
-import ru.bellintegrator.denisov.service.impl.OrganizationServiceImpl;
-import ru.bellintegrator.denisov.view.OrganizationView;
-
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
 @ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {OrganizationControllerImpl.class, OrganizationServiceImpl.class
-        , OrganizationDAOImpl.class, OrganizationView.class})
+@ComponentScan("ru.bellintegrator.denisov")
 public class Application {
 
     public static void main(String[] args) {
