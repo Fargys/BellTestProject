@@ -10,5 +10,9 @@ public interface ReferenceDAO {
     
     public List<DocumentType> allDocumentType();
     
+    public void saveDocument(DocumentType type);
+    
     public List<CitizenshipType> allCitizenshipType();
+    
+    public void saveCitizenshipType(CitizenshipType type);
 }

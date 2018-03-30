@@ -49,5 +49,18 @@ public class ReferenceDAOImpl implements ReferenceDAO {
         
         return result;
     }
+
+    @Override
+    public void saveDocument(DocumentType type) {
+        em.persist(type);
+    }
+
+    @Override
+    public void saveCitizenshipType(CitizenshipType type) {
+        em.persist(type);
+    }
+    
+    
+    
     
 }
