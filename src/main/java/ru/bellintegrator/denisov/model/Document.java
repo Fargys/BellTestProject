@@ -1,5 +1,6 @@
 package ru.bellintegrator.denisov.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @Entity(name = "Document")
-public class Document {
+public class Document implements Serializable  {
     
     @Id
     @GeneratedValue

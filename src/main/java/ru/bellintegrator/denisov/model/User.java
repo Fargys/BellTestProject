@@ -1,5 +1,6 @@
 package ru.bellintegrator.denisov.model;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import javax.persistence.Version;
 import ru.bellintegrator.denisov.view.UserView;
 
 @Entity(name = "User")
-public class User {
+public class User implements Serializable  {
     
     @Id
     @GeneratedValue

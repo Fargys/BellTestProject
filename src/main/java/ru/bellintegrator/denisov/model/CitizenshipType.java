@@ -1,5 +1,6 @@
 package ru.bellintegrator.denisov.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -14,7 +15,7 @@ import javax.persistence.Version;
 
 @Entity(name = "Citizenship_type")
 @NamedQuery(name = "CitizenshipType.findAll", query = "SELECT p FROM Citizenship_type p") 
-public class CitizenshipType {
+public class CitizenshipType implements Serializable  {
     
     @Id
     @GeneratedValue

@@ -1,5 +1,6 @@
 package ru.bellintegrator.denisov.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -15,7 +16,7 @@ import javax.persistence.Version;
 import ru.bellintegrator.denisov.view.OfficeView;
 
 @Entity(name = "Office")
-public class Office {
+public class Office implements Serializable  {
     
     @Id
     @GeneratedValue

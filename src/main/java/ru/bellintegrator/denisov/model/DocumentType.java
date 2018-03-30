@@ -1,5 +1,6 @@
 package ru.bellintegrator.denisov.model;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.Version;
 
 @Entity(name = "Document_type")
 @NamedQuery(name = "DocumentType.findAll", query = "SELECT p FROM Document_type p") 
-public class DocumentType {
+public class DocumentType implements Serializable  {
     
     @Id
     @GeneratedValue

@@ -1,6 +1,6 @@
 package ru.bellintegrator.denisov.model;
 
-import ru.bellintegrator.denisov.model.Office;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -9,13 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import ru.bellintegrator.denisov.view.OrganizationView;
 
 @Entity(name = "Organization")
-public class Organization {
+public class Organization implements Serializable  {
     
     @Id
     @GeneratedValue
