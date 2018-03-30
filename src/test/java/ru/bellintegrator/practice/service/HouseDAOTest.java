@@ -48,7 +48,7 @@ public class HouseDAOTest {
         Assert.assertFalse(houses.isEmpty());
 
         Set<Person> persons = houses.get(1).getPersons();
-
+        
         Assert.assertNotNull(persons);
         Assert.assertEquals(1, persons.size());
 
