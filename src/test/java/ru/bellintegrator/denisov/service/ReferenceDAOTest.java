@@ -21,7 +21,7 @@ import ru.bellintegrator.denisov.model.DocumentType;
 @WebAppConfiguration(value = "src/main/resources")
 @Transactional
 @DirtiesContext
-public class ReferenceServiceTest {
+public class ReferenceDAOTest {
     
     @Autowired
     private ReferenceDAO referenceDAO;
