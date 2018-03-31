@@ -58,6 +58,6 @@ public class OrganizationDAOTest {
         organizations = organizationDAO.all();
         offices = organizations.get(1).getOffices();
         Assert.assertNotNull(offices);
-        Assert.assertEquals(1, offices.size());
+        Assert.assertEquals(2, offices.size());
     }
 }

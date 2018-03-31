@@ -7,7 +7,7 @@ VALUES (1, 0, 10, 'Russia');
 INSERT INTO Document (id, version, doc_number, doc_date, doc_type) 
 VALUES (1, 0, '2134568990', '2018-03-05', 1);
 
-INSERT INTO Organization (id, version, name, fullName, inn, kpp, address, phone, is_active) 
+INSERT INTO Organization (id, version, name, full_name, inn, kpp, address, phone, is_active) 
 VALUES (1, 0, 'MC', 'MacDonalds corp.', 0123456789 , 012345678, 'Red Place', '8(911) 123-34-45', 1);
 
 INSERT INTO Office (id, version, name, phone, is_active, org_id) 
