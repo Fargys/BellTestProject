@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS Office (
     version             INTEGER,
     name                VARCHAR(45),
     phone               VARCHAR(45),
+    address             VARCHAR(45),
     is_active           TINYINT(1) DEFAULT 0,
     org_id              VARCHAR(45)
 );

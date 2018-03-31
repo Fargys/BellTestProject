@@ -16,7 +16,6 @@ import ru.bellintegrator.denisov.dao.OfficeDAO;
 import ru.bellintegrator.denisov.Application;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.User;
-import ru.bellintegrator.denisov.view.OfficeFilterView;
 
 
 @RunWith(SpringRunner.class)
@@ -40,7 +39,7 @@ public class OfficeDAOTest {
         list.add(user);
         officeDAO.save(office);
 
-        List<Office> offices = officeDAO.all(new OfficeFilterView());    // stub
+        List<Office> offices = officeDAO.all();
         Assert.assertNotNull(offices);
 
         user.setOffice(office);
@@ -55,10 +54,10 @@ public class OfficeDAOTest {
         User secondUser = new User();
         users.add(secondUser);
 
-        offices = officeDAO.all(new OfficeFilterView());    // stub
+        offices = officeDAO.all();
         users = offices.get(1).getUsers();
         Assert.assertNotNull(users);
-        Assert.assertEquals(1, users.size());
+        Assert.assertEquals(2, users.size());
     }
     
 }

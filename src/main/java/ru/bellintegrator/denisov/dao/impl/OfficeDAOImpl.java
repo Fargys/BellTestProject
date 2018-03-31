@@ -3,6 +3,7 @@ package ru.bellintegrator.denisov.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -22,6 +23,16 @@ public class OfficeDAOImpl implements OfficeDAO {
     public OfficeDAOImpl(EntityManager em) {
         this.em = em;
     }
+
+    @Override
+    public List<Office> all() {
+        TypedQuery<Office> query = em.createNamedQuery("Office.findAll", Office.class);
+        List<Office> result = query.getResultList();
+        
+        return result;
+    }
+    
+    
 
     @Override
     public List<Office> all(OfficeFilterView filter) {

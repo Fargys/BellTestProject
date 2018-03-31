@@ -3,7 +3,6 @@ package ru.bellintegrator.denisov.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import ru.bellintegrator.denisov.view.OfficeView;
 
 @Entity(name = "Office")
+@NamedQuery(name = "Office.findAll", query = "SELECT p FROM Office p") 
 public class Office implements Serializable  {
     
     @Id
