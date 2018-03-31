@@ -1,7 +1,6 @@
 package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import ru.bellintegrator.denisov.view.UserView;
 
 @Entity(name = "User")
+@NamedQuery(name = "User.findAll", query = "SELECT p FROM User p") 
 public class User implements Serializable  {
     
     @Id
@@ -46,23 +47,18 @@ public class User implements Serializable  {
     @Column(name = "is_identified")
     private Boolean isIdentified;
     
-    @OneToOne(
-     mappedBy = "user",
-     fetch = FetchType.LAZY,
-     cascade = CascadeType.ALL,
-     optional = false
-    )
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Account account;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
     private Office office;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "doc_id")
     private Document document;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "citizenship_id")
     private CitizenshipType citizenship;
     
@@ -85,7 +81,7 @@ public class User implements Serializable  {
         view.docNumber = userDoc.getNumber();
         view.docDate = userDoc.getDate();
         
-        CitizenshipType userCitizenship = getCitizenship();
+        CitizenshipType userCitizenship = getCitizenshipType();
         view.citizenshipName = userCitizenship.getName();
         view.citizenshipCode = userCitizenship.getCode();
         
@@ -184,11 +180,11 @@ public class User implements Serializable  {
         this.document = document;
     }
 
-    public CitizenshipType getCitizenship() {
+    public CitizenshipType getCitizenshipType() {
         return citizenship;
     }
 
-    public void setCitizenship(CitizenshipType citizenship) {
+    public void setCitizenshipType(CitizenshipType citizenship) {
         this.citizenship = citizenship;
     }
     

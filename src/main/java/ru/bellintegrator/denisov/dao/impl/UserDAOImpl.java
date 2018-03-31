@@ -3,6 +3,7 @@ package ru.bellintegrator.denisov.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -25,6 +26,14 @@ public class UserDAOImpl implements UserDAO {
         this.em = em;
     }
 
+    @Override
+    public List<User> all() {
+        TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
+        List<User> result = query.getResultList();
+        
+        return result;
+    }
+    
     @Override
     public List<User> all(UserFilterView filter) {
         UserCriteriaConverter converter = new UserCriteriaConverter(filter);

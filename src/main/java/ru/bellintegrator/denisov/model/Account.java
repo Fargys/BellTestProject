@@ -33,7 +33,7 @@ public class Account implements Serializable  {
     private String activationCode;
     
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
     public Account() {

@@ -52,7 +52,7 @@ public class UserView {
         userDoc.setNumber(docNumber);
         userDoc.setDate(docDate);
         
-        CitizenshipType userCitizenship = user.getCitizenship();
+        CitizenshipType userCitizenship = user.getCitizenshipType();
         userCitizenship.setName(citizenshipName);
         userCitizenship.setCode(citizenshipCode);
         
@@ -78,7 +78,7 @@ public class UserView {
         user.setPhone(phone);
         user.setIdentified(isIdentified);
         user.setDocument(userDoc);
-        user.setCitizenship(userCitizenship);
+        user.setCitizenshipType(userCitizenship);
         user.setOffice(office);
         
         return user;

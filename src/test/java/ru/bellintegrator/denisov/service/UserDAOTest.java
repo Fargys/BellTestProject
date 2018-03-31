@@ -36,19 +36,20 @@ public class UserDAOTest {
         CitizenshipType userCountry = new CitizenshipType();  
         
         user.setDocument(userDoc);
-        user.setCitizenship(userCountry);
+        user.setCitizenshipType(userCountry);
         
         userDAO.save(user);
         
-        List<User> users = userDAO.all(new UserFilterView());
+        List<User> users = userDAO.all();
+        
         Assert.assertNotNull(users);
         Assert.assertFalse(users.isEmpty());
-        Assert.assertEquals(1, users.size());
+        Assert.assertEquals(2, users.size());
         
         userDoc = users.get(1).getDocument();
         Assert.assertNotNull(userDoc);
         
-        userCountry = users.get(1).getCitizenship();
+        userCountry = users.get(1).getCitizenshipType();
         Assert.assertNotNull(userCountry);
     }
 }
