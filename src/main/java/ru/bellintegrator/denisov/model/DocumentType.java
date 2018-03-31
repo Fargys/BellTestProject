@@ -1,6 +1,8 @@
 package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +32,7 @@ public class DocumentType implements Serializable  {
     private Integer code;
     
     @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
-    private Document document;
+    private Set<Document> documents;
     
 
     public Long getId() {
@@ -53,12 +55,15 @@ public class DocumentType implements Serializable  {
         this.code = code;
     }
 
-    public Document getDocument() {
-        return document;
+    public Set<Document> getDocuments() {
+        return documents;
     }
 
-    public void setDocument(Document document) {
-        this.document = document;
+    public void setDocuments(Set<Document> documents) {
+        if (documents == null) {
+            documents = new HashSet<>();
+        }
+        this.documents = documents;
     }
     
 }
