@@ -2,21 +2,24 @@ package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Version;
 
 @Entity(name = "Login")
 public class Account implements Serializable  {
     
     @Id
-    @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     @Version
@@ -33,7 +36,7 @@ public class Account implements Serializable  {
     private String activationCode;
     
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "id")
     private User user;
 
     public Account() {

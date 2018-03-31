@@ -13,8 +13,10 @@ VALUES (1, 0, 'MC', 'MacDonalds corp.', 0123456789 , 012345678, 'Red Place', '8(
 INSERT INTO Office (id, version, name, phone, is_active, org_id) 
 VALUES (1, 0, 'Something office name', '8(911) 543-34-45', 1, 1);
 
-INSERT INTO User (id, version, first_name, second_name, middle_name, position, phone, is_identified, office_id, doc_id, citizenship_id) 
-VALUES (1, 0, 'Walter', 'White', 'Hartwell' , 'manager' , '8(911) 737-35-25', 1, 1, 1, 1);
-
-INSERT INTO Login (user_id, version, login, password)
+INSERT INTO Login (id, version, login, password)
 VALUES (1, 0, 'heisenberg', 'qwerty');
+
+INSERT INTO User (id, version, first_name, second_name, middle_name, position, 
+        phone, is_identified, office_id, doc_id, citizenship_id, account_id) 
+VALUES (1, 0, 'Walter', 'White', 'Hartwell' , 'manager' , '8(911) 737-35-25', 1, 1, 1, 1, 1);
+

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Office (
 );
 
 CREATE TABLE IF NOT EXISTS User (
-    id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
+    id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER,
     first_name          VARCHAR(45),
     second_name         VARCHAR(45),
@@ -31,19 +31,20 @@ CREATE TABLE IF NOT EXISTS User (
     is_identified       TINYINT(1) DEFAULT 0,
     office_id           INTEGER,
     doc_id              INTEGER,
-    citizenship_id      INTEGER
+    citizenship_id      INTEGER,
+    account_id          INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Login (
-    user_id             INTEGER UNIQUE,
-    version             INTEGER ,
+    id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
+    version             INTEGER,
     login               VARCHAR(45) UNIQUE,
     password            VARCHAR(45),
-    activation_code      VARCHAR(45)
+    activation_code     VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS Document (
-    id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
+    id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER,
     doc_number          INTEGER,
     doc_date            DATE, 
@@ -51,14 +52,14 @@ CREATE TABLE IF NOT EXISTS Document (
 );
 
 CREATE TABLE IF NOT EXISTS Document_type (
-    id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
+    id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER,
     doc_code            INTEGER,
     doc_name            VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS Citizenship_type (
-    id                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
+    id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER,
     citizenship_code    INTEGER,
     citizenship_name    VARCHAR(45)
@@ -77,8 +78,11 @@ ALTER TABLE User ADD FOREIGN KEY (doc_id) REFERENCES Document(id);
 CREATE INDEX Citizenship_id ON User (citizenship_id);
 ALTER TABLE User ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship_type(id);
 
-CREATE INDEX User_id ON Login (user_id);
-ALTER TABLE Login ADD FOREIGN KEY (user_id) REFERENCES User(id);
+CREATE INDEX Account_id ON User (account_id);
+ALTER TABLE User ADD FOREIGN KEY (account_id) REFERENCES Login(id);
+
+-- CREATE INDEX User_id ON Login (user_id);
+-- ALTER TABLE Login ADD FOREIGN KEY (user_id) REFERENCES User(id);
 
 CREATE INDEX Doc_type ON Document (doc_type);
 ALTER TABLE Document ADD FOREIGN KEY (doc_type) REFERENCES Document_type(id);

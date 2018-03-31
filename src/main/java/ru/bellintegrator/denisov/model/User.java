@@ -48,6 +48,7 @@ public class User implements Serializable  {
     private Boolean isIdentified;
     
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private Account account;
     
     @ManyToOne(fetch = FetchType.LAZY)
@@ -107,6 +108,11 @@ public class User implements Serializable  {
     public Long getId() {
         return id;
     }
+    
+    //for test
+    public void setId(Long id){
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -164,14 +170,14 @@ public class User implements Serializable  {
         this.office = office;
     }
 
-    public Account getUserLogin() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setUserLogin(Account userLogin) {
-        this.account = userLogin;
+    public void setAccount(Account account) {
+        this.account = account;
     }
-
+    
     public Document getDocument() {
         return document;
     }

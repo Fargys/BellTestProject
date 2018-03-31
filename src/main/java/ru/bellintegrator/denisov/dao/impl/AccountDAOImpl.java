@@ -41,7 +41,8 @@ public class AccountDAOImpl implements AccountDAO {
         CriteriaQuery<Account> criteria = builder.createQuery(Account.class);
 
         Root<Account> account = criteria.from(Account.class);
-        criteria.where(builder.equal(account.get("activation_code"), activationCode));
+        criteria.select(account);
+        criteria.where(builder.equal(account.get("activationCode"), activationCode));
 
         TypedQuery<Account> query = em.createQuery(criteria);
         return query.getSingleResult();
