@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.denisov.service.ReferenceService;
+import ru.bellintegrator.denisov.view.ResponseView;
 
 @RestController
 @RequestMapping(produces = APPLICATION_JSON_VALUE)
@@ -19,12 +20,34 @@ public class ReferenceController {
     }
     
     @RequestMapping(value = "/api/docs", method = {GET})
-    public Object documents() {
-        return referenceService.documentTypes();
+    public ResponseView documents() {
+        try {
+           Object data = referenceService.documentTypes();
+        
+            return ResponseView.newBuilder()
+                    .setData(data)
+                    .build();
+        
+        } catch (Throwable e) {
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
+        }
     }
     
     @RequestMapping(value = "/api/countries", method = {GET})
-    public Object countries() {
-        return referenceService.citizenshipTypes();
+    public ResponseView countries() {
+        try {
+           Object data = referenceService.citizenshipTypes();
+        
+            return ResponseView.newBuilder()
+                    .setData(data)
+                    .build();
+        
+        } catch (Throwable e) {
+            return ResponseView.newBuilder()
+                    .setError(e.getMessage())
+                    .build();
+        }
     }
 }
