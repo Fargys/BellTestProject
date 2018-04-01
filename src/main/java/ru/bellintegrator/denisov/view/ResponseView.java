@@ -27,7 +27,11 @@ public class ResponseView {
     public String getError() {
         return error;
     }
-    
+
+    @Override
+    public String toString() {
+        return "ResponseView{" + "data=" + data + ", result=" + result + ", error=" + error + '}';
+    }
     
     public class Builder {
         
