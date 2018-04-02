@@ -9,8 +9,8 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
-import ru.bellintegrator.denisov.model.CitizenshipType;
-import ru.bellintegrator.denisov.model.DocumentType;
+import ru.bellintegrator.denisov.model.Citizenship;
+import ru.bellintegrator.denisov.model.Document;
 
 @Repository
 public class ReferenceDAOImpl implements ReferenceDAO {
@@ -23,44 +23,41 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     }
 
     @Override
-    public DocumentType loadDocTypeByName(String docName) {
+    public Document loadDocTypeByName(String docName) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
+        CriteriaQuery<Document> criteria = builder.createQuery(Document.class);
 
-        Root<DocumentType> account = criteria.from(DocumentType.class);
+        Root<Document> account = criteria.from(Document.class);
         criteria.where(builder.equal(account.get("doc_name"), docName));
 
-        TypedQuery<DocumentType> query = em.createQuery(criteria);
+        TypedQuery<Document> query = em.createQuery(criteria);
         return query.getSingleResult();
     }
     
     @Override
-    public List<DocumentType> allDocumentType() {
-        TypedQuery<DocumentType> query = em.createNamedQuery("DocumentType.findAll", DocumentType.class);
-        List<DocumentType> result = query.getResultList();
+    public List<Document> allDocumentType() {
+        TypedQuery<Document> query = em.createNamedQuery("Document.findAll", Document.class);
+        List<Document> result = query.getResultList();
         
         return result;
     }
 
     @Override
-    public List<CitizenshipType> allCitizenshipType() {
-        TypedQuery<CitizenshipType> query = em.createNamedQuery("CitizenshipType.findAll", CitizenshipType.class);
-        List<CitizenshipType> result = query.getResultList();
+    public List<Citizenship> allCitizenshipType() {
+        TypedQuery<Citizenship> query = em.createNamedQuery("CitizenshipType.findAll", Citizenship.class);
+        List<Citizenship> result = query.getResultList();
         
         return result;
     }
 
     @Override
-    public void saveDocument(DocumentType type) {
-        em.persist(type);
+    public void saveDocument(Document document) {
+        em.persist(document);
     }
 
     @Override
-    public void saveCitizenshipType(CitizenshipType type) {
-        em.persist(type);
+    public void saveCitizenshipType(Citizenship country) {
+        em.persist(country);
     }
-    
-    
-    
     
 }

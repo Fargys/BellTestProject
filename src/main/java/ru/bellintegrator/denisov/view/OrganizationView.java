@@ -12,9 +12,9 @@ public class OrganizationView {
     
     public String fullName;
     
-    public Integer inn;
+    public String inn;
     
-    public Integer kpp;
+    public String kpp;
             
     public String address;
             

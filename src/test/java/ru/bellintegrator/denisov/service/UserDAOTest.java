@@ -12,7 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.UserDAO;
 import ru.bellintegrator.denisov.Application;
-import ru.bellintegrator.denisov.model.CitizenshipType;
+import ru.bellintegrator.denisov.model.Citizenship;
 import ru.bellintegrator.denisov.model.Document;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
@@ -33,7 +33,7 @@ public class UserDAOTest {
         user.setPosition("Manager");
         
         Document userDoc = new Document();
-        CitizenshipType userCountry = new CitizenshipType();  
+        Citizenship userCountry = new Citizenship();  
         
         user.setDocument(userDoc);
         user.setCitizenshipType(userCountry);

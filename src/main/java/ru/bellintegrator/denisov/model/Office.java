@@ -1,8 +1,7 @@
 package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,43 +10,37 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import ru.bellintegrator.denisov.view.OfficeView;
 
-@Entity(name = "Office")
+@Entity
+@Table(name = "Office")
 @NamedQuery(name = "Office.findAll", query = "SELECT p FROM Office p") 
 public class Office implements Serializable  {
     
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Long id;
     
-    /**
-     * Hibernate service field
-     */
     @Version
-    private Integer version;
+    private Integer version = 0;
     
-    @Column(name = "name")
+    @NotNull
     private String name;
     
-    @Column(name = "phone")
     private String phone;
     
-    @Column(name = "address")
     private String address;
     
     @Column(name = "is_active")
-    private Boolean active;
+    private Boolean isActive;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "org_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "org_fk")
     private Organization organization;
     
-    @OneToMany(mappedBy = "office", fetch = FetchType.LAZY)
-    private Set<User> users;
     
     public OfficeView toConvertOfficeDTO() {
         OfficeView view = new OfficeView();
@@ -56,7 +49,7 @@ public class Office implements Serializable  {
         view.name = name;
         view.address = address;
         view.phone = phone;
-        view.isActive = active;
+        view.isActive = isActive;
         
         return view;
     }
@@ -66,7 +59,7 @@ public class Office implements Serializable  {
         
         view.id = String.valueOf(id);
         view.name = name;
-        view.isActive = active;
+        view.isActive = isActive;
         
         return view;
     }
@@ -102,31 +95,20 @@ public class Office implements Serializable  {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public Boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
     
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     public Organization getOrganization() {
         return organization;
     }
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
-    }
-
-    public Set<User> getUsers() {
-        if (users == null) {
-            users = new HashSet<>();
-        }
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 }

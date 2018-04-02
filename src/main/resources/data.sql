@@ -1,22 +1,42 @@
-INSERT INTO Document_type (id, version, doc_code, doc_name) 
-VALUES (1, 0, 10, 'Passport');
+--Document--
+INSERT INTO Document (doc_code, version,doc_name) 
+VALUES (10, 0, 'Passport');
 
-INSERT INTO Citizenship_type (id, version, citizenship_code, citizenship_name) 
-VALUES (1, 0, 10, 'Russia');
+INSERT INTO Document (doc_code, version,doc_name) 
+VALUES (15, 0, 'Driver license');
 
-INSERT INTO Document (id, version, doc_number, doc_date, doc_type) 
-VALUES (1, 0, '2134568990', '2018-03-05', 1);
+--Citizenship--
+INSERT INTO Citizenship (citizenship_code, version,citizenship_name) 
+VALUES (10, 0, 'Russia');
 
-INSERT INTO Organization (id, version, name, full_name, inn, kpp, address, phone, is_active) 
-VALUES (1, 0, 'MC', 'MacDonalds corp.', 0123456789 , 012345678, 'Red Place', '8(911) 123-34-45', 1);
+INSERT INTO Citizenship (citizenship_code, version,citizenship_name) 
+VALUES (15, 0, 'Ukraine');
 
-INSERT INTO Office (id, version, name, phone, is_active, org_id) 
-VALUES (1, 0, 'Something office name', '8(911) 543-34-45', 1, 1);
+--Organization--
+INSERT INTO Organization (version, name, full_name, inn, kpp, address, phone, is_active) 
+VALUES (0, 'MC', 'MacDonalds corp.', 0123456789 , 012345678, 'Red Place', '8(911) 123-34-45', true);
 
-INSERT INTO Login (id, version, login, password)
-VALUES (1, 0, 'heisenberg', 'qwerty');
+INSERT INTO Organization (version, name, full_name, inn, kpp, address, phone, is_active) 
+VALUES (0, 'Google', 'Google corp.', 9876543210 , 876543210, 'Somewhere street', '8(911) 321-43-54', false);
 
-INSERT INTO User (id, version, first_name, second_name, middle_name, position, 
-        phone, is_identified, office_id, doc_id, citizenship_id, account_id) 
-VALUES (1, 0, 'Walter', 'White', 'Hartwell' , 'manager' , '8(911) 737-35-25', 1, 1, 1, 1, 1);
+--Office--
+INSERT INTO Office (version, name, phone, address, is_active, org_fk) 
+VALUES (0, 'Office #1', '8(911) 543-34-45', 'Office #1 address', true, 1);
+
+INSERT INTO Office (version, name, phone, address, is_active, org_fk) 
+VALUES (0, 'Office #2', '8(911) 345-43-54', 'Office #2 address', false, 2);
+
+--User--
+INSERT INTO User (version, first_name, second_name, middle_name, position, phone, doc_number, doc_date, is_identified, office_fk, citizenship_type_fk) 
+VALUES (0, 'Walter', 'White', 'Hartwell' , 'Cook' , '8(911) 737-35-25', 1234567, '2018-03-15', true, 1, 10);
+
+INSERT INTO User (version, first_name, second_name, middle_name, position, phone, doc_number, doc_date, is_identified, office_fk, citizenship_type_fk) 
+VALUES (0, 'Jesse', 'Pinkman', 'Bruce' , 'Cook assistant' , '8(911) 373-53-52', 7654321, '2011-09-22', false, 2, 15);
+
+--Account--
+INSERT INTO Account (version, name, login, password, activation_code, activation_status)
+VALUES (0, 'Walter', 'heisenberg@gmail.com', 'qwerty', 'somecode #1' , true);
+
+INSERT INTO Account (version, name, login, password, activation_code, activation_status)
+VALUES (0, 'Jesse', 'whatsup@gmail.com', '123456', 'somecode #2' , false);
 

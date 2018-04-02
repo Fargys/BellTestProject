@@ -11,8 +11,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.denisov.dao.UserDAO;
-import ru.bellintegrator.denisov.model.CitizenshipType;
-import ru.bellintegrator.denisov.model.DocumentType;
+import ru.bellintegrator.denisov.model.Citizenship;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
 
@@ -96,8 +95,8 @@ public class UserDAOImpl implements UserDAO {
             criteriaQuery = qb.createQuery();
             users = criteriaQuery.from(User.class);
             
-            Root<DocumentType> docs = criteriaQuery.from(DocumentType.class);
-            Root<CitizenshipType> countries = criteriaQuery.from(CitizenshipType.class);
+//            Root<DocumentType> docs = criteriaQuery.from(DocumentType.class);
+            Root<Citizenship> countries = criteriaQuery.from(Citizenship.class);
             
             if (officeId != null) {
                predicates.add(
@@ -120,8 +119,8 @@ public class UserDAOImpl implements UserDAO {
                    qb.equal(users.get("position"), position));
             }
             if (docCode != null) {
-               predicates.add(
-                   qb.equal(docs.get("doc_code"), docCode));
+//               predicates.add(
+//                   qb.equal(docs.get("doc_code"), docCode));
             }
             if (citizenshipCode != null) {
                predicates.add(

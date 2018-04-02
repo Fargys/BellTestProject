@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
-import ru.bellintegrator.denisov.model.CitizenshipType;
-import ru.bellintegrator.denisov.model.DocumentType;
+import ru.bellintegrator.denisov.model.Citizenship;
+import ru.bellintegrator.denisov.model.Document;
 import ru.bellintegrator.denisov.service.ReferenceService;
 
 @Service
@@ -22,13 +22,14 @@ public class ReferenceServiceImpl implements ReferenceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DocumentType> documentTypes() {
-        return dao.allDocumentType();
+    public List<Document> documentTypes() {
+        return null;
+//                dao.allDocumentType();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<CitizenshipType> citizenshipTypes() {
+    public List<Citizenship> citizenshipTypes() {
         return dao.allCitizenshipType();
     }
     

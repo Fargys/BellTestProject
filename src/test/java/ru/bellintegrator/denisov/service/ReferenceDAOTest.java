@@ -12,7 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
 import ru.bellintegrator.denisov.Application;
-import ru.bellintegrator.denisov.model.CitizenshipType;
+import ru.bellintegrator.denisov.model.Citizenship;
 import ru.bellintegrator.denisov.model.DocumentType;
 
 
@@ -40,14 +40,14 @@ public class ReferenceDAOTest {
         
         
         
-        CitizenshipType first = new CitizenshipType();
+        Citizenship first = new Citizenship();
         referenceDAO.saveCitizenshipType(first);
-        List<CitizenshipType> countries = referenceDAO.allCitizenshipType();
+        List<Citizenship> countries = referenceDAO.allCitizenshipType();
         
         Assert.assertNotNull(countries);
         Assert.assertFalse(countries.isEmpty());
         
-        CitizenshipType second = countries.get(1);
+        Citizenship second = countries.get(1);
         Assert.assertEquals(first, second);
     }
 }

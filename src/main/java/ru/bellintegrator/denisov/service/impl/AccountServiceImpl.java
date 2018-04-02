@@ -36,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
         newAccount.setLogin(view.login);
         newAccount.setPassword(password);
         newAccount.setActivationCode(activationCode);
-        newAccount.setUser(newNoActiveUser);
+//        newAccount.setUser(newNoActiveUser);
         
         accountDao.register(newAccount);
     }

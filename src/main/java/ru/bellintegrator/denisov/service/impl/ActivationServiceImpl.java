@@ -27,7 +27,7 @@ public class ActivationServiceImpl implements ActivationService {
         String hashForActivationCode = generator.encode(activationCode);
         Account account = dao.loadByActivationCode(hashForActivationCode);
         
-        if(account != null) account.getUser().setIdentified(true);
+//        if(account != null) account.getUser().setIdentified(true);
     }
     
 }

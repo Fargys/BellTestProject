@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
 import ru.bellintegrator.denisov.dao.UserDAO;
-import ru.bellintegrator.denisov.model.CitizenshipType;
-import ru.bellintegrator.denisov.model.Document;
-import ru.bellintegrator.denisov.model.DocumentType;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.service.UserService;
@@ -72,9 +69,9 @@ public class UserServiceImpl implements UserService {
     public void update(UserView view) {
         Long updatingUserId = Long.parseLong(view.id, 10);
         User user = userDAO.loadById(updatingUserId);
-        DocumentType docType = refDAO.loadDocTypeByName(view.docName);
+//        DocumentType docType = refDAO.loadDocTypeByName(view.docName);
         
-        user = view.toConvertUserEntity(user, docType);
+//        user = view.toConvertUserEntity(user, docType);
         
         userDAO.update(user);
     }
@@ -89,13 +86,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(UserView view) {
-        DocumentType docType = refDAO.loadDocTypeByName(view.docName);
+//        DocumentType docType = refDAO.loadDocTypeByName(view.docName);
         Long officeId = Long.parseLong(view.officeId);
         Office userOffice = officeDAO.loadById(officeId);
         
-        User user = view.toConvertUserEntity(userOffice, docType);
+//        User user = view.toConvertUserEntity(userOffice, docType);
         
-        userDAO.save(user);
+//        userDAO.save(user);
     }
     
 }

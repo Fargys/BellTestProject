@@ -1,6 +1,7 @@
 package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,24 +11,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import ru.bellintegrator.denisov.view.UserView;
 
-@Entity(name = "User")
+@Entity
+@Table(name = "User")
 @NamedQuery(name = "User.findAll", query = "SELECT p FROM User p") 
 public class User implements Serializable  {
     
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Long id;
     
-    /**
-     * Hibernate service field
-     */
     @Version
-    private Integer version;
+    private Integer version = 0;
     
     @Column(name = "first_name")
     private String firstName;
@@ -38,30 +38,31 @@ public class User implements Serializable  {
     @Column(name = "middle_name")
     private String middleName;
     
-    @Column(name = "position")
     private String position;
     
-    @Column(name = "phone")
     private String phone;
+    
+    @Column(name = "doc_number")
+    private String docNumber;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "doc_date")
+    private Date docDate;
     
     @Column(name = "is_identified")
     private Boolean isIdentified;
     
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    private Account account;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id")
-    private Office office;
-    
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "doc_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doc_type_fk")
     private Document document;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "citizenship_id")
-    private CitizenshipType citizenship;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "office_fk")
+    private Office office;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "citizenship_type_fk")
+    private Citizenship citizenship;
     
     
     public UserView toConvertUserDTO() {
@@ -76,15 +77,15 @@ public class User implements Serializable  {
         view.isIdentified = isIdentified;
         
         Document userDoc = getDocument();
-        DocumentType docType = userDoc.getType();
+//        DocumentType docType = userDoc.getType();
         
-        view.docName = docType.getName();
-        view.docNumber = userDoc.getNumber();
-        view.docDate = userDoc.getDate();
+//        view.docName = docType.getName();
+//        view.docNumber = userDoc.getNumber();
+//        view.docDate = userDoc.getDate();
         
-        CitizenshipType userCitizenship = getCitizenshipType();
-        view.citizenshipName = userCitizenship.getName();
-        view.citizenshipCode = userCitizenship.getCode();
+//        CitizenshipType userCitizenship = getCitizenshipType();
+//        view.citizenshipName = userCitizenship.getName();
+//        view.citizenshipCode = userCitizenship.getCode();
         
         return view;
     }
@@ -109,11 +110,6 @@ public class User implements Serializable  {
         return id;
     }
     
-    //for test
-    public void setId(Long id){
-        this.id = id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -154,12 +150,36 @@ public class User implements Serializable  {
         this.phone = phone;
     }
 
+    public String getDocNumber() {
+        return docNumber;
+    }
+
+    public void setDocNumber(String docNumber) {
+        this.docNumber = docNumber;
+    }
+
+    public Date getDocDate() {
+        return docDate;
+    }
+
+    public void setDocDate(Date docDate) {
+        this.docDate = docDate;
+    }
+
     public Boolean isIdentified() {
         return isIdentified;
     }
 
-    public void setIdentified(Boolean identified) {
-        this.isIdentified = identified;
+    public void setIdentified(Boolean isIdentified) {
+        this.isIdentified = isIdentified;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
     }
 
     public Office getOffice() {
@@ -170,27 +190,11 @@ public class User implements Serializable  {
         this.office = office;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-    
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
-    }
-
-    public CitizenshipType getCitizenshipType() {
+    public Citizenship getCitizenship() {
         return citizenship;
     }
 
-    public void setCitizenshipType(CitizenshipType citizenship) {
+    public void setCitizenship(Citizenship citizenship) {
         this.citizenship = citizenship;
     }
     

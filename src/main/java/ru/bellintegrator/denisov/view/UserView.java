@@ -2,9 +2,8 @@ package ru.bellintegrator.denisov.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Date;
-import ru.bellintegrator.denisov.model.CitizenshipType;
+import ru.bellintegrator.denisov.model.Citizenship;
 import ru.bellintegrator.denisov.model.Document;
-import ru.bellintegrator.denisov.model.DocumentType;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.User;
 
@@ -38,7 +37,7 @@ public class UserView {
     public String officeId;
     
     
-    public User toConvertUserEntity(User user, DocumentType docType) {
+    public User toConvertUserEntity(User user, Document docType) {
         
         user.setFirstName(firstName);
         user.setSecondName(secondName);
@@ -48,27 +47,27 @@ public class UserView {
         user.setIdentified(isIdentified);
         
         Document userDoc = user.getDocument();
-        userDoc.setType(docType);
-        userDoc.setNumber(docNumber);
-        userDoc.setDate(docDate);
+//        userDoc.setType(docType);
+//        userDoc.setNumber(docNumber);
+//        userDoc.setDate(docDate);
         
-        CitizenshipType userCitizenship = user.getCitizenshipType();
-        userCitizenship.setName(citizenshipName);
-        userCitizenship.setCode(citizenshipCode);
+////        CitizenshipType userCitizenship = user.getCitizenshipType();
+//        userCitizenship.setName(citizenshipName);
+//        userCitizenship.setCode(citizenshipCode);
         
         return user;
     }
 
-    public User toConvertUserEntity(Office office, DocumentType docType) {
+    public User toConvertUserEntity(Office office, Document docType) {
         
         Document userDoc = new Document();
-        userDoc.setType(docType);
-        userDoc.setNumber(docNumber);
-        userDoc.setDate(docDate);
+//        userDoc.setType(docType);
+//        userDoc.setNumber(docNumber);
+//        userDoc.setDate(docDate);
         
-        CitizenshipType userCitizenship = new CitizenshipType();
-        userCitizenship.setName(citizenshipName);
-        userCitizenship.setCode(citizenshipCode);
+        Citizenship userCitizenship = new Citizenship();
+//        userCitizenship.setName(citizenshipName);
+//        userCitizenship.setCode(citizenshipCode);
         
         User user = new User();
         user.setFirstName(firstName);
@@ -78,7 +77,7 @@ public class UserView {
         user.setPhone(phone);
         user.setIdentified(isIdentified);
         user.setDocument(userDoc);
-        user.setCitizenshipType(userCitizenship);
+//        user.setCitizenshipType(userCitizenship);
         user.setOffice(office);
         
         return user;
