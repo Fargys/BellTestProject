@@ -6,14 +6,14 @@ import ru.bellintegrator.denisov.view.ResponseView;
 
 public interface OrganizationController {
     
-    public ResponseView organizations(OrganizationFilterView view);
+    public ResponseView getAllOrganizationsByCriteria(OrganizationFilterView view);
     
-    public ResponseView organization(String id);
+    public ResponseView getOrganizationById(String id);
     
-    public ResponseView update(OrganizationView view);
+    public ResponseView updateOrganization(OrganizationView view);
     
-    public ResponseView save(OrganizationView view);
+    public ResponseView saveOrganization(OrganizationView view);
     
-    public ResponseView delete(String id);
+    public ResponseView deleteOrganization(String id);
     
 }

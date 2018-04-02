@@ -1,8 +1,6 @@
 package ru.bellintegrator.denisov.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +12,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OrganizationDAO;
 import ru.bellintegrator.denisov.Application;
-import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.Organization;
+import ru.bellintegrator.denisov.view.OrganizationFilterView;
 
 
 
@@ -31,33 +29,37 @@ public class OrganizationDAOTest {
     
     @Test
     public void test() {
-        Organization organization = new Organization();
-        Set<Office> list = new HashSet<>();
-        organization.setAddress("Address");
-        Office office = new Office();
-        office.setOrganization(organization);
-        organization.setOffices(list);
-        list.add(office);
-        organizationDAO.save(organization);
-
-        List<Organization> organizations = organizationDAO.all();
-        Assert.assertNotNull(organizations);
-
-        office.setOrganization(organization);
-
-        Assert.assertFalse(organizations.isEmpty());
-
-        Set<Office> offices = organizations.get(1).getOffices();
+        //test get all
+        List<Organization> orgs = organizationDAO.getAllOrganizations();
+        Assert.assertNotNull(orgs);
+        Assert.assertEquals(2, orgs.size());
         
-        Assert.assertNotNull(offices);
-        Assert.assertEquals(1, offices.size());
-
-        Office secondOffice = new Office();
-        offices.add(secondOffice);
-
-        organizations = organizationDAO.all();
-        offices = organizations.get(1).getOffices();
-        Assert.assertNotNull(offices);
-        Assert.assertEquals(2, offices.size());
+        // test get all with criteria
+        OrganizationFilterView criteria = new OrganizationFilterView("MC");
+        List<Organization> orgsByCriteria = organizationDAO.getAllOrganizationsByCriteria(criteria);
+        Assert.assertNotNull(orgsByCriteria);
+        Assert.assertEquals(1, orgsByCriteria.size());
+        
+        //test save
+        String testName = "testName";
+        Organization saveTestOrg = new Organization("testName");
+        organizationDAO.saveOrganization(saveTestOrg);
+        orgs = organizationDAO.getAllOrganizations();
+        Assert.assertEquals(3, orgs.size());
+        
+        //test update
+        Organization updateTestOrg = organizationDAO.getOrganizationByName(testName);
+        Assert.assertNotNull(updateTestOrg);
+        String nameForUpdate = "newTestName";
+        updateTestOrg.setName(nameForUpdate);
+        organizationDAO.updateOrganization(updateTestOrg);
+        Organization orgAfterUpdate = organizationDAO.getOrganizationByName(nameForUpdate);
+        Assert.assertNotNull(orgAfterUpdate);
+        
+        //test delete
+        organizationDAO.deleteOrganization(1L);
+        orgs = organizationDAO.getAllOrganizations();
+        Assert.assertEquals(2, orgs.size());
+        
     }
 }

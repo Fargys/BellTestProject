@@ -94,38 +94,4 @@ public class OrganizationControllerIT {
 //        Assert.assertNotNull(responseView.getData());
     }
     
-    
-    
-//    @Test
-//    public void test() {
-//        //test get organiztion
-//        OrganizationView view = orgService.organization("1");
-//        Assert.assertNotNull(view);
-//        
-//        //test update
-//        String newName = "newName";
-//        view.name = newName;
-//        orgService.update(view);
-//        OrganizationView updatedView = orgService.organization("1");
-//        Assert.assertEquals(updatedView.name, newName);
-//        
-//        //test save
-//        OrganizationView saveView = new OrganizationView();
-//        saveView.name = "testName";
-//        saveView.fullName = "testFullName";
-//        saveView.inn = 12345;
-//        saveView.kpp = 1234;
-//        saveView.address = "testAddress";
-//        saveView.phone = "testPhone";
-//        saveView.isActive = true;
-//        orgService.save(saveView);
-//        
-//        test get organizations
-//        OrganizationFilterView filter = new OrganizationFilterView();
-//        filter.name = "test";
-//        List<OrganizationView> list = orgService.organizations(filter);
-//        Assert.assertNotNull(list);
-//        Assert.assertFalse(list.isEmpty());
-//    }
-    
 }

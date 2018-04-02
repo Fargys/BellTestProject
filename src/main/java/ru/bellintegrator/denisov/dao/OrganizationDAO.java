@@ -6,18 +6,18 @@ import ru.bellintegrator.denisov.view.OrganizationFilterView;
 
 public interface OrganizationDAO {
     
-    public List<Organization> all();
+    public List<Organization> getAllOrganizations();
 
-    public List<Organization> all(OrganizationFilterView filter);
+    public List<Organization> getAllOrganizationsByCriteria(OrganizationFilterView filter);
 
-    public Organization loadById(Long id);
+    public Organization getOrganizationById(Long id);
     
-    public Organization loadByName(String name);
+    public Organization getOrganizationByName(String name);
 
-    public void update(Organization organization);
+    public void updateOrganization(Organization organization);
 
-    public void save(Organization organization);
+    public void saveOrganization(Organization organization);
 
-    public void delete(Long id);
+    public void deleteOrganization(Long id);
     
 }

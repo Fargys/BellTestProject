@@ -30,10 +30,10 @@ public class OrganizationControllerImpl implements OrganizationController {
 
     @Override
     @RequestMapping(value = "/list", method = {POST})
-    public ResponseView organizations(@RequestBody OrganizationFilterView view) {
+    public ResponseView getAllOrganizationsByCriteria(@RequestBody OrganizationFilterView view) {
         try {
             if(view.name == null) throw new OrganizationControllerException();
-            Object data = organizationService.organizations(view);
+            Object data = organizationService.getAllOrganizationByCriteria(view);
         
         return ResponseView.newBuilder()
                 .setData(data)
@@ -48,9 +48,10 @@ public class OrganizationControllerImpl implements OrganizationController {
 
     @Override
     @RequestMapping(value = "/{id}", method = {GET})
-    public ResponseView organization(@PathVariable("id") String id) {
+    public ResponseView getOrganizationById(@PathVariable("id") String id) {
         try {
-            Object data = organizationService.organization(id);
+            if(id == null) throw new OrganizationControllerException();
+            Object data = organizationService.getOrganizationById(id);
         
             return ResponseView.newBuilder()
                     .setData(data)
@@ -65,9 +66,10 @@ public class OrganizationControllerImpl implements OrganizationController {
 
     @Override
     @RequestMapping(value = "/update", method = {PUT})
-    public ResponseView update(@RequestBody OrganizationView view) {
+    public ResponseView updateOrganization(@RequestBody OrganizationView view) {
         try{
-            organizationService.update(view);
+            if(view.id == null) throw new OrganizationControllerException();
+            organizationService.updateOrganization(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();
@@ -80,9 +82,9 @@ public class OrganizationControllerImpl implements OrganizationController {
 
     @Override
     @RequestMapping(value = "/save", method = {POST})
-    public ResponseView save(@RequestBody OrganizationView view) {
+    public ResponseView saveOrganization(@RequestBody OrganizationView view) {
         try{
-            organizationService.save(view);
+            organizationService.saveOrganization(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();
@@ -95,9 +97,10 @@ public class OrganizationControllerImpl implements OrganizationController {
 
     @Override
     @RequestMapping(value = "/{id}", method = {DELETE})
-    public ResponseView delete(@PathVariable("id") String id) {
+    public ResponseView deleteOrganization(@PathVariable("id") String id) {
         try{
-            organizationService.delete(id);
+            if(id == null) throw new OrganizationControllerException();
+            organizationService.deleteOrganization(id);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();

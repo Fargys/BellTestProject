@@ -6,13 +6,13 @@ import ru.bellintegrator.denisov.view.OrganizationView;
 
 public interface OrganizationService {
     
-    public List<OrganizationView> organizations(OrganizationFilterView view);
+    public List<OrganizationView> getAllOrganizationByCriteria(OrganizationFilterView view);
 
-    public OrganizationView organization(String id);
+    public OrganizationView getOrganizationById(String id);
 
-    public void update(OrganizationView view);
+    public void updateOrganization(OrganizationView view);
 
-    public void save(OrganizationView view);
+    public void saveOrganization(OrganizationView view);
 
-    public void delete(String id);
+    public void deleteOrganization(String id);
 }

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OrganizationDAO;
+import ru.bellintegrator.denisov.exception.OrganizationSeviceException;
 import ru.bellintegrator.denisov.model.Organization;
 import ru.bellintegrator.denisov.service.OrganizationService;
 import ru.bellintegrator.denisov.view.OrganizationFilterView;
@@ -29,9 +30,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationView> organizations(OrganizationFilterView filterView) {
+    public List<OrganizationView> getAllOrganizationByCriteria(OrganizationFilterView filterView) {
         List<OrganizationView> result = new ArrayList<>();
-        List<Organization> orgs = orgDAO.all(filterView);
+        List<Organization> orgs = orgDAO.getAllOrganizationsByCriteria(filterView);
         
         for(Organization org : orgs) {
             OrganizationView view = org.toConvertFilterOrgDTO();
@@ -46,9 +47,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public OrganizationView organization(String id) {
+    public OrganizationView getOrganizationById(String id) {
         Long orgId = Long.parseLong(id, 10);
-        Organization org = orgDAO.loadById(orgId);
+        Organization org = orgDAO.getOrganizationById(orgId);
+        if(org == null) throw new OrganizationSeviceException("No organization has id = " + id);
         
         OrganizationView view = org.toConvertOrgDTO();
         
@@ -59,28 +61,30 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public void update(OrganizationView view) {
+    public void updateOrganization(OrganizationView view) {
         Long updatingOrgId = Long.parseLong(view.id, 10);
-        Organization organization = orgDAO.loadById(updatingOrgId);
-        organization = view.toConvertOrgEntity(organization);
+        Organization org = orgDAO.getOrganizationById(updatingOrgId);
+        if(org == null) throw new OrganizationSeviceException("No organization has id = " + updatingOrgId);
         
-        orgDAO.update(organization);
+        org = view.toConvertOrgEntity(org);
+        
+        orgDAO.updateOrganization(org);
     }
 
     @Override
     @Transactional
-    public void save(OrganizationView view) {
+    public void saveOrganization(OrganizationView view) {
         Organization organization = new Organization();
         organization = view.toConvertOrgEntity(organization);
         
-        orgDAO.save(organization);
+        orgDAO.saveOrganization(organization);
     }
 
     @Override
     @Transactional
-    public void delete(String id) {
+    public void deleteOrganization(String id) {
         Long orgId = Long.parseLong(id, 10);
-        orgDAO.delete(orgId);
+        orgDAO.deleteOrganization(orgId);
     }
     
 }

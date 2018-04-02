@@ -82,7 +82,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     public void save(OfficeView view) {
         Long orgId = Long.parseLong(view.orgId);
-        Organization org = orgDAO.loadById(orgId);
+        Organization org = orgDAO.getOrganizationById(orgId);
         
         Office office = view.toConvertOfficeEntity(org);
         

@@ -25,7 +25,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
 
     @Override
-    public List<Organization> all() {
+    public List<Organization> getAllOrganizations() {
         TypedQuery<Organization> query = em.createNamedQuery("Organization.findAll", Organization.class);
         List<Organization> result = query.getResultList();
         
@@ -33,7 +33,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
     
     @Override
-    public List<Organization> all(OrganizationFilterView filter) {
+    public List<Organization> getAllOrganizationsByCriteria(OrganizationFilterView filter) {
         OrgCriteriaConverter converter = new OrgCriteriaConverter(filter);
         CriteriaQuery cq = converter.getCriteriaQuery();
         Root<Organization> organizations = converter.getRoot();
@@ -46,12 +46,12 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
 
     @Override
-    public Organization loadById(Long id) {
+    public Organization getOrganizationById(Long id) {
         return em.find(Organization.class, id);
     }
 
     @Override
-    public Organization loadByName(String name) {
+    public Organization getOrganizationByName(String name) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
 
@@ -63,18 +63,18 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
 
     @Override
-    public void update(Organization organization) {
+    public void updateOrganization(Organization organization) {
         em.merge(organization);
     }
 
     @Override
-    public void save(Organization organization) {
+    public void saveOrganization(Organization organization) {
         em.persist(organization);
     }
 
     @Override
-    public void delete(Long id) {
-        Organization org = loadById(id);
+    public void deleteOrganization(Long id) {
+        Organization org = getOrganizationById(id);
         em.remove(org);
     }
     
@@ -102,7 +102,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
             
             if (name != null) {
                predicates.add(
-                   qb.like(organizations.<String>get("name"), name));
+                   qb.like(organizations.get("name"), "%" + name + "%"));
             }
             if (inn != null) {
                 predicates.add(
@@ -110,7 +110,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
             }
             if (isActive != null) {
                 predicates.add(
-                  qb.equal(organizations.get("is_active"), isActive));
+                  qb.equal(organizations.get("isActive"), isActive));
             }
         }
         
