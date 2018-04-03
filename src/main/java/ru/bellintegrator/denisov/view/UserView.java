@@ -24,60 +24,49 @@ public class UserView {
     
     public String docName;
     
-    public Integer docNumber;
+    public String docNumber;
     
     public Date docDate;
     
     public String citizenshipName;
     
-    public Integer citizenshipCode;
+    public String citizenshipCode;
     
     public Boolean isIdentified;
     
     public String officeId;
     
     
-    public User toConvertUserEntity(User user, Document docType) {
+    public User toConvertUserEntity(User user, Document document, Citizenship citizenship) {
         
         user.setFirstName(firstName);
         user.setSecondName(secondName);
         user.setMiddleName(middleName);
         user.setPosition(position);
         user.setPhone(phone);
+        user.setDocNumber(docNumber);
+        user.setDocDate(docDate);
         user.setIdentified(isIdentified);
-        
-        Document userDoc = user.getDocument();
-//        userDoc.setType(docType);
-//        userDoc.setNumber(docNumber);
-//        userDoc.setDate(docDate);
-        
-////        CitizenshipType userCitizenship = user.getCitizenshipType();
-//        userCitizenship.setName(citizenshipName);
-//        userCitizenship.setCode(citizenshipCode);
+        user.setDocument(document);
+        user.setCitizenship(citizenship);
         
         return user;
     }
 
-    public User toConvertUserEntity(Office office, Document docType) {
-        
-        Document userDoc = new Document();
-//        userDoc.setType(docType);
-//        userDoc.setNumber(docNumber);
-//        userDoc.setDate(docDate);
-        
-        Citizenship userCitizenship = new Citizenship();
-//        userCitizenship.setName(citizenshipName);
-//        userCitizenship.setCode(citizenshipCode);
+    public User toConvertUserEntity(Office office, Document document, Citizenship citizenship) {
         
         User user = new User();
+        
         user.setFirstName(firstName);
         user.setSecondName(secondName);
         user.setMiddleName(middleName);
         user.setPosition(position);
         user.setPhone(phone);
+        user.setDocNumber(docNumber);
+        user.setDocDate(docDate);
         user.setIdentified(isIdentified);
-        user.setDocument(userDoc);
-//        user.setCitizenshipType(userCitizenship);
+        user.setDocument(document);
+        user.setCitizenship(citizenship);
         user.setOffice(office);
         
         return user;

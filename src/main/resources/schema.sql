@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Document (
 CREATE TABLE IF NOT EXISTS Organization (
     id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER,
-    name                VARCHAR(45) NOT NULL,
+    name                VARCHAR(45),
     full_name           VARCHAR(45),
     inn                 VARCHAR(45),
     kpp                 VARCHAR(45),
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Office (
     phone               VARCHAR(45),
     address             VARCHAR(45),
     is_active           BOOLEAN,
-    org_fk              INTEGER NOT NULL,
+    org_fk              INTEGER,
     FOREIGN KEY (org_fk) REFERENCES Organization(id) 
     ON DELETE CASCADE
     ON UPDATE CASCADE
@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS User (
     doc_number          INTEGER,
     doc_date            DATE,
     is_identified       BOOLEAN,
-    doc_type_fk         INTEGER NOT NULL,
-    office_fk           INTEGER NOT NULL,
-    citizenship_type_fk INTEGER NOT NULL,
+    doc_type_fk         INTEGER,
+    office_fk           INTEGER,
+    citizenship_type_fk INTEGER,
     FOREIGN KEY (doc_type_fk)         REFERENCES Document(doc_code),
     FOREIGN KEY (office_fk)           REFERENCES Office(id),
     FOREIGN KEY (citizenship_type_fk) REFERENCES Citizenship(country_code)

@@ -6,14 +6,14 @@ import ru.bellintegrator.denisov.view.UserView;
 
 public interface UserService {
 
-    public List<UserView> users(UserFilterView view);
+    public List<UserView> getAllUsersByCriteria(UserFilterView view);
 
-    public UserView user(String id);
+    public UserView getUserById(String id);
 
-    public void update(UserView view);
+    public void updateUser(UserView view);
 
-    public void delete(String id);
+    public void deleteUser(String id);
 
-    public void save(UserView view);
+    public void saveUser(UserView view);
     
 }

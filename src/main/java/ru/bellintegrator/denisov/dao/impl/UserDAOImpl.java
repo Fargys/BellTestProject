@@ -11,7 +11,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.denisov.dao.UserDAO;
-import ru.bellintegrator.denisov.model.Citizenship;
 import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
 
@@ -26,7 +25,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> all() {
+    public List<User> getAllUsers() {
         TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
         List<User> result = query.getResultList();
         
@@ -34,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
     }
     
     @Override
-    public List<User> all(UserFilterView filter) {
+    public List<User> getAllUsersByCriteria(UserFilterView filter) {
         UserCriteriaConverter converter = new UserCriteriaConverter(filter);
         CriteriaQuery cq = converter.getCriteriaQuery();
         Root<User> users = converter.getRoot();
@@ -47,26 +46,37 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User loadById(Long id) {
+    public User getUserById(Long id) {
         return em.find(User.class, id);
     }
 
     @Override
-    public void update(User user) {
+    public User getUserByName(String name) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+
+        Root<User> user = criteria.from(User.class);
+        criteria.where(builder.equal(user.get("firstName"), name));
+
+        TypedQuery<User> query = em.createQuery(criteria);
+        return query.getSingleResult();
+    }
+    
+    @Override
+    public void updateUser(User user) {
         em.merge(user);
     }
 
     @Override
-    public void delete(Long id) {
-        User user = loadById(id);
+    public void deleteUser(Long id) {
+        User user = getUserById(id);
         em.remove(user);
     }
 
     @Override
-    public void save(User user) {
+    public void saveUser(User user) {
         em.persist(user);
     }
-    
     
     
     private class UserCriteriaConverter {
@@ -95,36 +105,33 @@ public class UserDAOImpl implements UserDAO {
             criteriaQuery = qb.createQuery();
             users = criteriaQuery.from(User.class);
             
-//            Root<DocumentType> docs = criteriaQuery.from(DocumentType.class);
-            Root<Citizenship> countries = criteriaQuery.from(Citizenship.class);
-            
-            if (officeId != null) {
+          if (officeId != null) {
                predicates.add(
-                   qb.equal(users.get("office_id"), officeId));
+                   qb.equal(users.get("office").get("id"), officeId));
             }
             if (firstName != null) {
                predicates.add(
-                   qb.equal(users.get("first_name"), firstName));
+                   qb.equal(users.get("firstName"), firstName));
             }
             if (lastName != null) {
                predicates.add(
-                   qb.equal(users.get("last_name"), lastName));
+                   qb.equal(users.get("lastName"), lastName));
             }
             if (middleName != null) {
                predicates.add(
-                   qb.equal(users.get("middle_name"), middleName));
+                   qb.equal(users.get("middleName"), middleName));
             }
             if (position != null) {
                predicates.add(
                    qb.equal(users.get("position"), position));
             }
             if (docCode != null) {
-//               predicates.add(
-//                   qb.equal(docs.get("doc_code"), docCode));
+               predicates.add(
+                   qb.equal(users.get("document").get("docCode"), docCode));
             }
             if (citizenshipCode != null) {
                predicates.add(
-                   qb.equal(countries.get("citizenship_code"), citizenshipCode));
+                   qb.equal(users.get("citizenship").get("countryCode"), citizenshipCode));
             }
             
         }

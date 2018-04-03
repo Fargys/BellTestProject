@@ -6,13 +6,11 @@ import ru.bellintegrator.denisov.model.Document;
 
 public interface ReferenceDAO {
     
-    public Document loadDocTypeByName(String docName);
+    public Document getDocumentByName(String docName);
     
-    public List<Document> allDocumentType();
+    public Citizenship getCitizenshipByName(String citizenshipName);
     
-    public void saveDocument(Document type);
+    public List<Document> getAllDocuments();
     
-    public List<Citizenship> allCitizenshipType();
-    
-    public void saveCitizenshipType(Citizenship type);
+    public List<Citizenship> getAllCitizenship();
 }

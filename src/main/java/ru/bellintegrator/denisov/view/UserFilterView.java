@@ -15,5 +15,12 @@ public class UserFilterView {
     public String docCode;
     
     public String citizenshipCode;
+
+    public UserFilterView() {
+    }
+
+    public UserFilterView(String firstName) {
+        this.firstName = firstName;
+    }
     
 }

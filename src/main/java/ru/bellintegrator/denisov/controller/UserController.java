@@ -6,13 +6,13 @@ import ru.bellintegrator.denisov.view.UserView;
 
 public interface UserController {
     
-    public ResponseView users(UserFilterView view);
+    public ResponseView getAllUsersByCriteria(UserFilterView view);
     
-    public ResponseView user(String userId);
+    public ResponseView getUserById(String userId);
     
-    public ResponseView update(UserView view);
+    public ResponseView updateUser(UserView view);
     
-    public ResponseView save(UserView view);
+    public ResponseView saveUser(UserView view);
     
-    public ResponseView delete(String userId);
+    public ResponseView deleteUser(String userId);
 }

@@ -31,10 +31,10 @@ public class UserControllerImpl implements UserController {
     
     @Override
     @RequestMapping(value = "/list", method = {POST})
-    public ResponseView users(@RequestBody UserFilterView view) {
+    public ResponseView getAllUsersByCriteria(@RequestBody UserFilterView view) {
         try {
             if(view.officeId == null) throw new UserControllerException();
-            Object data = userService.users(view);
+            Object data = userService.getAllUsersByCriteria(view);
         
             return ResponseView.newBuilder()
                     .setData(data)
@@ -49,9 +49,9 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @RequestMapping(value = "/{id}", method = {GET})
-    public ResponseView user(@PathVariable("id") String id) {
+    public ResponseView getUserById(@PathVariable("id") String id) {
         try {
-            Object data = userService.user(id);
+            Object data = userService.getUserById(id);
         
             return ResponseView.newBuilder()
                     .setData(data)
@@ -66,9 +66,9 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @RequestMapping(value = "/update", method = {PUT})
-    public ResponseView update(@RequestBody UserView view) {
+    public ResponseView updateUser(@RequestBody UserView view) {
         try{
-            userService.update(view);
+            userService.updateUser(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();
@@ -81,9 +81,9 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @RequestMapping(value = "/{id}", method = {DELETE})
-    public ResponseView delete(@PathVariable("id") String id) {
+    public ResponseView deleteUser(@PathVariable("id") String id) {
         try{
-            userService.delete(id);
+            userService.deleteUser(id);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();
@@ -96,9 +96,9 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @RequestMapping(value = "/save", method = {POST})
-    public ResponseView save(@RequestBody UserView view) {
+    public ResponseView saveUser(@RequestBody UserView view) {
         try{
-            userService.save(view);
+            userService.saveUser(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();

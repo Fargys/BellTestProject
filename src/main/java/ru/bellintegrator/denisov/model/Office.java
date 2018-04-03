@@ -1,6 +1,7 @@
 package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -37,9 +39,12 @@ public class Office implements Serializable  {
     @Column(name = "is_active")
     private Boolean isActive;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "org_fk")
     private Organization organization;
+    
+     @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
+     private Set<User> users;
     
     
     public OfficeView toConvertOfficeDTO() {

@@ -56,7 +56,7 @@ public class User implements Serializable  {
     @JoinColumn(name = "doc_type_fk")
     private Document document;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_fk")
     private Office office;
     
@@ -74,18 +74,13 @@ public class User implements Serializable  {
         view.middleName = middleName;
         view.position = position;
         view.phone = phone;
+        view.docName = document.getDocName();
+        view.docNumber = docNumber;
+        view.docDate = docDate;
+        view.citizenshipCode = String.valueOf(citizenship.getCountryCode());
+        view.citizenshipName = citizenship.getCountryName();
         view.isIdentified = isIdentified;
-        
-        Document userDoc = getDocument();
-//        DocumentType docType = userDoc.getType();
-        
-//        view.docName = docType.getName();
-//        view.docNumber = userDoc.getNumber();
-//        view.docDate = userDoc.getDate();
-        
-//        CitizenshipType userCitizenship = getCitizenshipType();
-//        view.citizenshipName = userCitizenship.getName();
-//        view.citizenshipCode = userCitizenship.getCode();
+        view.officeId = String.valueOf(office.getId());
         
         return view;
     }
@@ -105,6 +100,11 @@ public class User implements Serializable  {
     
     public User() {
     }
+
+    public User(String firstName) {
+        this.firstName = firstName;
+    }
+    
 
     public Long getId() {
         return id;

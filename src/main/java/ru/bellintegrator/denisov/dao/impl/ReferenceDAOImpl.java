@@ -23,7 +23,7 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     }
 
     @Override
-    public Document loadDocTypeByName(String docName) {
+    public Document getDocumentByName(String docName) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Document> criteria = builder.createQuery(Document.class);
 
@@ -35,7 +35,19 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     }
     
     @Override
-    public List<Document> allDocumentType() {
+    public Citizenship getCitizenshipByName(String countryName) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Citizenship> criteria = builder.createQuery(Citizenship.class);
+
+        Root<Citizenship> account = criteria.from(Citizenship.class);
+        criteria.where(builder.equal(account.get("countryName"), countryName));
+
+        TypedQuery<Citizenship> query = em.createQuery(criteria);
+        return query.getSingleResult();
+    }
+    
+    @Override
+    public List<Document> getAllDocuments() {
         TypedQuery<Document> query = em.createNamedQuery("Document.findAll", Document.class);
         List<Document> result = query.getResultList();
         
@@ -43,21 +55,21 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     }
 
     @Override
-    public List<Citizenship> allCitizenshipType() {
+    public List<Citizenship> getAllCitizenship() {
         TypedQuery<Citizenship> query = em.createNamedQuery("CitizenshipType.findAll", Citizenship.class);
         List<Citizenship> result = query.getResultList();
         
         return result;
     }
 
-    @Override
-    public void saveDocument(Document document) {
-        em.persist(document);
-    }
-
-    @Override
-    public void saveCitizenshipType(Citizenship country) {
-        em.persist(country);
-    }
+//    @Override
+//    public void saveDocument(Document document) {
+//        em.persist(document);
+//    }
+//
+//    @Override
+//    public void saveCitizenshipType(Citizenship country) {
+//        em.persist(country);
+//    }
     
 }

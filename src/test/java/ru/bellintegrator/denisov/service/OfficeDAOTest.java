@@ -60,6 +60,11 @@ public class OfficeDAOTest {
         officeDAO.updateOffice(updateTestOffice);
         Office officeAfterUpdate = officeDAO.getOfficeByName(nameForUpdate);
         Assert.assertNotNull(officeAfterUpdate);
+        
+        //test delete not working
+        officeDAO.deleteOffice(1L);
+        offices = officeDAO.getAllOffices();
+        Assert.assertEquals(2, offices.size());
     }
     
 }
