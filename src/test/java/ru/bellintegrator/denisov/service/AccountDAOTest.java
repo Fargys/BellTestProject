@@ -1,6 +1,7 @@
 package ru.bellintegrator.denisov.service;
 
 
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,15 +28,24 @@ public class AccountDAOTest {
     
     @Test
     public void test() {
-        Account account = new Account();
-        String activationCode = "activation";
+        // test get all
+        List<Account> accounts = accountDAO.getAllAccounts();
+        Assert.assertNotNull(accounts);
+        Assert.assertEquals(2, accounts.size());
         
-        account.setActivationCode(activationCode);
+        // test register
+        String testLogin = "testLogin";
+        Account account = new Account(testLogin);
         accountDAO.register(account);
+        accounts = accountDAO.getAllAccounts();
+        Assert.assertEquals(3, accounts.size());
         
-        Account secondAccount = accountDAO.loadByActivationCode(activationCode);
-        Assert.assertNotNull(secondAccount);
+        // test get by login
+        Account testAccount = accountDAO.loadByLogin(testLogin);
+        Assert.assertNotNull(testAccount);
         
-        Assert.assertEquals(account, secondAccount);
+        // test get by activation code
+        testAccount = accountDAO.loadByActivationCode("somecode #1");
+        Assert.assertNotNull(testAccount);
     }
 }

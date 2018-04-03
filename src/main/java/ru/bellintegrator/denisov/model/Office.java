@@ -39,12 +39,12 @@ public class Office implements Serializable  {
     @Column(name = "is_active")
     private Boolean isActive;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_fk")
     private Organization organization;
     
-     @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
-     private Set<User> users;
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<User> users;
     
     
     public OfficeView toConvertOfficeDTO() {

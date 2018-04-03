@@ -1,19 +1,17 @@
 package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
 @Table(name = "Account")
+@NamedQuery(name = "Account.findAll", query = "SELECT p FROM Account p") 
 public class Account implements Serializable  {
     
     @Id
@@ -39,6 +37,11 @@ public class Account implements Serializable  {
 
     public Account() {
     }
+
+    public Account(String login) {
+        this.login = login;
+    }
+    
 
     public Long getId() {
         return id;

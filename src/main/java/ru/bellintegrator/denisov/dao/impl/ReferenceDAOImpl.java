@@ -28,7 +28,7 @@ public class ReferenceDAOImpl implements ReferenceDAO {
         CriteriaQuery<Document> criteria = builder.createQuery(Document.class);
 
         Root<Document> account = criteria.from(Document.class);
-        criteria.where(builder.equal(account.get("doc_name"), docName));
+        criteria.where(builder.equal(account.get("docName"), docName));
 
         TypedQuery<Document> query = em.createQuery(criteria);
         return query.getSingleResult();
@@ -55,21 +55,11 @@ public class ReferenceDAOImpl implements ReferenceDAO {
     }
 
     @Override
-    public List<Citizenship> getAllCitizenship() {
-        TypedQuery<Citizenship> query = em.createNamedQuery("CitizenshipType.findAll", Citizenship.class);
+    public List<Citizenship> getAllCitizenships() {
+        TypedQuery<Citizenship> query = em.createNamedQuery("Citizenship.findAll", Citizenship.class);
         List<Citizenship> result = query.getResultList();
         
         return result;
     }
-
-//    @Override
-//    public void saveDocument(Document document) {
-//        em.persist(document);
-//    }
-//
-//    @Override
-//    public void saveCitizenshipType(Citizenship country) {
-//        em.persist(country);
-//    }
     
 }

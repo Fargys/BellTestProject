@@ -60,7 +60,7 @@ public class UserDAOTest {
         User userAfterUpdate = userDAO.getUserByName(nameForUpdate);
         Assert.assertNotNull(userAfterUpdate);
         
-        //delete not working
+        //test delete
         userDAO.deleteUser(1L);
         users = userDAO.getAllUsers();
         Assert.assertEquals(2, users.size());

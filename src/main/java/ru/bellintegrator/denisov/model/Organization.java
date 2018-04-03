@@ -1,11 +1,14 @@
 package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -39,6 +42,9 @@ public class Organization implements Serializable  {
     
     @Column(name = "is_active")
     private Boolean isActive;
+    
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Office> offices;
     
     
     public OrganizationView toConvertOrgDTO() {

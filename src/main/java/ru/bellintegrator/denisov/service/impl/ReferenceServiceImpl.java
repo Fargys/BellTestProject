@@ -30,7 +30,7 @@ public class ReferenceServiceImpl implements ReferenceService {
     @Override
     @Transactional(readOnly = true)
     public List<Citizenship> citizenshipTypes() {
-        return dao.getAllCitizenship();
+        return dao.getAllCitizenships();
     }
     
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.ReferenceDAO;
 import ru.bellintegrator.denisov.Application;
 import ru.bellintegrator.denisov.model.Citizenship;
+import ru.bellintegrator.denisov.model.Document;
 
 
 @RunWith(SpringRunner.class)
@@ -27,26 +28,22 @@ public class ReferenceDAOTest {
     
     @Test
     public void test() {
-//        DocumentType firstType = new DocumentType();
-//        referenceDAO.saveDocument(firstType);
-//        List<DocumentType> docs = referenceDAO.allDocumentType();
-//        
-//        Assert.assertNotNull(docs);
-//        Assert.assertFalse(docs.isEmpty());
-//        
-//        DocumentType secondType = docs.get(1);
-//        Assert.assertEquals(firstType, secondType);
-//        
-//        
-//        
-//        Citizenship first = new Citizenship();
-//        referenceDAO.saveCitizenshipType(first);
-//        List<Citizenship> countries = referenceDAO.allCitizenshipType();
-//        
-//        Assert.assertNotNull(countries);
-//        Assert.assertFalse(countries.isEmpty());
-//        
-//        Citizenship second = countries.get(1);
-//        Assert.assertEquals(first, second);
+        // test get all document
+        List<Document> docs = referenceDAO.getAllDocuments();
+        Assert.assertNotNull(docs);
+        Assert.assertEquals(2, docs.size());
+        
+        //test get all citizenships
+        List<Citizenship> citizenships = referenceDAO.getAllCitizenships();
+        Assert.assertNotNull(citizenships);
+        Assert.assertEquals(2, citizenships.size());
+        
+        // test get document by name
+        Document doc = referenceDAO.getDocumentByName("Passport");
+        Assert.assertNotNull(doc);
+        
+        //test get citizenship by name
+        Citizenship citizenship = referenceDAO.getCitizenshipByName("Russia");
+        Assert.assertNotNull(citizenship);
     }
 }

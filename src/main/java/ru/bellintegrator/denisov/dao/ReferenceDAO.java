@@ -12,5 +12,5 @@ public interface ReferenceDAO {
     
     public List<Document> getAllDocuments();
     
-    public List<Citizenship> getAllCitizenship();
+    public List<Citizenship> getAllCitizenships();
 }

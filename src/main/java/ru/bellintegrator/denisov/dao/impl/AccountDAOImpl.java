@@ -1,5 +1,6 @@
 package ru.bellintegrator.denisov.dao.impl;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,6 +19,14 @@ public class AccountDAOImpl implements AccountDAO {
         this.em = em;
     }
 
+    @Override
+    public List<Account> getAllAccounts() {
+        TypedQuery<Account> query = em.createNamedQuery("Account.findAll", Account.class);
+        List<Account> result = query.getResultList();
+        
+        return result;
+    }
+    
     @Override
     public void register(Account account) {
         em.persist(account);
