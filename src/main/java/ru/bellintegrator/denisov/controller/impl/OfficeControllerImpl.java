@@ -31,10 +31,10 @@ public class OfficeControllerImpl implements OfficeController {
 
     @Override
     @RequestMapping(value = "/list", method = {POST})
-    public ResponseView offices(@RequestBody OfficeFilterView view) {
+    public ResponseView getAllOfficesByCriteria(@RequestBody OfficeFilterView view) {
         try {
             if(view.orgId == null) throw new OfficeControllerException();
-            Object data = officeService.offices(view);
+            Object data = officeService.getAllOfficesByCriteria(view);
         
             return ResponseView.newBuilder()
                     .setData(data)
@@ -49,9 +49,9 @@ public class OfficeControllerImpl implements OfficeController {
 
     @Override
     @RequestMapping(value = "/{id}", method = {GET})
-    public ResponseView office(@PathVariable("id") String id) {
+    public ResponseView getOfficeById(@PathVariable("id") String id) {
         try {
-            Object data = officeService.office(id);
+            Object data = officeService.getOfficeById(id);
         
             return ResponseView.newBuilder()
                     .setData(data)
@@ -66,9 +66,9 @@ public class OfficeControllerImpl implements OfficeController {
 
     @Override
     @RequestMapping(value = "/update", method = {PUT})
-    public ResponseView update(@RequestBody OfficeView view) {
+    public ResponseView updateOffice(@RequestBody OfficeView view) {
         try{
-            officeService.update(view);
+            officeService.updateOffice(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();
@@ -81,9 +81,9 @@ public class OfficeControllerImpl implements OfficeController {
 
     @Override
     @RequestMapping(value = "/{id}", method = {DELETE})
-    public ResponseView delete(@PathVariable("id") String id) {
+    public ResponseView deleteOffice(@PathVariable("id") String id) {
         try{
-            officeService.delete(id);
+            officeService.deleteOffice(id);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();
@@ -96,9 +96,9 @@ public class OfficeControllerImpl implements OfficeController {
 
     @Override
     @RequestMapping(value = "/save", method = {POST})
-    public ResponseView save(@RequestBody OfficeView view) {
+    public ResponseView saveOffice(@RequestBody OfficeView view) {
         try{
-            officeService.save(view);
+            officeService.saveOffice(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();

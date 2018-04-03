@@ -68,6 +68,11 @@ public class Office implements Serializable  {
     public Office() {
     }
 
+    public Office(String name) {
+        this.name = name;
+    }
+    
+
     public Long getId() {
         return id;
     }

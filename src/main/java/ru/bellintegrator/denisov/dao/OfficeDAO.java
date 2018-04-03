@@ -6,16 +6,18 @@ import ru.bellintegrator.denisov.view.OfficeFilterView;
 
 public interface OfficeDAO {
     
-    public List<Office> all();
+    public List<Office> getAllOffices();
 
-    public List<Office> all(OfficeFilterView filterView);
+    public List<Office> getAllOfficesByCriteria(OfficeFilterView filterView);
 
-    public Office loadById(Long id);
+    public Office getOfficeById(Long id);
+    
+    public Office getOfficeByName(String name);
 
-    public void update(Office office);
+    public void updateOffice(Office office);
 
-    public void delete(Long id);
+    public void deleteOffice(Long id);
 
-    public void save(Office office);
+    public void saveOffice(Office office);
     
 }

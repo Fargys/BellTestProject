@@ -42,7 +42,7 @@ public class OrganizationDAOTest {
         
         //test save
         String testName = "testName";
-        Organization saveTestOrg = new Organization("testName");
+        Organization saveTestOrg = new Organization(testName);
         organizationDAO.saveOrganization(saveTestOrg);
         orgs = organizationDAO.getAllOrganizations();
         Assert.assertEquals(3, orgs.size());

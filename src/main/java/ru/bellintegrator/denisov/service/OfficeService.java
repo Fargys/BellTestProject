@@ -6,14 +6,14 @@ import ru.bellintegrator.denisov.view.OfficeView;
 
 public interface OfficeService {
     
-    public List<OfficeView> offices(OfficeFilterView view);
+    public List<OfficeView> getAllOfficesByCriteria(OfficeFilterView view);
 
-    public OfficeView office(String id);
+    public OfficeView getOfficeById(String id);
 
-    public void update(OfficeView view);
+    public void updateOffice(OfficeView view);
 
-    public void delete(String id);
+    public void deleteOffice(String id);
 
-    public void save(OfficeView view);
+    public void saveOffice(OfficeView view);
     
 }

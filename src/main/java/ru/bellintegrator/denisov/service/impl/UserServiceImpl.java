@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
     public void save(UserView view) {
 //        DocumentType docType = refDAO.loadDocTypeByName(view.docName);
         Long officeId = Long.parseLong(view.officeId);
-        Office userOffice = officeDAO.loadById(officeId);
+        Office userOffice = officeDAO.getOfficeById(officeId);
         
 //        User user = view.toConvertUserEntity(userOffice, docType);
         

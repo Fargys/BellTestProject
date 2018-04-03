@@ -6,14 +6,14 @@ import ru.bellintegrator.denisov.view.ResponseView;
 
 public interface OfficeController {
     
-    public ResponseView offices(OfficeFilterView view);
+    public ResponseView getAllOfficesByCriteria(OfficeFilterView view);
     
-    public ResponseView office(String officeId);
+    public ResponseView getOfficeById(String officeId);
     
-    public ResponseView update(OfficeView view);
+    public ResponseView updateOffice(OfficeView view);
     
-    public ResponseView save(OfficeView view);
+    public ResponseView saveOffice(OfficeView view);
     
-    public ResponseView delete(String officeId);
+    public ResponseView deleteOffice(String officeId);
     
 }

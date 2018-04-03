@@ -24,18 +24,17 @@ public class OfficeDAOImpl implements OfficeDAO {
         this.em = em;
     }
 
+    
     @Override
-    public List<Office> all() {
+    public List<Office> getAllOffices() {
         TypedQuery<Office> query = em.createNamedQuery("Office.findAll", Office.class);
         List<Office> result = query.getResultList();
         
         return result;
     }
     
-    
-
     @Override
-    public List<Office> all(OfficeFilterView filter) {
+    public List<Office> getAllOfficesByCriteria(OfficeFilterView filter) {
         OfficeCriteriaConverter converter = new OfficeCriteriaConverter(filter);
         CriteriaQuery cq = converter.getCriteriaQuery();
         Root<Office> office = converter.getRoot();
@@ -48,26 +47,37 @@ public class OfficeDAOImpl implements OfficeDAO {
     }
 
     @Override
-    public Office loadById(Long id) {
+    public Office getOfficeById(Long id) {
         return em.find(Office.class, id);
     }
 
     @Override
-    public void update(Office office) {
+    public Office getOfficeByName(String name) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Office> criteria = builder.createQuery(Office.class);
+
+        Root<Office> office = criteria.from(Office.class);
+        criteria.where(builder.equal(office.get("name"), name));
+
+        TypedQuery<Office> query = em.createQuery(criteria);
+        return query.getSingleResult();
+    }
+    
+    @Override
+    public void updateOffice(Office office) {
         em.merge(office);
     }
 
     @Override
-    public void delete(Long id) {
-        Office office = loadById(id);
+    public void deleteOffice(Long id) {
+        Office office = getOfficeById(id);
         em.remove(office);
     }
 
     @Override
-    public void save(Office office) {
+    public void saveOffice(Office office) {
         em.persist(office);
     }
-    
     
     
     private class OfficeCriteriaConverter {
@@ -86,7 +96,7 @@ public class OfficeDAOImpl implements OfficeDAO {
             String orgId = filter.orgId;
             String name = filter.name;
             String phone = filter.phone;
-            String isActive = String.valueOf(filter.isActive);
+            String isActive = filter.isActive;
 
             CriteriaBuilder qb = em.getCriteriaBuilder();
             criteriaQuery = qb.createQuery();
@@ -95,11 +105,11 @@ public class OfficeDAOImpl implements OfficeDAO {
             
             if (orgId != null) {
                predicates.add(
-                   qb.equal(office.<String>get("org_id"), orgId));
+                   qb.equal(office.get("organization").get("id"), orgId));
             }
             if (name != null) {
                predicates.add(
-                   qb.like(office.<String>get("name"), name));
+                   qb.like(office.get("name"), "%" + name + "%"));
             }
             if (phone != null) {
                 predicates.add(
@@ -107,7 +117,7 @@ public class OfficeDAOImpl implements OfficeDAO {
             }
             if (isActive != null) {
                 predicates.add(
-                  qb.equal(office.get("is_active"), isActive));
+                  qb.equal(office.get("isActive"), isActive));
             }
         }
         

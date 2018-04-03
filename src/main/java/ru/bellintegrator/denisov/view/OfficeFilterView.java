@@ -8,6 +8,10 @@ public class OfficeFilterView {
     
     public String phone;
     
-    public Boolean isActive;
+    public String isActive;
+
+    public OfficeFilterView(String name) {
+        this.name = name;
+    }
     
 }

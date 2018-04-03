@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
 import ru.bellintegrator.denisov.dao.OrganizationDAO;
+import ru.bellintegrator.denisov.exception.OfficeSeviceException;
 import ru.bellintegrator.denisov.model.Office;
 import ru.bellintegrator.denisov.model.Organization;
 import ru.bellintegrator.denisov.service.OfficeService;
@@ -33,9 +34,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OfficeView> offices(OfficeFilterView filterView) {
+    public List<OfficeView> getAllOfficesByCriteria(OfficeFilterView filterView) {
         List<OfficeView> result = new ArrayList<>();
-        List<Office> offices = officeDAO.all(filterView);
+        List<Office> offices = officeDAO.getAllOfficesByCriteria(filterView);
         
         for(Office office : offices) {
             OfficeView view = office.toConvertFilterOfficeDTO();
@@ -50,9 +51,10 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional(readOnly = true)
-    public OfficeView office(String id) {
+    public OfficeView getOfficeById(String id) {
         Long orgId = Long.parseLong(id, 10);
-        Office office = officeDAO.loadById(orgId);
+        Office office = officeDAO.getOfficeById(orgId);
+        if(office == null) throw new OfficeSeviceException("No office has id = " + id);
         
         OfficeView view = office.toConvertOfficeDTO();
         
@@ -63,30 +65,32 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional
-    public void update(OfficeView view) {
+    public void updateOffice(OfficeView view) {
         Long updatingOfficeId = Long.parseLong(view.id, 10);
-        Office office = officeDAO.loadById(updatingOfficeId);
+        Office office = officeDAO.getOfficeById(updatingOfficeId);
+        if(office == null) throw new OfficeSeviceException("No office has id = " + updatingOfficeId);
+        
         office = view.toConvertOfficeEntity(office);
         
-        officeDAO.update(office);
+        officeDAO.updateOffice(office);
     }
 
     @Override
     @Transactional
-    public void delete(String id) {
+    public void deleteOffice(String id) {
         Long officeId = Long.parseLong(id, 10);
-        officeDAO.delete(officeId);
+        officeDAO.deleteOffice(officeId);
     }
 
     @Override
     @Transactional
-    public void save(OfficeView view) {
+    public void saveOffice(OfficeView view) {
         Long orgId = Long.parseLong(view.orgId);
         Organization org = orgDAO.getOrganizationById(orgId);
         
         Office office = view.toConvertOfficeEntity(org);
         
-        officeDAO.save(office);
+        officeDAO.saveOffice(office);
     }
     
 }

@@ -1,8 +1,6 @@
 package ru.bellintegrator.denisov.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +12,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.dao.OfficeDAO;
 import ru.bellintegrator.denisov.Application;
+import ru.bellintegrator.denisov.dao.OrganizationDAO;
 import ru.bellintegrator.denisov.model.Office;
-import ru.bellintegrator.denisov.model.User;
+import ru.bellintegrator.denisov.model.Organization;
+import ru.bellintegrator.denisov.view.OfficeFilterView;
 
 
 @RunWith(SpringRunner.class)
@@ -27,37 +27,39 @@ public class OfficeDAOTest {
     
     @Autowired
     private OfficeDAO officeDAO;
+    @Autowired
+    private OrganizationDAO organizationDAO;
     
     @Test
     public void test() {
-//        Office office = new Office();
-//        Set<User> list = new HashSet<>();
-//        office.setAddress("Address");
-//        User user = new User();
-//        user.setOffice(office);
-//        office.setUsers(list);
-//        list.add(user);
-//        officeDAO.save(office);
-//
-//        List<Office> offices = officeDAO.all();
-//        Assert.assertNotNull(offices);
-//
-//        user.setOffice(office);
-//
-//        Assert.assertFalse(offices.isEmpty());
-//
-//        Set<User> users = offices.get(1).getUsers();
-//        
-//        Assert.assertNotNull(users);
-//        Assert.assertEquals(1, users.size());
-//
-//        User secondUser = new User();
-//        users.add(secondUser);
-//
-//        offices = officeDAO.all();
-//        users = offices.get(1).getUsers();
-//        Assert.assertNotNull(users);
-//        Assert.assertEquals(2, users.size());
+        //test get all
+        List<Office> offices = officeDAO.getAllOffices();
+        Assert.assertNotNull(offices);
+        Assert.assertEquals(2, offices.size());
+        
+        // test get all with criteria
+        OfficeFilterView criteria = new OfficeFilterView("#1");
+        List<Office> officesByCriteria = officeDAO.getAllOfficesByCriteria(criteria);
+        Assert.assertNotNull(officesByCriteria);
+        Assert.assertEquals(1, officesByCriteria.size());
+        
+        //test save
+        String testName = "testName";
+        Office saveTestOffice = new Office(testName);
+        Organization org = organizationDAO.getOrganizationById(1L);
+        saveTestOffice.setOrganization(org);
+        officeDAO.saveOffice(saveTestOffice);
+        offices = officeDAO.getAllOffices();
+        Assert.assertEquals(3, offices.size());
+        
+        //test update
+        Office updateTestOffice = officeDAO.getOfficeByName(testName);
+        Assert.assertNotNull(updateTestOffice);
+        String nameForUpdate = "newTestName";
+        updateTestOffice.setName(nameForUpdate);
+        officeDAO.updateOffice(updateTestOffice);
+        Office officeAfterUpdate = officeDAO.getOfficeByName(nameForUpdate);
+        Assert.assertNotNull(officeAfterUpdate);
     }
     
 }
