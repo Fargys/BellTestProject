@@ -48,7 +48,7 @@ public class OrganizationControllerTest {
     @Test
     public void testGetOrganization() {
         ResponseEntity<ResponseView> responseEntity = 
-                restTemplate.exchange(patternURL + "//1", HttpMethod.GET, null, 
+                restTemplate.exchange(patternURL + "/1", HttpMethod.GET, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
         ResponseView responseView = responseEntity.getBody();
@@ -80,7 +80,7 @@ public class OrganizationControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
-        String body = "{\"id\" : \"2\"," 
+        String body = "{\"id\" : \"1\"," 
                 + "\"name\" : \"newSomeName\"" 
                 + "}";
         HttpEntity entity = new HttpEntity<>(body, headers);
@@ -98,7 +98,7 @@ public class OrganizationControllerTest {
     @Test
     public void deleteOrganization() {
         ResponseEntity<ResponseView> responseEntity = 
-                restTemplate.exchange(patternURL + "//1", HttpMethod.DELETE, null, 
+                restTemplate.exchange(patternURL + "/2", HttpMethod.DELETE, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
         ResponseView responseView = responseEntity.getBody();
