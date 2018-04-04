@@ -22,14 +22,13 @@ public class ReferenceServiceImpl implements ReferenceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Document> documentTypes() {
-        return null;
-//                dao.allDocumentType();
+    public List<Document> getAllDocuments() {
+        return dao.getAllDocuments();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Citizenship> citizenshipTypes() {
+    public List<Citizenship> getAllCitizenships() {
         return dao.getAllCitizenships();
     }
     

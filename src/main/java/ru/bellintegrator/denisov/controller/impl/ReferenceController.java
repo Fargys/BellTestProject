@@ -22,7 +22,7 @@ public class ReferenceController {
     @RequestMapping(value = "/api/docs", method = {GET})
     public ResponseView documents() {
         try {
-           Object data = referenceService.documentTypes();
+           Object data = referenceService.getAllDocuments();
         
             return ResponseView.newBuilder()
                     .setData(data)
@@ -38,7 +38,7 @@ public class ReferenceController {
     @RequestMapping(value = "/api/countries", method = {GET})
     public ResponseView countries() {
         try {
-           Object data = referenceService.citizenshipTypes();
+           Object data = referenceService.getAllCitizenships();
         
             return ResponseView.newBuilder()
                     .setData(data)
