@@ -40,58 +40,50 @@ public class OrganizationControllerIT {
     
 //    @Test
 //    public void testGetAllOrgWithFiltration() {
-//        ResponseEntity< List<OrganizationView> > responseEntity = 
-//                restTemplate.exchange(patternURL + "//list", HttpMethod.POST, null, 
-//                        new ParameterizedTypeReference< List<OrganizationView> >(){
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        
+//        String body = "{\"name\" : \"MC\"}";
+//        HttpEntity entity = new HttpEntity<>(body, headers);
+//        
+//        ResponseEntity<String> response = restTemplate.exchange(patternURL + "\\list", HttpMethod.POST, entity, String.class);
+//
+//        String result = response.getBody();
+//        
+//        System.out.println("---------------");
+//        System.out.println(result);
+//        System.out.println("---------------");
+//    }
+    
+    //working
+    @Test
+    public void testGetOrganization() {
+//        ResponseEntity<ResponseView> responseEntity = 
+//                restTemplate.exchange(patternURL + "//1", HttpMethod.GET, null, 
+//                        new ParameterizedTypeReference<ResponseView>(){
 //                        });
-//        List<OrganizationView> listOrgView = responseEntity.getBody();
+//        ResponseView responseView = responseEntity.getBody();
+//        
+//        Assert.assertNotNull(responseView);
+//        Assert.assertNotNull(responseView.getData());
+    }
+    
+//    @Test
+//    public void updateOrganization() {
 //        
 //    }
     
-    @Test
-    public void testGetOrganization() {
-        ResponseEntity<ResponseView> responseEntity = 
-                restTemplate.exchange(patternURL + "//1", HttpMethod.GET, null, 
-                        new ParameterizedTypeReference<ResponseView>(){
-                        });
-        ResponseView responseView = responseEntity.getBody();
-        
-        Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getData());
-    }
-    
-    @Test
-    public void updateOrganization() {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//
-//        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-//        map.add("name", "newName");
-//        
-//        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-//
-//        ResponseEntity<ResponseView> responseEntity = restTemplate.postForEntity( patternURL + "//update", request , ResponseView.class );
-//        
-//        ResponseView responseView = responseEntity.getBody();
-//        
-//        System.out.println(responseView.toString());
-    }
-    
-    
+    // working
     @Test
     public void deleteOrganization() {
-        ResponseEntity<ResponseView> responseEntity = 
-                restTemplate.exchange(patternURL + "//1", HttpMethod.DELETE, null, 
-                        new ParameterizedTypeReference<ResponseView>(){
-                        });
-        ResponseView responseView = responseEntity.getBody();
-        
-        System.out.println("---------------------");
-        System.out.println(responseView.toString());
-        System.out.println("---------------------");
-        
+//        ResponseEntity<ResponseView> responseEntity = 
+//                restTemplate.exchange(patternURL + "//1", HttpMethod.DELETE, null, 
+//                        new ParameterizedTypeReference<ResponseView>(){
+//                        });
+//        ResponseView responseView = responseEntity.getBody();
+//        
 //        Assert.assertNotNull(responseView);
-//        Assert.assertNotNull(responseView.getData());
+//        Assert.assertNotNull(responseView.getResult());
     }
     
 }

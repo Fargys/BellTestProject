@@ -1,4 +1,4 @@
-package ru.bellintegrator.denisov.service;
+package ru.bellintegrator.denisov.dao;
 
 import java.util.List;
 import org.junit.Assert;
