@@ -18,12 +18,12 @@ import ru.bellintegrator.denisov.service.ActivationService;
 @RequestMapping(value = "/api", produces = APPLICATION_JSON_VALUE)
 public class AccountControllerImpl implements AccountController {
     
-    private final AccountService loginService;
+    private final AccountService accountService;
     private final ActivationService activationService;
 
     @Autowired
-    public AccountControllerImpl(AccountService loginService, ActivationService activationService) {
-        this.loginService = loginService;
+    public AccountControllerImpl(AccountService accountService, ActivationService activationService) {
+        this.accountService = accountService;
         this.activationService = activationService;
     }
 
@@ -31,7 +31,7 @@ public class AccountControllerImpl implements AccountController {
     @RequestMapping(value = "/register", method = {POST})
     public ResponseView register(@RequestBody AccountView view) {
         try{
-            loginService.register(view);
+            accountService.register(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();
@@ -61,7 +61,7 @@ public class AccountControllerImpl implements AccountController {
     @RequestMapping(value = "/login", method = {POST})
     public ResponseView login(@RequestBody AccountView view) {
         try{
-            loginService.login(view);
+            accountService.login(view);
             return ResponseView.newBuilder()
                     .setResult(true)
                     .build();

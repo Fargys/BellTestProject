@@ -5,25 +5,27 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RestController;
+import ru.bellintegrator.denisov.controller.ReferenceController;
 import ru.bellintegrator.denisov.service.ReferenceService;
 import ru.bellintegrator.denisov.view.ResponseView;
 
 @RestController
 @RequestMapping(produces = APPLICATION_JSON_VALUE)
-public class ReferenceController {
+public class ReferenceControllerImpl implements ReferenceController {
     
     private final ReferenceService referenceService;
 
     @Autowired
-    public ReferenceController(ReferenceService referenceService) {
+    public ReferenceControllerImpl(ReferenceService referenceService) {
         this.referenceService = referenceService;
     }
     
+    @Override
     @RequestMapping(value = "/api/docs", method = {GET})
-    public ResponseView documents() {
+    public ResponseView getAllDocuments() {
         try {
-           Object data = referenceService.getAllDocuments();
-        
+            Object data = referenceService.getAllDocuments();
+            
             return ResponseView.newBuilder()
                     .setData(data)
                     .build();
@@ -35,8 +37,9 @@ public class ReferenceController {
         }
     }
     
+    @Override
     @RequestMapping(value = "/api/countries", method = {GET})
-    public ResponseView countries() {
+    public ResponseView getAllCitizenships() {
         try {
            Object data = referenceService.getAllCitizenships();
         

@@ -26,9 +26,9 @@ public class AccountServiceImpl implements AccountService {
         this.generator = generator;
     }
 
+    
     @Override
     public void register(AccountView view) {
-        User newNoActiveUser = new User();
         Account newAccount = new Account();
         String password = generator.encode(view.password);
         String activationCode = generator.generateString();
@@ -36,20 +36,19 @@ public class AccountServiceImpl implements AccountService {
         newAccount.setLogin(view.login);
         newAccount.setPassword(password);
         newAccount.setActivationCode(activationCode);
-//        newAccount.setUser(newNoActiveUser);
         
         accountDao.register(newAccount);
     }
     
-
     @Override
     public void login(AccountView view) throws Throwable {
         Account login = accountDao.loadByLogin(view.login);
+        if(login == null) throw new ServiceAccountException("Login have not found");
         
         String enteringPasswordHash = generator.encode(view.password);
         String truePasswordHash = login.getPassword();
         
-        if(enteringPasswordHash != truePasswordHash) throw new ServiceAccountException();
+        if(enteringPasswordHash != truePasswordHash) throw new ServiceAccountException("Wrong password");
     }
     
 }
