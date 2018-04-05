@@ -33,8 +33,8 @@ public class ReferenceControllerTest {
                         });
         ResponseView responseView = responseEntity.getBody();
         
-//        Assert.assertNotNull(responseView);
-//        Assert.assertNotNull(responseView.getData());
+        Assert.assertNotNull(responseView);
+        Assert.assertNotNull(responseView.getData());
     }
     
     @Test

@@ -2,6 +2,7 @@ package ru.bellintegrator.denisov.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.NoResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,14 +72,19 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUser(UserView view) {
-        Long updatingUserId = Long.parseLong(view.id, 10);
+        Long updatingUserId = Long.parseLong(view.id);
+        if(updatingUserId == null) throw new UserSeviceException("id is missed");
+        
         User user = userDAO.getUserById(updatingUserId);
         if(user == null) throw new UserSeviceException("No user has id = " + updatingUserId);
         
-        Document document = refDAO.getDocumentByName(view.docName);
-        Citizenship citizenthip = refDAO.getCitizenshipByName(view.citizenshipName);
+        Document document = null;
+        if(view.docName != null) document = refDAO.getDocumentByName(view.docName);
         
-        user = view.toConvertUserEntity(user, document, citizenthip);
+        Citizenship citizenship = null;
+        if(view.citizenshipName != null) citizenship = refDAO.getCitizenshipByName(view.citizenshipName);
+        
+        user = view.toConvertUserEntity(user, document, citizenship);
         
         userDAO.updateUser(user);
     }
@@ -94,15 +100,20 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void saveUser(UserView view) {
         Long officeId = Long.parseLong(view.officeId);
+        if(officeId == null) throw new UserSeviceException("officeId is missed");
+        
         Office office = officeDAO.getOfficeById(officeId);
         if(office == null) throw new UserSeviceException("No office has id = " + officeId);
         
-        Document document = refDAO.getDocumentByName(view.docName);
-        Citizenship citizenthip = refDAO.getCitizenshipByName(view.citizenshipName);
+        Document document = null;
+        if(view.docName != null) document = refDAO.getDocumentByName(view.docName);
         
-        User user = view.toConvertUserEntity(office, document, citizenthip);
+        Citizenship citizenship = null;
+        if(view.citizenshipName != null) citizenship = refDAO.getCitizenshipByName(view.citizenshipName);
         
-        userDAO.saveUser(user);
+        User user = view.toConvertUserEntity(office, document, citizenship);
+        
+        userDAO.saveUser(user);    
     }
     
 }

@@ -197,5 +197,15 @@ public class User implements Serializable  {
     public void setCitizenship(Citizenship citizenship) {
         this.citizenship = citizenship;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", version=" + version + ", firstName=" + firstName + ", secondName=" + secondName 
+                + ", middleName=" + middleName + ", position=" + position + ", phone=" + phone + ", docNumber=" + docNumber 
+                + ", docDate=" + docDate + ", isIdentified=" + isIdentified + ", document=" + document + ", office=" + office 
+                + ", citizenship=" + citizenship + '}';
+    }
+    
+    
     
 }

@@ -41,7 +41,7 @@ public class OfficeControllerTest {
     }
     
     @Test
-    public void testGetAllOfficeWithFiltration() {
+    public void testGetAllOfficesWithFiltration() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
@@ -64,7 +64,7 @@ public class OfficeControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         
         String body = "{\"orgId\" : \"1\"," 
-                + "\"name\" : \"newSomeName\"" 
+                + "\"name\" : \"someName\"" 
                 + "}";
         HttpEntity entity = new HttpEntity<>(body, headers);
         
@@ -83,7 +83,7 @@ public class OfficeControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
-        String body = "{\"id\" : \"2\"," 
+        String body = "{\"id\" : \"1\"," 
                 + "\"name\" : \"newSomeName\"" 
                 + "}";
         HttpEntity entity = new HttpEntity<>(body, headers);

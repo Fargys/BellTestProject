@@ -86,9 +86,10 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     public void saveOffice(OfficeView view) {
         Long orgId = Long.parseLong(view.orgId);
-        if(orgId == null) throw new OfficeSeviceException("No organization has id = " + orgId);
+        if(orgId == null) throw new OfficeSeviceException("orgId is missed");
         
         Organization org = orgDAO.getOrganizationById(orgId);
+        if(org == null) throw new OfficeSeviceException("No organization has id = " + orgId);
         
         Office office = view.toConvertOfficeEntity(org);
         

@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.denisov.Application;
+import ru.bellintegrator.denisov.dao.UserDAO;
+import ru.bellintegrator.denisov.model.User;
 import ru.bellintegrator.denisov.view.UserFilterView;
 import ru.bellintegrator.denisov.view.UserView;
 
@@ -23,6 +25,8 @@ public class UserServiceTest {
     
     @Autowired
     UserService userService;
+    @Autowired
+    UserDAO userDAO;
     
     
     @Test
@@ -43,4 +47,28 @@ public class UserServiceTest {
         Assert.assertEquals("Walter", response.firstName);
     }
     
+    @Test
+    public void testSaveUser(){
+        UserView view = new UserView("fistName", "1");
+        userService.saveUser(view);
+        
+        List<User> list = userDAO.getAllUsers();
+        
+        Assert.assertNotNull(list);
+        Assert.assertFalse(list.isEmpty());
+        Assert.assertEquals(3, list.size());
+    }
+    
+    @Test
+    public void testUpdateUser() {
+        UserView view = new UserView("1", "newFirstName", "1");
+        userService.updateUser(view);
+        
+        List<User> list = userDAO.getAllUsers();
+        
+        User user = userDAO.getUserById(1L);
+        
+        Assert.assertNotNull(user);
+        Assert.assertEquals("newFirstName", user.getFirstName());
+    }
 }

@@ -35,6 +35,21 @@ public class UserView {
     public Boolean isIdentified;
     
     public String officeId;
+
+    
+    public UserView() {
+    }
+
+    public UserView(String firstName, String officeId) {
+        this.firstName = firstName;
+        this.officeId = officeId;
+    }
+    
+    public UserView(String id, String firstName, String officeId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.officeId = officeId;
+    }
     
     
     public User toConvertUserEntity(User user, Document document, Citizenship citizenship) {
