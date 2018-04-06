@@ -2,7 +2,6 @@ package ru.bellintegrator.denisov.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +18,7 @@ import ru.bellintegrator.denisov.view.UserView;
 
 @Entity
 @Table(name = "User")
-@NamedQuery(name = "User.findAll", query = "SELECT p FROM User p") 
+@NamedQuery(name = "User.findAll", query = "SELECT p FROM User p")
 public class User implements Serializable  {
     
     @Id
@@ -104,8 +103,8 @@ public class User implements Serializable  {
     public User(String firstName) {
         this.firstName = firstName;
     }
-    
 
+    
     public Long getId() {
         return id;
     }

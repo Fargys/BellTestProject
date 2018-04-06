@@ -16,6 +16,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import ru.bellintegrator.denisov.Application;
+import ru.bellintegrator.denisov.view.OrganizationFilterView;
+import ru.bellintegrator.denisov.view.OrganizationView;
 import ru.bellintegrator.denisov.view.ResponseView;
 
 @RunWith(SpringRunner.class)
@@ -32,17 +34,23 @@ public class OrganizationControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
-        String body = "{\"name\" : \"MC\"}";
+        OrganizationFilterView body = new OrganizationFilterView();
+        body.name = "MC";
         HttpEntity entity = new HttpEntity<>(body, headers);
         
         ResponseEntity<ResponseView> responseEntity = 
                 restTemplate.exchange(patternURL + "/list", HttpMethod.POST, entity, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getData());
+        
+        Object data = responseView.getData();
+        Assert.assertNotNull(data);
+        
+        String waitingResponse = "[{id=1, name=MC, isActive=true}]";
+        Assert.assertEquals(waitingResponse, data.toString());
     }
     
     @Test
@@ -51,10 +59,16 @@ public class OrganizationControllerTest {
                 restTemplate.exchange(patternURL + "/1", HttpMethod.GET, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getData());
+        
+        Object data = responseView.getData();
+        Assert.assertNotNull(data);
+        
+        String waitingResponse = "{id=1, name=MC, fullName=MacDonalds corp., inn=123456789, kpp=12345678, address=Red Place, "
+                + "phone=8(911) 123-34-45, isActive=true}";
+        Assert.assertEquals(waitingResponse, data.toString());
     }
     
     @Test
@@ -62,17 +76,23 @@ public class OrganizationControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
-        String body = "{\"name\" : \"newName\"}";
+        OrganizationView body = new OrganizationView();
+        body.name = "newName";
         HttpEntity entity = new HttpEntity<>(body, headers);
         
         ResponseEntity<ResponseView> responseEntity = 
                 restTemplate.exchange(patternURL + "/save", HttpMethod.POST, entity, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getResult());
+        
+        Boolean result = responseView.getResult();
+        Assert.assertNotNull(result);
+        
+        Boolean waitingResponse = true;
+        Assert.assertEquals(waitingResponse, result);
     }
     
     @Test
@@ -80,31 +100,41 @@ public class OrganizationControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
-        String body = "{\"id\" : \"1\"," 
-                + "\"name\" : \"newSomeName\"" 
-                + "}";
+        OrganizationView body = new OrganizationView();
+        body.id = "2";
+        body.name = "newSomeName";
         HttpEntity entity = new HttpEntity<>(body, headers);
         
         ResponseEntity<ResponseView> responseEntity = 
                 restTemplate.exchange(patternURL + "/update", HttpMethod.PUT, entity, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getResult());
+        
+        Boolean result = responseView.getResult();
+        Assert.assertNotNull(result);
+        
+        Boolean waitingResponse = true;
+        Assert.assertEquals(waitingResponse, result);
     }
     
     @Test
     public void deleteOrganization() {
         ResponseEntity<ResponseView> responseEntity = 
-                restTemplate.exchange(patternURL + "/2", HttpMethod.DELETE, null, 
+                restTemplate.exchange(patternURL + "/3", HttpMethod.DELETE, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getResult());
+        
+        Boolean result = responseView.getResult();
+        Assert.assertNotNull(result);
+        
+        Boolean waitingResponse = true;
+        Assert.assertEquals(waitingResponse, result);
     }
     
 }

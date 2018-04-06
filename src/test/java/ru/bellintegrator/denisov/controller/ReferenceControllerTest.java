@@ -31,10 +31,15 @@ public class ReferenceControllerTest {
                 restTemplate.exchange(patternURL + "//docs", HttpMethod.GET, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getData());
+        
+        Object data = responseView.getData();
+        Assert.assertNotNull(data);
+        
+        String waitingResponse = "[{docCode=10, docName=Passport}, {docCode=15, docName=Driver license}]";
+        Assert.assertEquals(waitingResponse, data.toString());
     }
     
     @Test
@@ -43,10 +48,15 @@ public class ReferenceControllerTest {
                 restTemplate.exchange(patternURL + "//countries", HttpMethod.GET, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getData());
+        
+        Object data = responseView.getData();
+        Assert.assertNotNull(data);
+        
+        String waitingResponse = "[{countryCode=10, countryName=Russia}, {countryCode=15, countryName=Ukraine}]";
+        Assert.assertEquals(waitingResponse, data.toString());
     }
     
 }

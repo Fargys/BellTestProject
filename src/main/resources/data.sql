@@ -19,6 +19,9 @@ VALUES (0, 'MC', 'MacDonalds corp.', 0123456789 , 012345678, 'Red Place', '8(911
 INSERT INTO Organization (version, name, full_name, inn, kpp, address, phone, is_active) 
 VALUES (0, 'Google', 'Google corp.', 9876543210 , 876543210, 'Somewhere street', '8(911) 321-43-54', false);
 
+INSERT INTO Organization (version, name, full_name, inn, kpp, address, phone, is_active) 
+VALUES (0, 'test', 'test', 9876543210 , 876543210, 'test', 'test', false);
+
 --Office--
 INSERT INTO Office (version, name, phone, address, is_active, org_fk) 
 VALUES (0, 'Office #1', '8(911) 543-34-45', 'Office #1 address', true, 1);
@@ -26,12 +29,18 @@ VALUES (0, 'Office #1', '8(911) 543-34-45', 'Office #1 address', true, 1);
 INSERT INTO Office (version, name, phone, address, is_active, org_fk) 
 VALUES (0, 'Office #2', '8(911) 345-43-54', 'Office #2 address', false, 2);
 
+INSERT INTO Office (version, name, phone, address, is_active, org_fk) 
+VALUES (0, 'Office #3', '8(911) 345-43-54', 'Office #3 address', false, 2);
+
 --User--
 INSERT INTO User (version, first_name, second_name, middle_name, position, phone, doc_number, doc_date, is_identified, doc_type_fk, office_fk, citizenship_type_fk) 
 VALUES (0, 'Walter', 'White', 'Hartwell' , 'Cook' , '8(911) 737-35-25', 1234567, '2018-03-15', true, 10, 1, 10);
 
 INSERT INTO User (version, first_name, second_name, middle_name, position, phone, doc_number, doc_date, is_identified, doc_type_fk, office_fk, citizenship_type_fk) 
 VALUES (0, 'Jesse', 'Pinkman', 'Bruce' , 'Cook assistant' , '8(911) 373-53-52', 7654321, '2011-09-22', false, 15, 2, 15);
+
+INSERT INTO User (version, first_name, second_name, middle_name, position, phone, doc_number, doc_date, is_identified, doc_type_fk, office_fk, citizenship_type_fk) 
+VALUES (0, 'test', 'test', 'test' , 'test' , 'test', 7654321, '2011-09-22', false, 15, 2, 15);
 
 --Account--
 INSERT INTO Account (version, name, login, password, activation_code, activation_status)

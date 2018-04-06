@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import ru.bellintegrator.denisov.Application;
 import ru.bellintegrator.denisov.view.ResponseView;
+import ru.bellintegrator.denisov.view.UserFilterView;
+import ru.bellintegrator.denisov.view.UserView;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
@@ -27,17 +29,23 @@ public class UserControllerTest {
     RestTemplate restTemplate = new RestTemplate();
     String patternURL = "http://localhost:8888/api/user";
     
-    
     @Test
     public void testGetUser() {
         ResponseEntity<ResponseView> responseEntity = 
                 restTemplate.exchange(patternURL + "/1", HttpMethod.GET, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getData());
+        
+        Object data = responseView.getData();
+        Assert.assertNotNull(data);
+        
+        String waitingResponse = "{id=1, firstName=Walter, secondName=White, middleName=Hartwell, position=Cook, " 
+                + "phone=8(911) 737-35-25, docName=Passport, docNumber=1234567, docDate=2018-03-15, citizenshipName=Russia, " 
+                + "citizenshipCode=10, isIdentified=true, officeId=1}";
+        Assert.assertEquals(waitingResponse, data.toString());
     }
     
     @Test
@@ -45,17 +53,24 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
-        String body = "{\"officeId\" : \"1\"}";
+        UserFilterView body = new UserFilterView();
+        body.officeId = "1";
+        body.firstName = "Walter";
         HttpEntity entity = new HttpEntity<>(body, headers);
         
         ResponseEntity<ResponseView> responseEntity = 
                 restTemplate.exchange(patternURL + "/list", HttpMethod.POST, entity, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getData());
+        
+        Object data = responseView.getData();
+        Assert.assertNotNull(data);
+        
+        String waitingResponse = "[{id=1, firstName=Walter, secondName=White, middleName=Hartwell, position=Cook}]";
+        Assert.assertEquals(waitingResponse, data.toString());
     }
     
     @Test
@@ -63,51 +78,62 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         
-        String body = "{\"firstName\" : \"someName\"," 
-                + "\"officeId\" : \"1\"" 
-                + "}";
+        UserView body = new UserView("someName", "1");
+        body.firstName = "someName";
         HttpEntity entity = new HttpEntity<>(body, headers);
         
         ResponseEntity<ResponseView> responseEntity = 
                 restTemplate.exchange(patternURL + "/save", HttpMethod.POST, entity, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getResult());
+        
+        Boolean result = responseView.getResult();
+        Assert.assertNotNull(result);
+        
+        Boolean waitingResponse = true;
+        Assert.assertEquals(waitingResponse, result);
     }
     
     @Test
     public void updateUser() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        
-        String body = "{\"id\" : \"1\","
-                + "\"firstName\" : \"newSomeName\"," 
-                + "\"officeId\" : \"1\""
-                + "}";
+
+        UserView body = new UserView("2", "newSomeName", "1");
         HttpEntity entity = new HttpEntity<>(body, headers);
         
         ResponseEntity<ResponseView> responseEntity = 
                 restTemplate.exchange(patternURL + "/update", HttpMethod.PUT, entity, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getResult());
+        
+        Boolean result = responseView.getResult();
+        Assert.assertNotNull(result);
+        
+        Boolean waitingResponse = true;
+        Assert.assertEquals(waitingResponse, result);
     }
     
     @Test
     public void deleteUser() {
         ResponseEntity<ResponseView> responseEntity = 
-                restTemplate.exchange(patternURL + "/2", HttpMethod.DELETE, null, 
+                restTemplate.exchange(patternURL + "/3", HttpMethod.DELETE, null, 
                         new ParameterizedTypeReference<ResponseView>(){
                         });
-        ResponseView responseView = responseEntity.getBody();
         
+        ResponseView responseView = responseEntity.getBody();
         Assert.assertNotNull(responseView);
-        Assert.assertNotNull(responseView.getResult());
+        
+        Boolean result = responseView.getResult();
+        Assert.assertNotNull(result);
+        
+        Boolean waitingResponse = true;
+        Assert.assertEquals(waitingResponse, result);
     }
 }
